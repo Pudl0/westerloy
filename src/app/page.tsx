@@ -1,3 +1,4 @@
+import NewsDashboardItem from '@/components/ui/news-dashboard-item'
 import Image from 'next/image'
 
 export default function Home() {
@@ -22,25 +23,20 @@ export default function Home() {
       </div>
       {/*News Items*/}
       <div className="lg:pt-32 md:pt-24 md:pb-12 pt-12 pb-12">
-    <h2 className="flex flex-row flex-nowrap items-center my-8">
-        <span className="flex-none block lg:mx-4 lg:px-4 lg:py-2.5 lg:text-xl
+        <h2 className="flex flex-row flex-nowrap items-center my-8">
+          <span className="flex-none block lg:mx-4 lg:px-4 lg:py-2.5 lg:text-xl
                     mx-2 px-2 py-1.5 text-md
                     leading-none font-medium uppercase bg-black text-white">
             Neuigkeiten aus Westerloy
-        </span>
-    </h2>
-    <div className="grid lg:grid-cols-2 sm:grid-cols-1 lg:pt-24 pt-12 mx-8 justify-items-center gap-y-32">
-        {/* @foreach(var NewsEntry in NewsEntries)
-        {
-            <NewsDashboardItem
-                       Id = "@NewsEntry.Id"
-                       Title = "@NewsEntry.Title"
-                       ShortDescription = "@NewsEntry.ShortDescription"
-                       PictureLink = "@NewsEntry.PictureLink">
-            </NewsDashboardItem>
-        } */}
-    </div>
-</div>
+          </span>
+        </h2>
+        </div>
+        <div className="grid lg:grid-cols-2 sm:grid-cols-1 lg:pt-24 pt-12 mx-8 justify-items-center gap-y-32 gap-x-24">
+          {/*News Dashboard Items*/}
+          <NewsDashboardItem></NewsDashboardItem>
+          <NewsDashboardItem></NewsDashboardItem>
+          <NewsDashboardItem></NewsDashboardItem>
+        </div>
     </main>
   )
 }
