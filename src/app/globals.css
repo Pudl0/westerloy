@@ -75,4 +75,12 @@
   body {
     @apply bg-background text-foreground;
   }
+  .dashboard-header {
+    background-position: 50%;
+    background-image: url("/Muehlenhof.jpg");
+    height: 550px;
+  }
+  .dashboard-background {
+    background-color: rgba(0, 0, 0, 0.55);
+  }
 }
