@@ -1,9 +1,8 @@
-import NewsDashboardItem from '@/components/ui/news-dashboard-item'
-import Image from 'next/image'
+import NewsDashboardItem from '@/components/ui/newsDashboardItem'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between p-10">
       {/*Dashboard Header*/}
       <div className="overflow-hidden bg-no-repeat bg-cover rounded-xl dashboard-header">
         <div className="top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed dashboard-background">
@@ -22,7 +21,7 @@ export default function Home() {
         </div>
       </div>
       {/*News Items*/}
-      <div className="lg:pt-32 md:pt-24 md:pb-12 pt-12 pb-12">
+      <div className="md:pt-24 md:pb-12">
         <h2 className="flex flex-row flex-nowrap items-center my-8">
           <span className="flex-none block lg:mx-4 lg:px-4 lg:py-2.5 lg:text-xl
                     mx-2 px-2 py-1.5 text-md
@@ -30,13 +29,13 @@ export default function Home() {
             Neuigkeiten aus Westerloy
           </span>
         </h2>
-        </div>
-        <div className="grid lg:grid-cols-2 sm:grid-cols-1 lg:pt-24 pt-12 mx-8 justify-items-center gap-y-32 gap-x-24">
-          {/*News Dashboard Items*/}
-          <NewsDashboardItem></NewsDashboardItem>
-          <NewsDashboardItem></NewsDashboardItem>
-          <NewsDashboardItem></NewsDashboardItem>
-        </div>
+      </div>
+      <div className="grid lg:grid-cols-2 sm:grid-cols-1 lg:pt-24 pt-12 mx-8 justify-items-center gap-y-32 gap-x-24">
+        {/*News Dashboard Items*/}
+        <NewsDashboardItem></NewsDashboardItem>
+        <NewsDashboardItem></NewsDashboardItem>
+        <NewsDashboardItem></NewsDashboardItem>
+      </div>
     </main>
   )
 }
