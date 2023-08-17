@@ -83,4 +83,7 @@
   .dashboard-background {
     background-color: rgba(0, 0, 0, 0.55);
   }
+  .news-item-header {
+    background-image: linear-gradient(180deg,transparent,rgba(0,0,0,.7));
+  }
 }
