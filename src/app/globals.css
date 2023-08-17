@@ -83,4 +83,8 @@
   .dashboard-background {
     background-color: rgba(0, 0, 0, 0.55);
   }
+  .event-item {
+    background-image: url("/Muehlenhof.jpg");
+    background-position: 50%;
+  }
 }
