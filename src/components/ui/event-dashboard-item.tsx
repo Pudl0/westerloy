@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function EventDashboardItem() {
     return (
         <div className="flex flex-col mb-16 w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5">
-                <Image className="rounded-t-lg h-3/4 event-item" src="/Muehlenhof.jpg" width={1920} height={1080} alt="" />
+            <Image className="rounded-t-lg h-3/4 event-item" src="/Muehlenhof.jpg" width={1920} height={1080} alt="" />
             <div className="flex flex-col w-full md:flex-row">
                 <div className="flex justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-400 rounded-b md:flex-col md:items-center md:justify-center md:w-1/4">
                     <div className="md:text-6xl">01.</div>
