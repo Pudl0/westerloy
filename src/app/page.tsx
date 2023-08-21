@@ -1,4 +1,4 @@
-import NewsDashboardItem from '@/components/ui/news-dashboard-item';
+import NewsDashboardItem from '@/components/cards/news-dashboard-item';
 
 export default function Home() {
   return (
