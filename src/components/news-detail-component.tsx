@@ -4,13 +4,13 @@ export default function NewsDetailComponent() {
   return (
     <div className="mt-10 w-full">
       <div className="mb-4 md:mb-0 w-full max-w-screen-md mx-auto relative" style={{ height: 24 + 'em' }}>
-        <div className="absolute left-0 bottom-0 w-full h-full z-10 news-item-header"></div>
+        <div className="absolute left-0 bottom-0 w-full h-full z-10 rounded-xl news-item-header"></div>
         <Image
           src="/Muehlenhof.jpg"
           width={1920}
           height={1080}
           alt=""
-          className="absolute left-0 top-0 w-full h-full z-0 object-cover"
+          className="absolute left-0 top-0 w-full h-full z-0 object-cover rounded-xl"
         />
         <div className="p-4 absolute bottom-0 left-0 z-20">
           <h2 className="text-4xl font-semibold text-gray-100 leading-tight">Dies ist ein Titel</h2>
