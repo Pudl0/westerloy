@@ -16,7 +16,7 @@ export default function NewsDetailComponent() {
           <h2 className="text-4xl font-semibold text-gray-100 leading-tight">Dies ist ein Titel</h2>
         </div>
       </div>
-      <div className="px-4 lg:px-0 mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">
+      <div className="mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
         dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
         clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
