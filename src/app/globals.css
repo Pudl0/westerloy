@@ -79,7 +79,7 @@
 
   .dashboard-header {
     background-position: 50%;
-    background-image: url("/Muehlenhof.jpg");
+    background-image: url('/Muehlenhof.jpg');
     height: 550px;
   }
 
@@ -89,7 +89,6 @@
 
   .event-item {
     background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
-    ;
     background-position: 50%;
   }
 }
