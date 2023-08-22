@@ -2,12 +2,14 @@ import Image from 'next/image';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-export default async function NewsDetail() {
+
+export default async function NewsDetail({ params }: { params: { newsdetailid: string } }) {
   const newsEntry = await prisma.NewsEntries.findUniqueOrThrow({
     where: {
-      Id: 6,
+      Id: parseInt(params.newsdetailid),
     },
   });
+  await prisma.$disconnect();
   return (
     <div className="mt-10 w-full">
       <div className="mb-4 md:mb-0 w-full max-w-screen-md mx-auto relative" style={{ height: 24 + 'em' }}>
@@ -26,17 +28,5 @@ export default async function NewsDetail() {
       <div className="mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">{newsEntry.Description}</div>
     </div>
   );
+  await prisma.$disconnect();
 }
-
-NewsDetail()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-
-  .catch(async (e) => {
-    console.error(e);
-
-    await prisma.$disconnect();
-
-    process.exit(1);
-  });
