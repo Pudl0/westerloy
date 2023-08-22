@@ -86,9 +86,7 @@
   .dashboard-background {
     background-color: rgba(0, 0, 0, 0.55);
   }
-
-  .event-item {
+  .item-header {
     background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
-    background-position: 50%;
   }
 }
