@@ -4,7 +4,7 @@ export default function NewsDetailComponent() {
   return (
     <div className="mt-10 w-full">
       <div className="mb-4 md:mb-0 w-full max-w-screen-md mx-auto relative" style={{ height: 24 + 'em' }}>
-        <div className="absolute left-0 bottom-0 w-full h-full z-10 rounded-xl news-item-header"></div>
+        <div className="absolute left-0 bottom-0 w-full h-full z-10 rounded-xl item-header"></div>
         <Image
           src="/Muehlenhof.jpg"
           width={1920}
