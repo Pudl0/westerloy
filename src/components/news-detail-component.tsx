@@ -1,6 +1,14 @@
 import Image from 'next/image';
+import { PrismaClient } from '@prisma/client';
 
-export default function NewsDetailComponent() {
+const prisma = new PrismaClient();
+
+export default async function NewsDetailComponent() {
+  const newsEntry = await prisma.newsentries.findUniqueOrThrow({
+    where: {
+      Id: 6,
+    },
+  });
   return (
     <div className="mt-10 w-full">
       <div className="mb-4 md:mb-0 w-full max-w-screen-md mx-auto relative" style={{ height: 24 + 'em' }}>
@@ -13,17 +21,23 @@ export default function NewsDetailComponent() {
           className="absolute left-0 top-0 w-full h-full z-0 object-cover rounded-xl"
         />
         <div className="p-4 absolute bottom-0 left-0 z-20">
-          <h2 className="text-4xl font-semibold text-gray-100 leading-tight">Dies ist ein Titel</h2>
+          <h2 className="text-4xl font-semibold text-gray-100 leading-tight">{newsEntry.Title}</h2>
         </div>
       </div>
-      <div className="mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-        consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed
-        diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-        takimata sanctus est Lorem ipsum dolor sit amet.
-      </div>
+      <div className="mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">{newsEntry.Description}</div>
     </div>
   );
 }
+
+NewsDetailComponent()
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+
+  .catch(async (e) => {
+    console.error(e);
+
+    await prisma.$disconnect();
+
+    process.exit(1);
+  });
