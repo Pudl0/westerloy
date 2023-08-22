@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model evententries {
+model EventEntries {
   Id          Int      @id @default(autoincrement())
   Title       String   @db.VarChar(50)
   Description String   @db.LongText
@@ -16,7 +16,7 @@ model evententries {
   PictureLink String   @db.Text
 }
 
-model newsentries {
+model NewsEntries {
   Id               Int    @id @default(autoincrement())
   Title            String @db.VarChar(50)
   ShortDescription String @db.VarChar(250)
