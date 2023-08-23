@@ -72,18 +72,22 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   .dashboard-header {
     background-position: 50%;
     background-image: url('/Muehlenhof.jpg');
     height: 550px;
   }
+
   .dashboard-background {
     background-color: rgba(0, 0, 0, 0.55);
   }
-  .news-item-header {
+
+  .item-header {
     background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
   }
 }
