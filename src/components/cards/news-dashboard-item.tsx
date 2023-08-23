@@ -9,10 +9,10 @@ export default function NewsDashboardItem({ NewsEntry }) {
       <div className="p-4 flex flex-col">
         <div className="p-3">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Testeintrag
+            {NewsEntry.Title}
           </h5>
           <p className="font-normal text-gray-700 dark:text-gray-400">
-            Dies ist ein Test-Eintrag zum testen des Designs
+            {NewsEntry.ShortDescription}
           </p>
         </div>
         <button className="inline-flex self-end items-center p-2 text-sm font-medium text-black rounded-lg gap-2 hover:bg-slate-100">
