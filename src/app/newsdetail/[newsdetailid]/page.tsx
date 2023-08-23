@@ -28,5 +28,4 @@ export default async function NewsDetail({ params }: { params: { newsdetailid: s
       <div className="mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">{newsEntry.Description}</div>
     </div>
   );
-  await prisma.$disconnect();
 }
