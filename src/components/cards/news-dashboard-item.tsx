@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-
-export default function NewsDashboardItem() {
+import Link from 'next/link';
+export default function NewsDashboardItem({ NewsEntry }) {
   return (
     <div className="flex flex-col lg:max-w-lg lg:max-h-lg max-h-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
       <Image className="rounded-t-lg h-3/4" src="/Muehlenhof.jpg" width={800} height={600} alt="" />
@@ -16,7 +16,17 @@ export default function NewsDashboardItem() {
           </p>
         </div>
         <button className="inline-flex self-end items-center p-2 text-sm font-medium text-black rounded-lg gap-2 hover:bg-slate-100">
-          <p>Zum Artikel</p>
+          <Link
+            href={{
+              pathname: 'newsdetail/[id]',
+              query: {
+                id: NewsEntry.Id,
+              },
+            }}
+            as={`newsdetail/${NewsEntry.Id}`}
+          >
+            Zum Artikel
+          </Link>
           <FontAwesomeIcon icon={faArrowRight} className="fas fa-arrow-right"></FontAwesomeIcon>
         </button>
       </div>
