@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function NewsDashboardItem() {
   return (
@@ -9,21 +11,9 @@ export default function NewsDashboardItem() {
         <p className="mb-3 mt-2 mx-6 font-normal text-gray-700 dark:text-gray-400">
           Dies ist ein Test-Eintrag zum testen des Designs
         </p>
-        <button className="inline-flex self-end items-center pr-6 py-2 text-sm font-medium text-center text-black rounded-lg">
+        <button className="inline-flex self-end items-center pr-6 py-2 text-sm font-medium text-center text-black rounded-lg gap-2">
           <p>Zum Artikel</p>
-          <svg
-            aria-hidden="true"
-            className="w-4 h-4 ml-2 -mr-1"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            ></path>
-          </svg>
+          <FontAwesomeIcon icon={faArrowRight} className="fas fa-arrow-right"></FontAwesomeIcon>
         </button>
       </div>
     </div>
