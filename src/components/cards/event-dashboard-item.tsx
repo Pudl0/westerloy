@@ -4,10 +4,10 @@ import Image from 'next/image';
 
 export default function EventDashboardItem() {
   return (
-    <div className="flex flex-col bg-white rounded drop-shadow-lg w-3/4 xl:w-2/3">
-      <Image className="rounded-t-lg h-3/4 item-header" src="/Muehlenhof.jpg" width={1920} height={1080} alt="" />
+    <div className="flex flex-col bg-white rounded-xl overflow-hidden drop-shadow-lg w-3/4 xl:w-2/3">
+      <Image className="h-3/4 item-header" src="/Muehlenhof.jpg" width={1920} height={1080} alt="" />
       <div className="flex flex-col w-full md:flex-row">
-        <div className="flex justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-400 rounded-b md:flex-col md:items-center md:justify-center md:w-1/4">
+        <div className="flex justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-300 md:flex-col md:items-center md:justify-center md:w-1/4">
           <div className="md:text-3xl xl:text-4xl">01.</div>
           <div className="md:text-lg xl:text-xl">Dezember</div>
           <div className="md:text-lg xl:text-xl">2021</div>
