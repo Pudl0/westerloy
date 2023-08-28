@@ -3,10 +3,10 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export default async function NewsDetail({ params }: { params: { newsdetailid: string } }) {
+export default async function NewsDetail({ params }: { params: { newsdetailId: string } }) {
   const newsEntry = await prisma.NewsEntries.findUniqueOrThrow({
     where: {
-      Id: parseInt(params.newsdetailid),
+      Id: parseInt(params.newsdetailId),
     },
   });
   await prisma.$disconnect();

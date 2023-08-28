@@ -1,7 +1,8 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import Link from 'next/link';
+
 export default function NewsDashboardItem({ NewsEntry }) {
   return (
     <div className="flex flex-col lg:max-w-lg lg:max-h-lg max-h-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
@@ -14,9 +15,9 @@ export default function NewsDashboardItem({ NewsEntry }) {
         <button className="inline-flex self-end items-center p-2 text-sm font-medium text-black rounded-lg gap-2 hover:bg-slate-100">
           <Link
             href={{
-              pathname: 'newsdetail/[id]',
+              pathname: 'newsdetail/[Id]',
               query: {
-                id: NewsEntry.Id,
+                Id: NewsEntry.Id,
               },
             }}
             as={`newsdetail/${NewsEntry.Id}`}
