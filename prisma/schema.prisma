@@ -11,7 +11,7 @@ model EventEntries {
   Id          Int      @id @default(autoincrement())
   Title       String   @db.VarChar(50)
   Description String   @db.LongText
-  TimeOfEvent DateTime @db.DateTime(0)
+  TimeOfEvent DateTime @db.DateTime
   Location    String   @db.VarChar(50)
   PictureLink String   @db.Text
 }
