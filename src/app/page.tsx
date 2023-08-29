@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import NewsDashboardItem from '@/components/cards/news-dashboard-item';
 import { PrismaClient } from '@prisma/client';
 
@@ -22,7 +23,14 @@ export default async function Home() {
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
               >
-                Zu den Events
+                <Link
+                  href={{
+                    pathname: 'eventdashboard',
+                  }}
+                  as={`eventdashboard`}
+                >
+                  Zu den Events
+                </Link>
               </button>
             </div>
           </div>
