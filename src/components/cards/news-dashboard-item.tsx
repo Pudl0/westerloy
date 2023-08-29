@@ -8,9 +8,7 @@ export default function NewsDashboardItem() {
       <Image className="rounded-t-lg h-3/4" src="/Muehlenhof.jpg" width={800} height={600} alt="" />
       <div className="p-4 flex flex-col">
         <div className="p-3">
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Testeintrag
-          </h5>
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Testeintrag</h5>
           <p className="font-normal text-gray-700 dark:text-gray-400">
             Dies ist ein Test-Eintrag zum testen des Designs
           </p>

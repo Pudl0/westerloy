@@ -2,7 +2,7 @@ import NewsDashboardItem from '@/components/cards/news-dashboard-item';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-10">
+    <main className="flex min-h-screen flex-col items-center justify-between px-10">
       {/*Dashboard Header*/}
       <div className="overflow-hidden bg-no-repeat bg-cover rounded-xl dashboard-header">
         <div className="top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed dashboard-background">
