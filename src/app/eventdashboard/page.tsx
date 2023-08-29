@@ -1,10 +1,15 @@
 import EventDashboardItem from '@/components/cards/event-dashboard-item';
+import { PrismaClient } from '@prisma/client';
 
-export default function EventDashboard() {
+const prisma = new PrismaClient();
+
+export default async function EventDashboard() {
+  const eventEntries = await prisma.EventEntries.findMany();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between gap-y-24 my-12">
-      <EventDashboardItem></EventDashboardItem>
-      <EventDashboardItem></EventDashboardItem>
+      {eventEntries.map(function (object) {
+        return <EventDashboardItem EventEntry={object} />;
+      })}
     </main>
   );
 }
