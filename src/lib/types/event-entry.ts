@@ -1,8 +1,8 @@
 export type EventEntry = {
-  id: Number;
-  title: String;
-  description: String;
+  id: number;
+  title: string;
+  description: string;
   timeOfEvent: Date;
-  location: String;
-  pictureLink: String;
+  location: string;
+  pictureLink: string;
 };

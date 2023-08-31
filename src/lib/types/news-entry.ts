@@ -1,7 +1,7 @@
 export type NewsEntry = {
-  id: Number;
-  title: String;
-  shortDescription: String;
-  description: String;
-  pictureLink: String;
+  id: number;
+  title: string;
+  shortDescription: string;
+  description: string;
+  pictureLink: string;
 };
