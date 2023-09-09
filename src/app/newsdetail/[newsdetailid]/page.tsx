@@ -4,9 +4,9 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export default async function NewsDetail({ params }: { params: { newsdetailId: string } }) {
-  const newsEntry = await prisma.NewsEntries.findUniqueOrThrow({
+  const newsEntry = await prisma.newsentries.findUniqueOrThrow({
     where: {
-      Id: parseInt(params.newsdetailId),
+      id: parseInt(params.newsdetailId),
     },
   });
   await prisma.$disconnect();
@@ -22,10 +22,10 @@ export default async function NewsDetail({ params }: { params: { newsdetailId: s
           className="absolute left-0 top-0 w-full h-full z-0 object-cover rounded-xl"
         />
         <div className="p-4 absolute bottom-0 left-0 z-20">
-          <h2 className="text-4xl font-semibold text-gray-100 leading-tight">{newsEntry.Title}</h2>
+          <h2 className="text-4xl font-semibold text-gray-100 leading-tight">{newsEntry.title}</h2>
         </div>
       </div>
-      <div className="mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">{newsEntry.Description}</div>
+      <div className="mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">{newsEntry.description}</div>
     </div>
   );
 }

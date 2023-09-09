@@ -1,10 +1,11 @@
+import Link from 'next/link';
 import NewsDashboardItem from '@/components/cards/news-dashboard-item';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 export default async function Home() {
-  const newsEntries = await prisma.NewsEntries.findMany();
+  const newsEntries = await prisma.newsentries.findMany();
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-10">
       {/*Dashboard Header*/}
@@ -22,7 +23,14 @@ export default async function Home() {
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
               >
-                Zu den Events
+                <Link
+                  href={{
+                    pathname: 'eventdashboard',
+                  }}
+                  as={`eventdashboard`}
+                >
+                  Zu den Events
+                </Link>
               </button>
             </div>
           </div>
@@ -42,7 +50,7 @@ export default async function Home() {
       </div>
       <div className="grid lg:grid-cols-2 sm:grid-cols-1 lg:pt-24 pt-12 mx-8 justify-items-center gap-y-32 gap-x-24">
         {newsEntries.map(function (object) {
-          return <NewsDashboardItem NewsEntry={object} />;
+          return <NewsDashboardItem newsentry={object} key={object.id} />;
         })}
       </div>
     </div>

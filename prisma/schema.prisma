@@ -7,19 +7,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model EventEntries {
-  Id          Int      @id @default(autoincrement())
-  Title       String   @db.VarChar(50)
-  Description String   @db.LongText
-  TimeOfEvent DateTime @db.DateTime(0)
-  Location    String   @db.VarChar(50)
-  PictureLink String   @db.Text
+model evententries {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(50)
+  description String   @db.LongText
+  timeOfEvent DateTime @db.DateTime(0)
+  location    String   @db.VarChar(50)
+  pictureLink String   @db.Text
 }
 
-model NewsEntries {
-  Id               Int    @id @default(autoincrement())
-  Title            String @db.VarChar(50)
-  ShortDescription String @db.VarChar(250)
-  Description      String @db.LongText
-  PictureLink      String @db.Text
+model newsentries {
+  id               Int    @id @default(autoincrement())
+  title            String @db.VarChar(50)
+  shortDescription String @db.VarChar(250)
+  description      String @db.LongText
+  pictureLink      String @db.Text
 }
