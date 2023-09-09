@@ -7,7 +7,6 @@ import Footer from '../components/ui/footer';
 config.autoAddCss = false;
 
 const inter = Inter({ subsets: ['latin'] });
-inter.className +=  ' mb-10';
 
 export const metadata: Metadata = {
   title: 'Westerloy',
@@ -18,7 +17,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
+        {/* <header>Header here</header> */}
+        <main>{children}</main>
         <Footer></Footer>
       </body>
     </html>

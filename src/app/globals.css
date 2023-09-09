@@ -70,11 +70,21 @@
 
 @layer base {
   * {
+    /* reset */
+    margin: 0; 
+    box-sizing: border-box;
     @apply border-border;
   }
 
   body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
     @apply bg-background text-foreground;
+  }
+
+  main {
+    flex: 1;
   }
 
   .dashboard-header {
