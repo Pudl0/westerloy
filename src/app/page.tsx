@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import NewsDashboardItem from '@/components/cards/news-dashboard-item';
 import { PrismaClient } from '@prisma/client';
+import { NewsEntry } from '@/lib/types/news-entry';
 
 const prisma = new PrismaClient();
 
@@ -49,8 +50,8 @@ export default async function Home() {
         </h2>
       </div>
       <div className="grid lg:grid-cols-2 sm:grid-cols-1 lg:pt-24 pt-12 mx-8 justify-items-center gap-y-32 gap-x-24">
-        {newsEntries.map(function (object) {
-          return <NewsDashboardItem newsentry={object} key={object.id} />;
+        {newsEntries.map(function (newsentry: NewsEntry) {
+          return <NewsDashboardItem newsentry={newsentry} key={newsentry.id} />;
         })}
       </div>
     </div>
