@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model evententries {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(50)
+  description String   @db.LongText
+  timeOfEvent DateTime @db.DateTime(0)
+  location    String   @db.VarChar(50)
+  pictureLink String   @db.Text
+}
+
+model newsentries {
+  id               Int    @id @default(autoincrement())
+  title            String @db.VarChar(50)
+  shortDescription String @db.VarChar(250)
+  description      String @db.LongText
+  pictureLink      String @db.Text
+}
