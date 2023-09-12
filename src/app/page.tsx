@@ -1,6 +1,16 @@
+'use client';
+
 import NewsDashboardItem from '@/components/cards/news-dashboard-item';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return <></>;
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-10">
       {/*Dashboard Header*/}
