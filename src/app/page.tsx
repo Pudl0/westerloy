@@ -6,7 +6,7 @@ import { NewsEntry } from '@/lib/types/news-entry';
 const prisma = new PrismaClient();
 
 export default async function Home() {
-  const newsEntries = await prisma.newsentries.findMany();
+  const newsEntries = await prisma.NewsEntries.findMany();
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-10">
       {/*Dashboard Header*/}
