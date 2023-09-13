@@ -1,33 +1,34 @@
 'use client';
 
-import Image from 'next/image';
-import { Fragment, useEffect, useState } from 'react';
-import { Popover, Transition } from '@headlessui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Separator } from '@/components/ui/separator';
+import { FlyoutMenuContent } from '@/lib/types/flyout-menu-types';
+import { SidebarLinkContent } from '@/lib/types/sidebar-link-types';
 import {
   faBars,
   faChevronDown,
   faChurch,
+  faHandHoldingHeart,
   faPenToSquare,
   faPeopleGroup,
-  faHandHoldingHeart,
 } from '@fortawesome/free-solid-svg-icons';
-import { FlyoutMenuContent } from '../lib/types/flyout-menu-types';
-import muehlenhofIconImage from 'public/Muehlenhof_Icon.png';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
-import { Button } from './ui/button';
-import { Separator } from '@/components/ui/separator';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Popover, Transition } from '@headlessui/react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { SidebarLink } from '@/lib/types/sidebar-link-types';
+import muehlenhofIconImage from 'public/Muehlenhof_Icon.png';
+import { Fragment, useEffect, useState } from 'react';
+
+import { Button } from './ui/button';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 
 const contentMuehlenhof: FlyoutMenuContent = {
   title: 'Mühlenhof',
   items: [
-    { name: 'Trauungen', description: 'Das Trauzimmer im Mühlenhof.', href: '#' },
+    { name: 'Trauungen', description: 'Das Trauzimmer im Mühlenhof.', href: '/trauungen' },
     {
       name: 'Den Mühlenhof mieten',
       description: 'Der ideale ort für Feiern und gemütliches Beisammen sein.',
-      href: '#',
+      href: '/muelenhof-mieten',
     },
   ],
 };
@@ -35,11 +36,11 @@ const contentMuehlenhof: FlyoutMenuContent = {
 const contentClubs: FlyoutMenuContent = {
   title: 'Vereine',
   items: [
-    { name: 'OBV', description: 'Der Ortsbüergerverein stellt sich vor.', href: '#' },
+    { name: 'OBV', description: 'Der Ortsbüergerverein stellt sich vor.', href: '/obv' },
     {
       name: 'Landjugend 3.0',
       description: 'Die Landjugend stellt sich vor.',
-      href: '#',
+      href: '/landjugend',
     },
   ],
 };
@@ -141,7 +142,7 @@ function FlyoutMenu(props: FlyoutMenuContent) {
   );
 }
 
-function SidebarLink(props: SidebarLink) {
+function SidebarLink(props: SidebarLinkContent) {
   return (
     <Link
       href={props.href}

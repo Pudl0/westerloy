@@ -1,21 +1,11 @@
-'use client';
-
-import Link from 'next/link';
-
 import NewsDashboardItem from '@/components/cards/news-dashboard-item';
 import { PrismaClient } from '@prisma/client';
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 const prisma = new PrismaClient();
 
 export default async function Home() {
   const newsEntries = await prisma.newsentries.findMany();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return <></>;
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-10">
@@ -64,6 +54,6 @@ export default async function Home() {
           return <NewsDashboardItem newsentry={object} key={object.id} />;
         })}
       </div>
-    </div>
+    </main>
   );
 }
