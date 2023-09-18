@@ -1,8 +1,8 @@
+import { NewsEntry } from '@/lib/types/news-entry';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { NewsEntry } from '@/lib/types/news-entry';
 
 export default function NewsDashboardItem(props: { newsentry: NewsEntry }) {
   return (

@@ -1,13 +1,14 @@
-import Link from 'next/link';
 import NewsDashboardItem from '@/components/cards/news-dashboard-item';
 import { PrismaClient } from '@prisma/client';
+import Link from 'next/link';
 
 const prisma = new PrismaClient();
 
 export default async function Home() {
   const newsEntries = await prisma.newsentries.findMany();
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-10">
+    <main className="flex min-h-screen flex-col items-center justify-between px-10">
       {/*Dashboard Header*/}
       <div className="overflow-hidden bg-no-repeat bg-cover rounded-xl dashboard-header">
         <div className="top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed dashboard-background">
@@ -53,6 +54,6 @@ export default async function Home() {
           return <NewsDashboardItem newsentry={object} key={object.id} />;
         })}
       </div>
-    </div>
+    </main>
   );
 }
