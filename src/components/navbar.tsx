@@ -60,17 +60,17 @@ export default function Navbar() {
 
   return (
     <header className="bg-white">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between py-6 px-10 lg:px-16">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-10 py-6 lg:px-16">
         <div className="flex lg:flex-1">
           <Image
             src={muehlenhofIconImage}
             alt="Picture of the Muehlenhof"
             width={301}
             height={183}
-            className="w-32 h-20"
+            className="h-20 w-32"
           />
         </div>
-        <div className="hidden lg:flex gap-x-12 items-center">
+        <div className="hidden items-center gap-x-12 lg:flex">
           <FlyoutMenu title={contentMuehlenhof.title} items={contentMuehlenhof.items} />
           <FlyoutMenu title={contentClubs.title} items={contentClubs.items} />
           <a href="kontakt" className="text-base font-semibold leading-6 text-gray-900">
@@ -146,10 +146,10 @@ function SidebarLink(props: SidebarLinkContent) {
   return (
     <Link
       href={props.href}
-      className="flex flex-row justify-end space-x-2 py-2 px-3 bg-white hover:bg-slate-200 hover:rounded-lg"
+      className="flex flex-row justify-end space-x-2 bg-white px-3 py-2 hover:rounded-lg hover:bg-slate-200"
     >
       <div>{props.name}</div>
-      <FontAwesomeIcon icon={props.icon} className="flex flex-col w-6 my-auto" />
+      <FontAwesomeIcon icon={props.icon} className="my-auto flex w-6 flex-col" />
     </Link>
   );
 }
