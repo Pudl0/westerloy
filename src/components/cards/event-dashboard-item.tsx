@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { EventEntry } from '@/lib/types/event-entry';
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
 
 const monthFormatter = new Intl.DateTimeFormat('de', { month: 'long' });
 

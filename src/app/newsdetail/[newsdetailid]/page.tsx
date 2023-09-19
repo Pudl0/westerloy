@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import { PrismaClient } from '@prisma/client';
+import Image from 'next/image';
 
 const prisma = new PrismaClient();
 
