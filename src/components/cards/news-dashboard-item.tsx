@@ -18,9 +18,9 @@ export default function NewsDashboardItem(props: { newsentry: NewsEntry }) {
         <button className="inline-flex self-end items-center p-2 text-sm font-medium text-black rounded-lg gap-2 hover:bg-slate-100">
           <Link
             href={{
-              pathname: 'newsdetail/[id]',
+              pathname: 'newsdetail/[newsdetailid]',
               query: {
-                newsdetailId: props.newsentry.id.toString(),
+                newsdetailid: props.newsentry.id.toString(),
               },
             }}
             as={`newsdetail/${props.newsentry.id}`}

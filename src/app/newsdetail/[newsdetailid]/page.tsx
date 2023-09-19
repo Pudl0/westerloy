@@ -3,10 +3,10 @@ import Image from 'next/image';
 
 const prisma = new PrismaClient();
 
-export default async function NewsDetail({ params }: { params: { newsdetailId: string } }) {
-  const newsEntry = await prisma.newsentries.findUniqueOrThrow({
+export default async function NewsDetail({ params }: { params: { newsdetailid: string } }) {
+  const newsEntry = await prisma.newsEntries.findUniqueOrThrow({
     where: {
-      id: parseInt(params.newsdetailId),
+      id: parseInt(params.newsdetailid),
     },
   });
   await prisma.$disconnect();
