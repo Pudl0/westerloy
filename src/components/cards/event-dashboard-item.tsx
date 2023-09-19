@@ -7,18 +7,18 @@ const monthFormatter = new Intl.DateTimeFormat('de', { month: 'long' });
 
 export default function EventDashboardItem(props: { eventEntry: EventEntry }) {
   return (
-    <div className="flex flex-col bg-white rounded-xl overflow-hidden drop-shadow-lg w-3/4 xl:w-2/3">
-      <Image className="h-3/4 item-header" src="/Muehlenhof.jpg" width={1920} height={1080} alt="" />
-      <div className="flex flex-col w-full md:flex-row">
-        <div className="flex justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-300 md:flex-col md:items-center md:justify-center md:w-1/4">
+    <div className="flex w-3/4 flex-col overflow-hidden rounded-xl bg-white drop-shadow-lg xl:w-2/3">
+      <Image className="item-header h-3/4" src="/Muehlenhof.jpg" width={1920} height={1080} alt="" />
+      <div className="flex w-full flex-col md:flex-row">
+        <div className="flex justify-around bg-gray-300 p-4 font-bold uppercase leading-none text-gray-800 md:w-1/4 md:flex-col md:items-center md:justify-center">
           <div className="md:text-3xl xl:text-4xl">{props.eventEntry.timeOfEvent.getDate()}</div>
           <div className="md:text-lg xl:text-xl">{monthFormatter.format(props.eventEntry.timeOfEvent)}</div>
           <div className="md:text-lg xl:text-xl">{props.eventEntry.timeOfEvent.getFullYear()}</div>
         </div>
         <div className="flex flex-col gap-y-2 p-4 font-normal text-gray-800">
-          <h1 className="text-xl xl:text-2xl font-bold tracking-tight text-gray-800">{props.eventEntry.title}</h1>
-          <p className="leading-normal text-ms xl:text-lg">{props.eventEntry.description}</p>
-          <div className="flex flex-row items-center text-gray-700 gap-2">
+          <h1 className="text-xl font-bold tracking-tight text-gray-800 xl:text-2xl">{props.eventEntry.title}</h1>
+          <p className="text-ms leading-normal xl:text-lg">{props.eventEntry.description}</p>
+          <div className="flex flex-row items-center gap-2 text-gray-700">
             <FontAwesomeIcon icon={faLocationDot} className="fas fa-location-dot"></FontAwesomeIcon>
             <div className="text-ms xl:text-lg">{props.eventEntry.location}</div>
           </div>

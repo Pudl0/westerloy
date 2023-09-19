@@ -1,6 +1,6 @@
 import NewsDashboardItem from '@/components/cards/news-dashboard-item';
-import { PrismaClient } from '@prisma/client';
 import { NewsEntry } from '@/lib/types/news-entry';
+import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
 
 const prisma = new PrismaClient();
@@ -10,17 +10,17 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-10">
       {/*Dashboard Header*/}
-      <div className="overflow-hidden bg-no-repeat bg-cover rounded-xl dashboard-header">
-        <div className="top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed dashboard-background">
-          <div className="flex justify-center items-center h-full">
-            <div className="text-center text-white lg:px-6 md:px-12 px-2">
-              <h1 className="text-5xl font-bold mt-12 mb-12">Das passiert in Westerloy</h1>
-              <h3 className="text-3xl font-bold lg:mb-24 mb-8">
+      <div className="dashboard-header overflow-hidden rounded-xl bg-cover bg-no-repeat">
+        <div className="dashboard-background bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed">
+          <div className="flex h-full items-center justify-center">
+            <div className="px-2 text-center text-white md:px-12 lg:px-6">
+              <h1 className="mb-12 mt-12 text-5xl font-bold">Das passiert in Westerloy</h1>
+              <h3 className="mb-8 text-3xl font-bold lg:mb-24">
                 Auf einen Blick alle Events in und rund um das schönste Dorf des Ammerlands.
               </h3>
               <button
                 type="button"
-                className="inline-block px-6 py-2.5 border-2 border-white text-white font-medium text-md leading-tight uppercase rounded hover:bg-black hover:bg-opacity-45 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                className="text-md hover:bg-opacity-45 inline-block rounded border-2 border-white px-6 py-2.5 font-medium uppercase leading-tight text-white transition duration-150 ease-in-out hover:bg-black focus:outline-none focus:ring-0"
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
               >
@@ -38,18 +38,18 @@ export default async function Home() {
         </div>
       </div>
       {/*News Items*/}
-      <div className="md:pt-24 md:pb-12">
-        <h2 className="flex flex-row flex-nowrap items-center my-8">
+      <div className="md:pb-12 md:pt-24">
+        <h2 className="my-8 flex flex-row flex-nowrap items-center">
           <span
-            className="flex-none block lg:mx-4 lg:px-4 lg:py-2.5 lg:text-xl
-                    mx-2 px-2 py-1.5 text-md
-                    leading-none font-medium uppercase bg-black text-white"
+            className="text-md mx-2 block flex-none bg-black px-2
+                    py-1.5 font-medium uppercase leading-none
+                    text-white lg:mx-4 lg:px-4 lg:py-2.5 lg:text-xl"
           >
             Neuigkeiten aus Westerloy
           </span>
         </h2>
       </div>
-      <div className="grid lg:grid-cols-2 sm:grid-cols-1 lg:pt-24 pt-12 mx-8 justify-items-center gap-y-32 gap-x-24">
+      <div className="mx-8 grid justify-items-center gap-x-24 gap-y-32 pt-12 sm:grid-cols-1 lg:grid-cols-2 lg:pt-24">
         {newsEntries.map(function (newsentry: NewsEntry) {
           return <NewsDashboardItem newsentry={newsentry} key={newsentry.id} />;
         })}
