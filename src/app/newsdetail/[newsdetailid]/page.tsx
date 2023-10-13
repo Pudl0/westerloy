@@ -4,7 +4,7 @@ import Image from 'next/image';
 const prisma = new PrismaClient();
 
 export default async function NewsDetail({ params }: { params: { newsdetailid: string } }) {
-  const newsEntry = await prisma.newsEntries.findUniqueOrThrow({
+  const newsEntry = await prisma.NewsEntries.findUniqueOrThrow({
     where: {
       id: parseInt(params.newsdetailid),
     },
