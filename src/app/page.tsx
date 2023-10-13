@@ -6,7 +6,7 @@ import Link from 'next/link';
 const prisma = new PrismaClient();
 
 export default async function Home() {
-  const newsEntries = await prisma.newsEntries.findMany();
+  const newsEntries = await prisma.NewsEntries.findMany();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-10">
       {/*Dashboard Header*/}
