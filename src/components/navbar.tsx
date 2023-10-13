@@ -36,11 +36,11 @@ const contentMuehlenhof: FlyoutMenuContent = {
 const contentClubs: FlyoutMenuContent = {
   title: 'Vereine',
   items: [
-    { name: 'OBV', description: 'Der Ortsbüergerverein stellt sich vor.', href: '/obv' },
+    { name: 'OBV', description: 'Der Ortsbüergerverein stellt sich vor.', href: '/vereine/obv' },
     {
       name: 'Landjugend 3.0',
       description: 'Die Landjugend stellt sich vor.',
-      href: '/landjugend',
+      href: '/vereine/landjugend',
     },
   ],
 };
@@ -91,8 +91,8 @@ export default function Navbar() {
                 <div className="flex flex-col space-y-1">
                   <SidebarLink name="Trauungen" href="/trauungen" icon={faChurch} />
                   <SidebarLink name="Mühlenhof mieten" href="/muehlenhof-mieten" icon={faPenToSquare} />
-                  <SidebarLink name="OBV" href="/obv" icon={faHandHoldingHeart} />
-                  <SidebarLink name="Landjugend 3.0" href="/landjugend" icon={faPeopleGroup} />
+                  <SidebarLink name="OBV" href="/vereine/obv" icon={faHandHoldingHeart} />
+                  <SidebarLink name="Landjugend 3.0" href="/vereine/landjugend" icon={faPeopleGroup} />
                 </div>
               </SheetHeader>
             </SheetContent>
