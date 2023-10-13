@@ -1,5 +1,4 @@
-import { faBriefcase, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ContactCard from '@/components/cards/contact-card';
 
 export default function Contact() {
   return (
@@ -9,36 +8,9 @@ export default function Contact() {
           Ihre Ansprechpartner beim OBV&nbsp;Westerloy
         </p>
         <div className="flex flex-col items-center gap-x-24 gap-y-12 lg:flex-row">
-          {ContactCard('Katja Rottmann', 'Erste Vorsitzende', '04488-8609020', 'katja.rottmann@westerloy.de')}
-          {ContactCard('Sven Siefken', 'Zweiter Vorsitzender', '04488-123456', 'sven.siefken@westerloy.de')}
+          <ContactCard name='Katja Rottmann' title='Erste Vorsitzende' phoneNumber='04488-8609020' mailAddress='katja.rottmann@westerloy.de'></ContactCard>
+          <ContactCard name='Sven Siefken' title='Zweiter Vorsitzender' phoneNumber='04488-123456' mailAddress='sven.siefken@westerloy.de'></ContactCard>
         </div>
-      </div>
-    </div>
-  );
-}
-
-export function ContactCard(name: string, title: string, phoneNumber: string, mailAddress: string) {
-  return (
-    <div className="w-80 rounded-lg border-2 px-4 py-2 shadow-lg">
-      <p className="border-b-2 border-gray-400 text-lg font-medium text-gray-600 dark:text-gray-400  sm:text-2xl">
-        {name}
-      </p>
-
-      <div className="mt-4 flex items-center text-gray-600 dark:text-gray-400">
-        <FontAwesomeIcon icon={faBriefcase}></FontAwesomeIcon>
-        <p className="text-md ml-2 font-semibold tracking-wide">{title}</p>
-      </div>
-
-      <div className="mt-4 flex items-center text-gray-600 dark:text-gray-400">
-        <FontAwesomeIcon icon={faPhone}></FontAwesomeIcon>
-        <p className="text-md ml-2 font-semibold tracking-wide">{phoneNumber}</p>
-      </div>
-
-      <div className="mt-4 flex items-center text-gray-600 dark:text-gray-400">
-        <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
-        <a href={`mailto:${mailAddress}`} className="text-md ml-2 font-semibold tracking-wide hover:underline">
-          {mailAddress}
-        </a>
       </div>
     </div>
   );
