@@ -1,3 +1,4 @@
+import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import { PrismaClient } from '@prisma/client';
 import Image from 'next/image';
 
@@ -12,6 +13,7 @@ export default async function NewsDetail({ params }: { params: { newsdetailid: s
   await prisma.$disconnect();
   return (
     <div className="mt-10 w-full">
+      <BackToDashboardButton></BackToDashboardButton>
       <div className="relative mx-auto mb-4 w-full max-w-screen-md md:mb-0" style={{ height: 24 + 'em' }}>
         <div className="news-item-header absolute bottom-0 left-0 z-10 h-full w-full rounded-xl"></div>
         <Image
