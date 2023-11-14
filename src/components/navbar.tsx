@@ -73,9 +73,14 @@ export default function Navbar() {
         <div className="hidden items-center gap-x-12 lg:flex">
           <FlyoutMenu title={contentMuehlenhof.title} items={contentMuehlenhof.items} />
           <FlyoutMenu title={contentClubs.title} items={contentClubs.items} />
-          <a href="kontakt" className="text-base font-semibold leading-6 text-gray-900">
+          <Link
+            href={{
+              pathname: '/rechtliches/kontakt',
+            }}
+            as={'/rechtliches/kontakt'}
+          >
             Kontakt
-          </a>
+          </Link>
         </div>
         <div className="lg:hidden">
           <Sheet>

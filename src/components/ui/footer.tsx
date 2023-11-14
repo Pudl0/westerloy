@@ -9,12 +9,12 @@ export default function Footer() {
       </span>
       <ul className="flex flex-row text-sm text-gray-500 dark:text-gray-400 lg:pr-3">
         <li>
-          <Link className="mr-4 hover:underline md:mr-6" href="/legal/data-protection">
+          <Link className="mr-4 hover:underline md:mr-6" href="/rechtliches/datenschutz">
             Datenschutz
           </Link>
         </li>
         <li>
-          <Link className="hover:underline" href="/legal/legal-notice">
+          <Link className="hover:underline" href="/rechtliches/impressum">
             Impressum
           </Link>
         </li>
