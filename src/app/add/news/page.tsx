@@ -90,7 +90,7 @@ export default function NeuerEintrag() {
                 <FormControl>
                   <Textarea placeholder="Bitte Kurzbeschreibung eingeben..." {...field} />
                 </FormControl>
-                <FormDescription>Hier bitte die Kurzubeschreibung der Nachricht eintragen</FormDescription>
+                <FormDescription>Hier bitte die Kurzbeschreibung der Nachricht eintragen</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
