@@ -6,6 +6,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -13,17 +14,23 @@ const formSchema = z.object({
   title: z
     .string()
     .min(2, {
-      message: 'Der Titel muss mindestens 2 Zeichen lang sein',
+      message: 'Der Titel muss mindestens 2 Zeichen lang sein.',
     })
     .max(50, {
-      message: 'Der Titel darf maximal 50 Zeichen lang sein',
+      message: 'Der Titel darf maximal 50 Zeichen lang sein.',
     }),
-  newsEntry: z
+  description: z
     .string()
     .min(2, {
-      message: 'Der Text muss mindestens 2 Zeichen lang sein',
+      message: 'Der Text muss mindestens 2 Zeichen lang sein.',
     })
-    .max(5000, { message: 'Der Nachrichtentext darf maximal 5000 Zeichen lang sein' }),
+    .max(5000, { message: 'Der Nachrichtentext darf maximal 5000 Zeichen lang sein.' }),
+  shortDescription: z
+    .string()
+    .min(2, {
+      message: 'DDie Kurzbeschreibung muss mindestens 2 Zeichen lang sein.',
+    })
+    .max(250, { message: 'Die Kurzbeschreibung darf maximal 250 Zeichen lang sein.' }),
 });
 
 export default function NeuerEintrag() {
@@ -32,14 +39,28 @@ export default function NeuerEintrag() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: '',
-      newsEntry: '',
+      description: '',
+      shortDescription: '',
     },
   });
+  const router = useRouter();
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    fetch(`/api/newsentries`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: values.title,
+        description: values.description,
+        shortDescription: values.shortDescription,
+        pictureLink: '',
+      }),
+    });
+    router.refresh();
     console.log(values);
   }
   return (
@@ -56,21 +77,35 @@ export default function NeuerEintrag() {
                 <FormControl>
                   <Input placeholder="Bitte Titel eingeben..." {...field} />
                 </FormControl>
-                <FormDescription>Hier bitte den Titel der Nachricht eintragen </FormDescription>
+                <FormDescription>Hier bitte den Titel der Nachricht eintragen</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="newsEntry"
+            name="shortDescription"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Kurzbeschreibung der Nachricht</FormLabel>
+                <FormControl>
+                  <Textarea placeholder="Bitte Kurzbeschreibung eingeben..." {...field} />
+                </FormControl>
+                <FormDescription>Hier bitte die Kurzubeschreibung der Nachricht eintragen</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="description"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Text der Nachricht</FormLabel>
                 <FormControl>
                   <Textarea placeholder="Bitte Nachrichtentext eingeben..." {...field} />
                 </FormControl>
-                <FormDescription>Hier bitte den Text der Nachricht eintragen </FormDescription>
+                <FormDescription>Hier bitte den Text der Nachricht eintragen</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
