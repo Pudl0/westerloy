@@ -60,7 +60,7 @@ export default function NeuerEintrag() {
         pictureLink: '',
       }),
     });
-    router.refresh();
+    router.push('/');
   }
   return (
     <div className="my-12 flex min-h-screen flex-col items-center gap-y-12">
