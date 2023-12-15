@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { ImagePicker } from '@/lib/utils/ImagePicker';
+import { getBase64 } from '@/lib/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -28,9 +30,10 @@ const formSchema = z.object({
   shortDescription: z
     .string()
     .min(2, {
-      message: 'DDie Kurzbeschreibung muss mindestens 2 Zeichen lang sein.',
+      message: 'Die Kurzbeschreibung muss mindestens 2 Zeichen lang sein.',
     })
     .max(250, { message: 'Die Kurzbeschreibung darf maximal 250 Zeichen lang sein.' }),
+  image: z.instanceof(FileList).refine((val) => val.length > 0, 'File is required'),
 });
 
 export default function NeuerEintrag() {
@@ -47,18 +50,20 @@ export default function NeuerEintrag() {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    fetch(`/api/newsentries`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        title: values.title,
-        description: values.description,
-        shortDescription: values.shortDescription,
-        pictureLink: '',
-      }),
+    const pictureString = getBase64(values.image[0]).then((response) => {
+      fetch(`/api/newsentries`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: values.title,
+          description: values.description,
+          shortDescription: values.shortDescription,
+          pictureString: response,
+        }),
+      });
     });
     router.push('/');
   }
@@ -109,6 +114,7 @@ export default function NeuerEintrag() {
               </FormItem>
             )}
           />
+          <ImagePicker name="image" errors={form.formState.errors} control={form.control} />
           <Button type="submit">Submit</Button>
         </form>
       </Form>
