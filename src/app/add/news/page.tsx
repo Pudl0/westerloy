@@ -67,8 +67,8 @@ export default function NeuerEintrag() {
           }),
         });
       });
-      router.push('/');
     }
+    router.push('/');
   }
   return (
     <div className="my-12 flex min-h-screen flex-col items-center gap-y-12">
