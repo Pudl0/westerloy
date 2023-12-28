@@ -44,28 +44,31 @@ export default function NeuerEintrag() {
       title: '',
       description: '',
       shortDescription: '',
+      image: undefined,
     },
   });
   const router = useRouter();
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const pictureString = getBase64(values.image[0]).then((response) => {
-      fetch(`/api/newsentries`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: values.title,
-          description: values.description,
-          shortDescription: values.shortDescription,
-          pictureString: response,
-        }),
+    if (typeof window !== 'undefined' && values.image) {
+      getBase64(values.image[0]).then((response) => {
+        fetch(`/api/newsentries`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: values.title,
+            description: values.description,
+            shortDescription: values.shortDescription,
+            pictureString: response,
+          }),
+        });
       });
-    });
-    router.push('/');
+      router.push('/');
+    }
   }
   return (
     <div className="my-12 flex min-h-screen flex-col items-center gap-y-12">
