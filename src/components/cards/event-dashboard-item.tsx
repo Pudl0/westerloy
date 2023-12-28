@@ -7,8 +7,16 @@ const monthFormatter = new Intl.DateTimeFormat('de', { month: 'long' });
 
 export default function EventDashboardItem(props: { eventEntry: EventEntry }) {
   return (
-    <div className="flex w-3/4 flex-col overflow-hidden rounded-xl bg-white drop-shadow-lg xl:w-2/3">
-      <Image className="item-header h-3/4" src="/Muehlenhof.jpg" width={1920} height={1080} alt="" />
+    <div className="flex w-3/5 flex-col overflow-hidden rounded-xl bg-white drop-shadow-lg">
+      <div className="item-header h-1/2 overflow-hidden">
+        <Image
+          className="h-full w-full object-cover"
+          src={props.eventEntry.pictureLink}
+          width={1000}
+          height={600}
+          alt=""
+        />
+      </div>
       <div className="flex w-full flex-col md:flex-row">
         <div className="flex justify-around bg-gray-300 p-4 font-bold uppercase leading-none text-gray-800 md:w-1/4 md:flex-col md:items-center md:justify-center">
           <div className="md:text-3xl xl:text-4xl">{props.eventEntry.timeOfEvent.getDate()}</div>
@@ -19,7 +27,7 @@ export default function EventDashboardItem(props: { eventEntry: EventEntry }) {
           <h1 className="text-xl font-bold tracking-tight text-gray-800 xl:text-2xl">{props.eventEntry.title}</h1>
           <p className="text-ms leading-normal xl:text-lg">{props.eventEntry.description}</p>
           <div className="flex flex-row items-center gap-2 text-gray-700">
-            <FontAwesomeIcon icon={faLocationDot} className="fas fa-location-dot"></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faLocationDot} className="fas fa-location-dot" />
             <div className="text-ms xl:text-lg">{props.eventEntry.location}</div>
           </div>
         </div>

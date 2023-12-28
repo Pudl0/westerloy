@@ -67,8 +67,8 @@ export default function NeuerEintrag() {
           }),
         });
       });
-      router.push('/');
     }
+    router.push('/');
   }
   return (
     <div className="my-12 flex min-h-screen flex-col items-center gap-y-12">
@@ -118,7 +118,7 @@ export default function NeuerEintrag() {
             )}
           />
           <ImagePicker name="image" errors={form.formState.errors} control={form.control} />
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Absenden</Button>
         </form>
       </Form>
     </div>
