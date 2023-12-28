@@ -118,7 +118,7 @@ export default function NeuerEintrag() {
             )}
           />
           <ImagePicker name="image" errors={form.formState.errors} control={form.control} />
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Absenden</Button>
         </form>
       </Form>
     </div>

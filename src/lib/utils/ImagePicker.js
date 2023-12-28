@@ -22,7 +22,7 @@ export function ImagePicker({ name, errors, control }) {
 
   return (
     <div>
-      <label>Bild auswählen</label>
+      <label>Bild auswählen:</label>
       {image && <Image src={image} width="250" height="150" alt="Hier sollte ein Bild sein"></Image>}
       <input type="file" onChange={onAvatarChange} />
       <p>{errors[name]?.message}</p>
