@@ -7,6 +7,7 @@ const prisma = new PrismaClient();
 
 export default async function Home() {
   const newsEntries = (await prisma.newsEntries.findMany()).reverse();
+  prisma.$disconnect();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-10">
       {/*Dashboard Header*/}
