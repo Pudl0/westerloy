@@ -13,12 +13,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Popover, Transition } from '@headlessui/react';
+import { SessionProvider, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import muehlenhofIconImage from 'public/Muehlenhof_Icon.png';
 import { Fragment, useEffect, useState } from 'react';
 
 import { Button } from './ui/button';
+import LoginButton from './ui/loginbutton';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 
 const contentMuehlenhof: FlyoutMenuContent = {
@@ -45,6 +47,22 @@ const contentClubs: FlyoutMenuContent = {
   ],
 };
 
+const LoggedInMenu = () => {
+  const session = useSession();
+  if (session.status === 'authenticated')
+    return (
+      <Link
+        href={{
+          pathname: '/editor',
+        }}
+        as={'/editor'}
+      >
+        Editor
+      </Link>
+    );
+  else return <LoginButton />;
+};
+
 export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -59,52 +77,56 @@ export default function Navbar() {
   if (!mounted) return <></>;
 
   return (
-    <header className="bg-white">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-10 py-6 lg:px-16">
-        <div className="flex lg:flex-1">
-          <Image
-            src={muehlenhofIconImage}
-            alt="Picture of the Muehlenhof"
-            width={301}
-            height={183}
-            className="h-20 w-32"
-          />
-        </div>
-        <div className="hidden items-center gap-x-12 lg:flex">
-          <FlyoutMenu title={contentMuehlenhof.title} items={contentMuehlenhof.items} />
-          <FlyoutMenu title={contentClubs.title} items={contentClubs.items} />
-          <Link
-            href={{
-              pathname: '/rechtliches/kontakt',
-            }}
-            as={'/rechtliches/kontakt'}
-          >
-            Kontakt
-          </Link>
-        </div>
-        <div className="lg:hidden">
-          <Sheet>
-            <SheetTrigger asChild={true}>
-              <Button variant="outline" size="icon">
-                <FontAwesomeIcon icon={faBars} />
-              </Button>
-            </SheetTrigger>
-            <SheetContent className="w-[250px]">
-              <SheetHeader>
-                <SheetTitle className="flex justify-center">Westerloy</SheetTitle>
-                <Separator />
-                <div className="flex flex-col space-y-1">
-                  <SidebarLink name="Trauungen" href="/trauungen" icon={faChurch} />
-                  <SidebarLink name="Mühlenhof mieten" href="/muehlenhof-mieten" icon={faPenToSquare} />
-                  <SidebarLink name="OBV" href="/vereine/obv" icon={faHandHoldingHeart} />
-                  <SidebarLink name="Landjugend 3.0" href="/vereine/landjugend" icon={faPeopleGroup} />
-                </div>
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </nav>
-    </header>
+    <SessionProvider>
+      <header className="bg-white">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-10 py-6 lg:px-16">
+          <div className="flex lg:flex-1">
+            <Image
+              src={muehlenhofIconImage}
+              alt="Picture of the Muehlenhof"
+              width={301}
+              height={183}
+              className="h-20 w-32"
+            />
+          </div>
+          <div className="hidden items-center gap-x-12 lg:flex">
+            <FlyoutMenu title={contentMuehlenhof.title} items={contentMuehlenhof.items} />
+            <FlyoutMenu title={contentClubs.title} items={contentClubs.items} />
+            <Link
+              className="hover:underline"
+              href={{
+                pathname: '/rechtliches/kontakt',
+              }}
+              as={'/rechtliches/kontakt'}
+            >
+              Kontakt
+            </Link>
+            <LoggedInMenu></LoggedInMenu>
+          </div>
+          <div className="lg:hidden">
+            <Sheet>
+              <SheetTrigger asChild={true}>
+                <Button variant="outline" size="icon">
+                  <FontAwesomeIcon icon={faBars} />
+                </Button>
+              </SheetTrigger>
+              <SheetContent className="w-[250px]">
+                <SheetHeader>
+                  <SheetTitle className="flex justify-center">Westerloy</SheetTitle>
+                  <Separator />
+                  <div className="flex flex-col space-y-1">
+                    <SidebarLink name="Trauungen" href="/trauungen" icon={faChurch} />
+                    <SidebarLink name="Mühlenhof mieten" href="/muehlenhof-mieten" icon={faPenToSquare} />
+                    <SidebarLink name="OBV" href="/vereine/obv" icon={faHandHoldingHeart} />
+                    <SidebarLink name="Landjugend 3.0" href="/vereine/landjugend" icon={faPeopleGroup} />
+                  </div>
+                </SheetHeader>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </nav>
+      </header>
+    </SessionProvider>
   );
 }
 
