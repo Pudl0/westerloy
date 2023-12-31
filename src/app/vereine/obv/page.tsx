@@ -4,7 +4,7 @@ export default async function OBV() {
   return (
     <div className="mt-10 w-full">
       <div className="relative mx-auto mb-4 w-full max-w-screen-md md:mb-0" style={{ height: 24 + 'em' }}>
-        <div className="news-item-header absolute bottom-0 left-0 z-10 h-full w-full rounded-xl"></div>
+        <div className="news-item-header absolute bottom-0 left-0 h-full w-full rounded-xl"></div>
         <Image
           src="/Muehlenhof.jpg"
           width={1920}

@@ -44,6 +44,11 @@ const contentClubs: FlyoutMenuContent = {
       description: 'Die Landjugend stellt sich vor.',
       href: '/vereine/landjugend',
     },
+    {
+      name: 'Theatergruppe',
+      description: 'Alle Informationen zum neuen Stück.',
+      href: '/vereine/theater',
+    },
   ],
 };
 
