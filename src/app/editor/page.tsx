@@ -8,25 +8,37 @@ export default async function Home() {
 
   if (session) {
     return (
-      <div>
-        <p>Signed in as {session?.user?.name}</p>
-        <p> Mail: {session?.user?.email}</p>
-        <Link
-          href={{
-            pathname: '/editor/news',
-          }}
-          as={`/editor/news`}
-        >
-          Nachrichtenbeitrag hinzufügen
-        </Link>
-        <Link
-          href={{
-            pathname: '/editor/veranstaltungen',
-          }}
-          as={`/editor/veranstaltungen`}
-        >
-          Veranstaltung hinzufügen
-        </Link>
+      <div className="w-full flex-col gap-x-5 p-12">
+        <div className="flex-row">
+          <p>Signed in as {session?.user?.name}</p>
+          <p> Mail: {session?.user?.email}</p>
+        </div>
+        <div className="flex gap-x-32 p-16">
+          <Link
+            href={{
+              pathname: '/editor/news',
+            }}
+            as={`/editor/news`}
+          >
+            Nachrichtenbeitrag hinzufügen
+          </Link>
+          <Link
+            href={{
+              pathname: '/editor/veranstaltungen',
+            }}
+            as={`/editor/veranstaltungen`}
+          >
+            Veranstaltung hinzufügen
+          </Link>
+          <Link
+            href={{
+              pathname: '/editor/dorfzeitung',
+            }}
+            as={`/editor/dorfzeitung`}
+          >
+            Dorfzeitung hinzufügen
+          </Link>
+        </div>
       </div>
     );
   }

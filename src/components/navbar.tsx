@@ -52,6 +52,11 @@ const contentClubs: FlyoutMenuContent = {
   ],
 };
 
+const contentHappenings: FlyoutMenuContent = {
+  title: 'Dorfgeschehen',
+  items: [{ name: 'Dorfzeitung', description: 'Alle Ausgaben der Dorfzeitung', href: '/dorfgeschehen/dorfzeitung' }],
+};
+
 const LoggedInMenu = () => {
   const session = useSession();
   if (session.status === 'authenticated')
@@ -97,6 +102,7 @@ export default function Navbar() {
           <div className="hidden items-center gap-x-12 lg:flex">
             <FlyoutMenu title={contentMuehlenhof.title} items={contentMuehlenhof.items} />
             <FlyoutMenu title={contentClubs.title} items={contentClubs.items} />
+            <FlyoutMenu title={contentHappenings.title} items={contentHappenings.items} />
             <Link
               className="hover:underline"
               href={{
