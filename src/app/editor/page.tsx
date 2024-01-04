@@ -38,6 +38,14 @@ export default async function Home() {
           >
             Dorfzeitung hinzufügen
           </Link>
+          <Link
+            href={{
+              pathname: '/editor/recap',
+            }}
+            as={`/editor/recap`}
+          >
+            Rückblick hinzufügen
+          </Link>
         </div>
       </div>
     );
