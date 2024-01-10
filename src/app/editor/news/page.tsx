@@ -35,10 +35,10 @@ const formSchema = z.object({
       message: 'Die Kurzbeschreibung muss mindestens 2 Zeichen lang sein.',
     })
     .max(250, { message: 'Die Kurzbeschreibung darf maximal 250 Zeichen lang sein.' }),
-  image: z.instanceof(FileList).refine((val) => val.length > 0, 'File is required'),
+  image: z.custom<FileList>((v) => v instanceof FileList),
 });
 
-export const NeuerEintrag = () => {
+const NeuerEintrag = () => {
   // 1. Define your form.
   const session = useSession();
   const form = useForm<z.infer<typeof formSchema>>({

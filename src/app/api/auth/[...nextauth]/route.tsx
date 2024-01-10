@@ -1,21 +1,15 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { authOptions } from '@/lib/utils/authOptions';
 import NextAuth from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
+import type { NextRequest } from 'next/server';
 
-export const authOptions = {
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
-    }),
-  ],
-  secret: process.env.NEXTAUTH_SECRET ?? '',
-};
+interface RouteHandlerContext {
+  params: { nextauth: string[] };
+}
 
-export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
+export const GET = async (req: NextRequest, res: RouteHandlerContext) => {
   return await NextAuth(req, res, authOptions);
 };
 
-export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
+export const POST = async (req: NextRequest, res: RouteHandlerContext) => {
   return await NextAuth(req, res, authOptions);
 };
