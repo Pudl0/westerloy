@@ -54,7 +54,10 @@ const contentClubs: FlyoutMenuContent = {
 
 const contentHappenings: FlyoutMenuContent = {
   title: 'Dorfgeschehen',
-  items: [{ name: 'Dorfzeitung', description: 'Alle Ausgaben der Dorfzeitung', href: '/dorfgeschehen/dorfzeitung' }],
+  items: [
+    { name: 'Dorfzeitung', description: 'Alle Ausgaben der Dorfzeitung', href: '/dorfgeschehen/dorfzeitung' },
+    { name: 'Rückblicke', description: 'Impressionen vergangener Veranstaltungen', href: '/dorfgeschehen/recap' },
+  ],
 };
 
 const LoggedInMenu = () => {

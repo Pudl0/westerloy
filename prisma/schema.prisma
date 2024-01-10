@@ -23,3 +23,11 @@ model NewsEntries {
   description      String @db.LongText
   pictureLink      String @db.Text
 }
+
+model RecapEntries {
+  id               Int    @id @default(autoincrement())
+  title            String @db.VarChar(50)
+  shortDescription String @db.VarChar(250)
+  description      String @db.LongText
+  folderLink       String @db.Text
+}
