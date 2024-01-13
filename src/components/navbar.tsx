@@ -133,6 +133,9 @@ export default function Navbar() {
                     <SidebarLink name="Mühlenhof mieten" href="/muehlenhof-mieten" icon={faPenToSquare} />
                     <SidebarLink name="OBV" href="/vereine/obv" icon={faHandHoldingHeart} />
                     <SidebarLink name="Landjugend 3.0" href="/vereine/landjugend" icon={faPeopleGroup} />
+                    <SidebarLink name="Theater" href="/vereine/theater" icon={faPeopleGroup} />
+                    <SidebarLink name="Dorfzeitung" href="/dorfgeschehen/dorfzeitung" icon={faPeopleGroup} />
+                    <SidebarLink name="Rückblicke" href="/dorfgeschehen/recap" icon={faPeopleGroup} />
                   </div>
                 </SheetHeader>
               </SheetContent>
