@@ -1,10 +1,13 @@
-import GoogleProvider from 'next-auth/providers/google';
+import FusionAuthProvider from 'next-auth/providers/fusionauth';
 
 export const authOptions = {
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+    FusionAuthProvider({
+      clientId: process.env.FUSIONAUTH_CLIENT_ID ?? '',
+      clientSecret: process.env.FUSIONAUTH_CLIENT_SECRET ?? '',
+      issuer: process.env.FUSIONAUTH_ISSUER,
+      accessTokenUrl: `${process.env.FUSIONAUTH_ISSUER}/oauth2/token`,
+      profileUrl: `${process.env.FUSIONAUTH_ISSUER}/oauth2/userinfo`,
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET ?? '',
