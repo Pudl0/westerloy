@@ -103,7 +103,7 @@ export default function Navbar() {
             />
           </div>
           <div className="hidden items-center gap-x-12 lg:flex">
-            <FlyoutMenu title={contentMuehlenhof.title} items={contentMuehlenhof.items} />
+            {/* <FlyoutMenu title={contentMuehlenhof.title} items={contentMuehlenhof.items} /> */}
             <FlyoutMenu title={contentClubs.title} items={contentClubs.items} />
             <FlyoutMenu title={contentHappenings.title} items={contentHappenings.items} />
             <Link
@@ -129,8 +129,8 @@ export default function Navbar() {
                   <SheetTitle className="flex justify-center">Westerloy</SheetTitle>
                   <Separator />
                   <div className="flex flex-col space-y-1">
-                    <SidebarLink name="Trauungen" href="/trauungen" icon={faChurch} />
-                    <SidebarLink name="Mühlenhof mieten" href="/muehlenhof-mieten" icon={faPenToSquare} />
+                    {/* <SidebarLink name="Trauungen" href="/trauungen" icon={faChurch} />
+                    <SidebarLink name="Mühlenhof mieten" href="/muehlenhof-mieten" icon={faPenToSquare} /> */}
                     <SidebarLink name="OBV" href="/vereine/obv" icon={faHandHoldingHeart} />
                     <SidebarLink name="Landjugend 3.0" href="/vereine/landjugend" icon={faPeopleGroup} />
                     <SidebarLink name="Theater" href="/vereine/theater" icon={faPeopleGroup} />
