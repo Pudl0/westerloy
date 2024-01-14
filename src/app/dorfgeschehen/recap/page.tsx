@@ -1,4 +1,5 @@
 import RecapDashboardItem from '@/components/cards/recap-dashboard-item';
+import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import { PrismaClient, RecapEntries } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -8,6 +9,7 @@ export default async function Recap() {
   prisma.$disconnect();
   return (
     <div className="flex min-h-screen flex-col items-center justify-between px-10">
+      <BackToDashboardButton></BackToDashboardButton>
       <div className="md:pb-12 md:pt-24">
         <h2 className="my-8 flex flex-row flex-nowrap items-center">
           <span
