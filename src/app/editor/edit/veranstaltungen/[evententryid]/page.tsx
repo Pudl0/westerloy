@@ -8,9 +8,7 @@ import { Input } from '@/components/ui/input';
 import LoginButton from '@/components/ui/loginbutton';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
-import { ImagePicker } from '@/lib/utils/ImagePicker';
 import { cn } from '@/lib/utils/utils';
-import { getBase64 } from '@/lib/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
@@ -41,42 +39,42 @@ const formSchema = z.object({
       message: 'Der Ort muss mindestens 2 Zeichen lang sein.',
     })
     .max(5100, { message: 'Der Ort darf maximal 100 Zeichen lang sein.' }),
-  image: z.custom<FileList>((v) => v instanceof FileList),
 });
 
-const NeuerEintrag = () => {
+const EintragBearbeiten = ({
+  params,
+}: {
+  params: { evententryid: number; title: string; description: string; location: string; timeOfEvent: Date };
+}) => {
   const session = useSession();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: '',
-      description: '',
-      location: '',
+      title: params.title,
+      description: params.description,
+      location: params.location,
+      timeOfEvent: params.timeOfEvent,
     },
   });
   const router = useRouter();
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    if (typeof window !== 'undefined' && values.image) {
-      getBase64(values.image[0]).then((response) => {
-        fetch(`/api/evententries`, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            title: values.title,
-            description: values.description,
-            timeOfEvent: values.timeOfEvent,
-            location: values.location,
-            pictureString: response,
-          }),
-        });
-      });
-    }
+    fetch(`/api/evententries`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        newid: params.evententryid,
+        newtitle: values.title,
+        newdescription: values.description,
+        newlocation: values.location,
+        newTimeOfEvent: values.timeOfEvent,
+      }),
+    });
     router.push('/');
   }
   if (session.status === 'authenticated') {
@@ -97,6 +95,20 @@ const NeuerEintrag = () => {
                         <Input placeholder="Bitte Titel eingeben..." {...field} />
                       </FormControl>
                       <FormDescription>Hier bitte den Titel des Events eintragen</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Beschreibung des Events</FormLabel>
+                      <FormControl>
+                        <Textarea placeholder="Bitte Beschreibung des Events eingeben..." {...field} />
+                      </FormControl>
+                      <FormDescription>Hier bitte die Beschreibung des Events eintragen</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -139,20 +151,6 @@ const NeuerEintrag = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Beschreibung des Events</FormLabel>
-                      <FormControl>
-                        <Textarea placeholder="Bitte Beschreibung des Events eingeben..." {...field} />
-                      </FormControl>
-                      <FormDescription>Hier bitte die Beschreibung des Events eintragen</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
                   name="location"
                   render={({ field }) => (
                     <FormItem>
@@ -165,7 +163,6 @@ const NeuerEintrag = () => {
                     </FormItem>
                   )}
                 />
-                <ImagePicker name="image" errors={form.formState.errors} control={form.control} />
                 <Button type="submit">Submit</Button>
               </form>
             </Form>
@@ -178,10 +175,14 @@ const NeuerEintrag = () => {
   }
 };
 
-export default function Veranstaltung() {
+export default function Veranstaltung({
+  params,
+}: {
+  params: { evententryid: number; title: string; description: string; location: string; timeOfEvent: Date };
+}) {
   return (
     <SessionProvider>
-      <NeuerEintrag />
+      <EintragBearbeiten params={params} />
     </SessionProvider>
   );
 }

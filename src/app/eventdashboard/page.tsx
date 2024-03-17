@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export default async function EventDashboard() {
   const eventEntries = (await prisma.eventEntries.findMany()).sort(function (a, b) {
-    return +b.timeOfEvent - +a.timeOfEvent;
+    return +a.timeOfEvent - +b.timeOfEvent;
   });
   prisma.$disconnect();
   return (

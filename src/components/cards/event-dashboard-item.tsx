@@ -1,11 +1,15 @@
 import { EventEntry } from '@/lib/types/event-entry';
+import { authOptions } from '@/lib/utils/authOptions';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getServerSession } from 'next-auth/next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const monthFormatter = new Intl.DateTimeFormat('de', { month: 'long' });
 
-export default function EventDashboardItem(props: { eventEntry: EventEntry }) {
+export default async function EventDashboardItem(props: { eventEntry: EventEntry }) {
+  const session = await getServerSession(authOptions);
   return (
     <div className="flex w-3/5 flex-col overflow-hidden rounded-xl bg-white drop-shadow-lg">
       <div className="item-header h-1/2 overflow-hidden">
@@ -29,6 +33,23 @@ export default function EventDashboardItem(props: { eventEntry: EventEntry }) {
           <div className="flex flex-row items-center gap-2 text-gray-700">
             <FontAwesomeIcon icon={faLocationDot} className="fas fa-location-dot" />
             <div className="text-ms xl:text-lg">{props.eventEntry.location}</div>
+            {session && (
+              <Link
+                href={{
+                  pathname: 'editor/edit/veranstaltungen/[newsdetailid]',
+                  query: {
+                    id: props.eventEntry.id,
+                    title: props.eventEntry.title,
+                    description: props.eventEntry.description,
+                    location: props.eventEntry.location,
+                    timeOfEvent: props.eventEntry.timeOfEvent.getDate(),
+                  },
+                }}
+                as={`editor/edit/veranstaltungen/${props.eventEntry.id}`}
+              >
+                Event bearbeiten
+              </Link>
+            )}
           </div>
         </div>
       </div>
