@@ -11,17 +11,11 @@ const monthFormatter = new Intl.DateTimeFormat('de', { month: 'long' });
 export default async function EventDashboardItem(props: { eventEntry: EventEntry }) {
   const session = await getServerSession(authOptions);
   return (
-    <div className="flex w-3/5 flex-col overflow-hidden rounded-xl bg-white drop-shadow-lg">
-      <div className="item-header h-1/2 overflow-hidden">
-        <Image
-          className="h-full w-full object-cover"
-          src={props.eventEntry.pictureLink}
-          width={1000}
-          height={600}
-          alt=""
-        />
+    <div className="flex flex-col overflow-hidden rounded-xl bg-white drop-shadow-lg">
+      <div className="max-h-96 overflow-hidden">
+        <Image src={props.eventEntry.pictureLink} width={1000} height={600} alt="" />
       </div>
-      <div className="flex w-full flex-col md:flex-row">
+      <div className="flex flex-col md:flex-row">
         <div className="flex justify-around bg-gray-300 p-4 font-bold uppercase leading-none text-gray-800 md:w-1/4 md:flex-col md:items-center md:justify-center">
           <div className="md:text-3xl xl:text-4xl">{props.eventEntry.timeOfEvent.getDate()}</div>
           <div className="md:text-lg xl:text-xl">{monthFormatter.format(props.eventEntry.timeOfEvent)}</div>
