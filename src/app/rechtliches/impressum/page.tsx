@@ -11,7 +11,8 @@ export default function LegalNotice() {
           <li>Ortsbürgerverein Westerloy e.V</li>
           <li>1. Vorsitzende Katja Rottmann</li>
           <li>Am Damm 62, 26655 Westerstede</li>
-          <li>Telefon: 04488 2999</li>
+          <li>Telefon: 0172 27807878</li>
+          <li>Email: katja.rottmann@t-online.de</li>
         </ul>
         <p className="mb-2 mt-6 text-2xl">Technischer Verantwortlicher:</p>
         <ul className="pl-2">

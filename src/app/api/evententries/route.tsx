@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   var imagePath = './public/uploads/veranstaltungen/'; // Update the path to the desired location relative to the public directory
   const fileName = title + '.jpg';
   const filePath = imagePath + fileName;
-  const savePath = '/uploads/veranstaltungen/' + fileName; // Update the path to the desired location relative to the public directory
+  const savePath = '/uploads/veranstaltungen/' + fileName;
 
   await fs.promises.writeFile(filePath, buffer);
   await prisma.eventEntries.create({

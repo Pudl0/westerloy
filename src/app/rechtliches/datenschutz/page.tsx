@@ -18,8 +18,7 @@ export default function DataProtection() {
             <li>Am Damm 62, 26655 Westerstede</li>
             <li>Telefon: 04488 2999</li>
           </ul>
-          Den Datenschutzbeauftragten erreichen Sie per E-Mail unter [E-Mail-Adresse des Datenschutzbeauftragten] oder
-          über die Adresse [ggf. auch die Postadresse des Datenschutzbeauftragten]
+          Den Datenschutzbeauftragten erreichen Sie per E-Mail unter katja.rottmann@t-online.de.
         </div>
         <p className="my-4 text-xl font-semibold">
           2. Daten, die für die Bereitstellung der Website und die Erstellung der Protokolldateien verarbeitet werden
