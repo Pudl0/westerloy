@@ -41,7 +41,7 @@ const formSchema = z.object({
       message: 'Der Ort muss mindestens 2 Zeichen lang sein.',
     })
     .max(5100, { message: 'Der Ort darf maximal 100 Zeichen lang sein.' }),
-  image: z.instanceof(FileList).refine((val) => val.length > 0, 'File is required'),
+  image: z.custom<FileList>((v) => v instanceof FileList),
 });
 
 const NeuerEintrag = () => {

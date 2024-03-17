@@ -13,10 +13,10 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 const formSchema = z.object({
-  pdf: z.instanceof(FileList).refine((val) => val.length > 0, 'File is required'),
+  pdf: z.custom<FileList>((v) => v instanceof FileList),
 });
 
-export const NeuerEintrag = () => {
+const NeuerEintrag = () => {
   // 1. Define your form.
   const session = useSession();
   const form = useForm<z.infer<typeof formSchema>>({

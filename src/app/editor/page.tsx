@@ -1,5 +1,5 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import LoginButton from '@/components/ui/loginbutton';
+import { authOptions } from '@/lib/utils/authOptions';
 import { getServerSession } from 'next-auth/next';
 import Link from 'next/link';
 
