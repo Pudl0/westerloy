@@ -16,18 +16,6 @@ import { Button } from './ui/button';
 import LoginButton from './ui/loginbutton';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 
-const contentMuehlenhof: FlyoutMenuContent = {
-  title: 'Mühlenhof',
-  items: [
-    { name: 'Trauungen', description: 'Das Trauzimmer im Mühlenhof.', href: '/trauungen' },
-    {
-      name: 'Den Mühlenhof mieten',
-      description: 'Der ideale ort für Feiern und gemütliches Beisammen sein.',
-      href: '/muelenhof-mieten',
-    },
-  ],
-};
-
 const contentClubs: FlyoutMenuContent = {
   title: 'Vereine',
   items: [
@@ -50,6 +38,7 @@ const contentHappenings: FlyoutMenuContent = {
   items: [
     { name: 'Dorfzeitung', description: 'Alle Ausgaben der Dorfzeitung', href: '/dorfgeschehen/dorfzeitung' },
     { name: 'Rückblicke', description: 'Impressionen vergangener Veranstaltungen', href: '/dorfgeschehen/recap' },
+    { name: 'Neuigkeiten', description: 'Aktuelle Neuigkeiten aus Westerloy', href: '/dorfgeschehen/neuigkeiten' },
   ],
 };
 
