@@ -1,4 +1,4 @@
-import EventDashboard from './eventdashboard/page';
+import EventDashboard from '@/components/eventdashboard';
 
 export default async function Home() {
   return (
@@ -27,7 +27,7 @@ export default async function Home() {
           </span>
         </h2>
       </div>
-      <EventDashboard></EventDashboard>
+      <EventDashboard />
     </main>
   );
 }
