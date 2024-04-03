@@ -11,7 +11,7 @@ export default async function EventDashboard() {
   const eventEntries = await prisma.eventEntries.findMany({
     where: {
       timeOfEvent: {
-        gte: new Date('2024-04-11'),
+        gte: new Date(),
       },
     },
     orderBy: [{ timeOfEvent: 'asc' }],
