@@ -8,8 +8,13 @@ const prisma = new PrismaClient();
 export default async function EventDashboard() {
   noStore();
 
-  const eventEntries = (await prisma.eventEntries.findMany()).sort(function (a, b) {
-    return +a.timeOfEvent - +b.timeOfEvent;
+  const eventEntries = await prisma.eventEntries.findMany({
+    where: {
+      timeOfEvent: {
+        gte: new Date('2024-04-11'),
+      },
+    },
+    orderBy: [{ timeOfEvent: 'asc' }],
   });
   prisma.$disconnect();
   return (
