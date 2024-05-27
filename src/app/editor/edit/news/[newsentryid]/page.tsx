@@ -2,16 +2,11 @@
 
 import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import LoginButton from '@/components/ui/loginbutton';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
-import { cn } from '@/lib/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -32,19 +27,18 @@ const formSchema = z.object({
       message: 'Der Text muss mindestens 2 Zeichen lang sein.',
     })
     .max(5000, { message: 'Der Nachrichtentext darf maximal 5000 Zeichen lang sein.' }),
-  timeOfEvent: z.date(),
-  location: z
+  shortDescription: z
     .string()
     .min(2, {
-      message: 'Der Ort muss mindestens 2 Zeichen lang sein.',
+      message: 'Die Kurzbeschreibung muss mindestens 2 Zeichen lang sein.',
     })
-    .max(5100, { message: 'Der Ort darf maximal 100 Zeichen lang sein.' }),
+    .max(250, { message: 'Die Kurzbeschreibung darf maximal 250 Zeichen lang sein.' }),
 });
 
 const EintragBearbeiten = ({
   params,
 }: {
-  params: { evententryid: number; title: string; description: string; location: string; timeOfEvent: Date };
+  params: { newsentryid: number; title: string; description: string; shortDescription: string };
 }) => {
   const session = useSession();
   // 1. Define your form.
@@ -53,40 +47,38 @@ const EintragBearbeiten = ({
     defaultValues: {
       title: params.title,
       description: params.description,
-      location: params.location,
-      timeOfEvent: params.timeOfEvent,
+      shortDescription: params.shortDescription,
     },
   });
   const router = useRouter();
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    fetch(`/api/evententries`, {
+    fetch(`/api/newsentries`, {
       method: 'PATCH',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        newid: params.evententryid,
+        newid: params.newsentryid,
         newtitle: values.title,
         newdescription: values.description,
-        newlocation: values.location,
-        newTimeOfEvent: values.timeOfEvent,
+        newshortdescription: values.shortDescription,
       }),
     });
     router.push('/');
     router.refresh();
   }
-  function onDeleteSubmit(evententryid: number) {
-    fetch(`/api/evententries/delete`, {
+  function onDeleteSubmit() {
+    fetch(`/api/newsentries/delete`, {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: evententryid,
+        id: params.newsentryid,
       }),
     });
     router.push('/');
@@ -109,7 +101,7 @@ const EintragBearbeiten = ({
                       <FormControl>
                         <Input placeholder="Bitte Titel eingeben..." {...field} />
                       </FormControl>
-                      <FormDescription>Hier bitte den Titel des Events eintragen</FormDescription>
+                      <FormDescription>Hier bitte den Titel der Nachricht eintragen</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -119,61 +111,25 @@ const EintragBearbeiten = ({
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Beschreibung des Events</FormLabel>
+                      <FormLabel>Beschreibung der Nachricht</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Bitte Beschreibung des Events eingeben..." {...field} />
+                        <Textarea placeholder="Bitte Beschreibung der Nachricht eingeben..." {...field} />
                       </FormControl>
-                      <FormDescription>Hier bitte die Beschreibung des Events eintragen</FormDescription>
+                      <FormDescription>Hier bitte die Beschreibung der Nachricht eintragen</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
                   control={form.control}
-                  name="timeOfEvent"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Zeitpunkt der Veranstaltung</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={'outline'}
-                              className={cn(
-                                'w-[240px] pl-3 text-left font-normal',
-                                !field.value && 'text-muted-foreground'
-                              )}
-                            >
-                              {field.value ? format(field.value, 'PPP') : <span>Bitte Zeitpunkt auswählen</span>}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) => date < new Date()}
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormDescription>Der Zeitpunkt der Veranstaltung</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="location"
+                  name="shortDescription"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Der Ort der Veranstaltung</FormLabel>
+                      <FormLabel>Kurzbeschreibung der Nachricht</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Bitte den Ort eingeben..." {...field} />
+                        <Textarea placeholder="Bitte Kurzbeschreibung einfügen.." {...field} />
                       </FormControl>
-                      <FormDescription>Hier bitte den Ort der Veranstaltung eintragen</FormDescription>
+                      <FormDescription>Hier bitte die Kurzbeschreibung eintragen</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -183,7 +139,7 @@ const EintragBearbeiten = ({
             </Form>
           </div>
         }
-        <Button onClick={() => onDeleteSubmit(params.evententryid)}>Eintrag entfernen</Button>
+        <Button onClick={() => onDeleteSubmit()}>Eintrag entfernen</Button>
       </div>
     );
   } else {
@@ -191,10 +147,10 @@ const EintragBearbeiten = ({
   }
 };
 
-export default function Veranstaltung({
+export default function Neuigkeit({
   params,
 }: {
-  params: { evententryid: number; title: string; description: string; location: string; timeOfEvent: Date };
+  params: { newsentryid: number; title: string; description: string; shortDescription: string };
 }) {
   return (
     <SessionProvider>

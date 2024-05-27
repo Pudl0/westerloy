@@ -72,6 +72,7 @@ const NeuerEintrag = () => {
       });
     }
     router.push('/');
+    router.refresh();
   }
   if (session.status === 'authenticated') {
     return (
