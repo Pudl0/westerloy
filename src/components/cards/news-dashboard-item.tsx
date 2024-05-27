@@ -1,10 +1,13 @@
 import { NewsEntry } from '@/lib/types/news-entry';
+import { authOptions } from '@/lib/utils/authOptions';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getServerSession } from 'next-auth/next';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function NewsDashboardItem(props: { newsentry: NewsEntry }) {
+export default async function NewsDashboardItem(props: { newsentry: NewsEntry }) {
+  const session = await getServerSession(authOptions);
   return (
     <div className="lg:max-h-lg max-h-sm flex flex-col rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800 lg:max-w-lg">
       <Image className="h-3/4 rounded-t-lg" src={props.newsentry.pictureLink} width={800} height={600} alt="" />
@@ -29,6 +32,22 @@ export default function NewsDashboardItem(props: { newsentry: NewsEntry }) {
           </Link>
           <FontAwesomeIcon icon={faArrowRight} className="fas fa-arrow-right"></FontAwesomeIcon>
         </button>
+        {session && (
+          <Link
+            href={{
+              pathname: '/editor/edit/news/[newsdetailid]',
+              query: {
+                id: props.newsentry.id,
+                title: props.newsentry.title,
+                description: props.newsentry.description,
+                shortDescription: props.newsentry.shortDescription,
+              },
+            }}
+            as={`/editor/edit/news/${props.newsentry.id}`}
+          >
+            Nachricht bearbeiten
+          </Link>
+        )}
       </div>
     </div>
   );

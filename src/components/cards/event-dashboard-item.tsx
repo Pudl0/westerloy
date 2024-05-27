@@ -30,7 +30,7 @@ export default async function EventDashboardItem(props: { eventEntry: EventEntry
             {session && (
               <Link
                 href={{
-                  pathname: 'editor/edit/veranstaltungen/[newsdetailid]',
+                  pathname: 'editor/edit/veranstaltungen/[evententryid]',
                   query: {
                     id: props.eventEntry.id,
                     title: props.eventEntry.title,
