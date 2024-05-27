@@ -18,12 +18,12 @@ export default function NewsDashboardItem(props: { newsentry: NewsEntry }) {
         <button className="inline-flex items-center gap-2 self-end rounded-lg p-2 text-sm font-medium text-black hover:bg-slate-100">
           <Link
             href={{
-              pathname: 'newsdetail/[newsdetailid]',
+              pathname: 'neigkeiten/beitrag/[newsdetailid]',
               query: {
                 newsdetailid: props.newsentry.id.toString(),
               },
             }}
-            as={`newsdetail/${props.newsentry.id}`}
+            as={`neuigkeiten/beitrag/${props.newsentry.id}`}
           >
             Zum Artikel
           </Link>
