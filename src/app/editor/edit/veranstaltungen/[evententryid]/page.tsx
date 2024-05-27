@@ -76,6 +76,21 @@ const EintragBearbeiten = ({
       }),
     });
     router.push('/');
+    router.refresh();
+  }
+  function onDeleteSubmit(evententryid: number) {
+    fetch(`/api/evententries/delete`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: evententryid,
+      }),
+    });
+    router.push('/');
+    router.refresh();
   }
   if (session.status === 'authenticated') {
     return (
@@ -168,6 +183,7 @@ const EintragBearbeiten = ({
             </Form>
           </div>
         }
+        <Button onClick={() => onDeleteSubmit(params.evententryid)}>Eintrag entfernen</Button>
       </div>
     );
   } else {
