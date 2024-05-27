@@ -23,3 +23,19 @@ export async function POST(req: Request) {
   await prisma.$disconnect();
   return NextResponse.json({ message: 'Created new NewsEntry' }, { status: 200 });
 }
+
+export async function PATCH(req: Request) {
+  const { newid, newtitle, newdescription, newshortdescription } = await req.json();
+  await prisma.newsEntries.update({
+    where: {
+      id: parseInt(newid),
+    },
+    data: {
+      title: newtitle,
+      description: newdescription,
+      shortDescription: newshortdescription,
+    },
+  });
+  await prisma.$disconnect();
+  return NextResponse.json({ message: 'Edited provided NewsEntry' }, { status: 200 });
+}
