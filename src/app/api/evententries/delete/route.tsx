@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   const { id } = await req.json();
   await prisma.eventEntries.delete({
     where: {
-      id: id,
+      id: parseInt(id),
     },
   });
   await prisma.$disconnect();
