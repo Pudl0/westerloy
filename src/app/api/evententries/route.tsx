@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/utils/prisma-client';
 import fs from 'fs';
 import { NextResponse } from 'next/server';
-
-const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   const { title, description, timeOfEvent, location, pictureString } = await req.json();
@@ -18,7 +16,6 @@ export async function POST(req: Request) {
   await prisma.eventEntries.create({
     data: { title, description, timeOfEvent, location, pictureLink: savePath },
   });
-  await prisma.$disconnect();
   return NextResponse.json({ message: 'Created new EventEntry' }, { status: 200 });
 }
 
@@ -35,6 +32,5 @@ export async function PATCH(req: Request) {
       timeOfEvent: newTimeOfEvent,
     },
   });
-  await prisma.$disconnect();
   return NextResponse.json({ message: 'Edited provided EventEntry' }, { status: 200 });
 }

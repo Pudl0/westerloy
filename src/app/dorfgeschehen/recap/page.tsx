@@ -1,12 +1,10 @@
 import RecapDashboardItem from '@/components/cards/recap-dashboard-item';
 import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
-import { PrismaClient, RecapEntries } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { RecapEntry } from '@/lib/types/recap-entry';
+import { prisma } from '@/lib/utils/prisma-client';
 
 export default async function Recap() {
   const recapEntries = (await prisma.recapEntries.findMany()).reverse();
-  prisma.$disconnect();
   return (
     <div className="flex min-h-screen flex-col items-center justify-between px-10">
       <BackToDashboardButton></BackToDashboardButton>
@@ -22,7 +20,7 @@ export default async function Recap() {
         </h2>
       </div>
       <div className="mx-8 grid justify-items-center gap-x-24 gap-y-32 pt-12 sm:grid-cols-1 lg:grid-cols-2 lg:pt-24">
-        {recapEntries.map(function (recapentry: RecapEntries) {
+        {recapEntries.map(function (recapentry: RecapEntry) {
           return <RecapDashboardItem recapentry={recapentry} key={recapentry.id} />;
         })}
       </div>
