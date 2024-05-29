@@ -1,9 +1,8 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/utils/prisma-client';
 import fs from 'fs';
 import { NextResponse } from 'next/server';
 
 const baseFolderPath = './public/uploads/recap';
-const prismaClient = new PrismaClient();
 
 export async function POST(req: Request) {
   const { title, shortDescription, description, pictureStrings } = await req.json();
@@ -22,7 +21,7 @@ export async function POST(req: Request) {
     }
   }
 
-  await prismaClient.recapEntries.create({
+  await prisma.recapEntries.create({
     data: {
       title: title,
       shortDescription: shortDescription,
@@ -30,8 +29,6 @@ export async function POST(req: Request) {
       folderLink: recapFolderPath,
     },
   });
-  prismaClient.$disconnect();
-
   // Return success response
   return NextResponse.json({ success: true }, { status: 200 });
 }

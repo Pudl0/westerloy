@@ -1,8 +1,6 @@
 import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/utils/prisma-client';
 import Image from 'next/image';
-
-const prisma = new PrismaClient();
 
 export default async function NewsDetail({ params }: { params: { newsdetailid: string } }) {
   const newsEntry = await prisma.newsEntries.findUniqueOrThrow({
@@ -10,7 +8,6 @@ export default async function NewsDetail({ params }: { params: { newsdetailid: s
       id: parseInt(params.newsdetailid),
     },
   });
-  await prisma.$disconnect();
   return (
     <div className="mt-10 w-full">
       <BackToDashboardButton></BackToDashboardButton>

@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/utils/prisma-client';
 import fs from 'fs';
 import { NextResponse } from 'next/server';
-
-const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   const { title, description, pictureString, shortDescription } = await req.json();
@@ -20,6 +18,5 @@ export async function POST(req: Request) {
     data: { title, description, pictureLink: savePath, shortDescription },
   });
 
-  await prisma.$disconnect();
   return NextResponse.json({ message: 'Created new NewsEntry' }, { status: 200 });
 }

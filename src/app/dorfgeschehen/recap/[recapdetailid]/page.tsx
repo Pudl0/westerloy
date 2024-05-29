@@ -1,9 +1,7 @@
 import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/utils/prisma-client';
 import fs from 'fs';
 import Image from 'next/image';
-
-const prisma = new PrismaClient();
 
 export default async function RecapDetail({ params }: { params: { recapdetailid: string } }) {
   const recapentry = await prisma.recapEntries.findUniqueOrThrow({
@@ -11,7 +9,6 @@ export default async function RecapDetail({ params }: { params: { recapdetailid:
       id: parseInt(params.recapdetailid),
     },
   });
-  await prisma.$disconnect();
   const fileNames = fs.readdirSync(recapentry.folderLink);
   return (
     <div className="mt-10 w-full">
