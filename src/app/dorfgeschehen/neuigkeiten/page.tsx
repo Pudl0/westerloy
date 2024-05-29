@@ -1,16 +1,13 @@
 import NewsDashboardItem from '@/components/cards/news-dashboard-item';
 import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import { NewsEntry } from '@/lib/types/news-entry';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/utils/prisma-client';
 import { unstable_noStore as noStore } from 'next/cache';
-
-const prisma = new PrismaClient();
 
 export default async function NewsDashboard() {
   noStore();
 
   const newsEntries = (await prisma.newsEntries.findMany()).reverse();
-  prisma.$disconnect();
   return (
     <main className="flex flex-col items-center justify-between px-10">
       <BackToDashboardButton></BackToDashboardButton>
