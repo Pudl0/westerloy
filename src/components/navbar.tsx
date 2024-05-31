@@ -10,11 +10,10 @@ import { SessionProvider, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
-
 import muehlenhofIconImage from '../../public/Muehlenhof_Icon.png';
-import { Button } from './ui/button';
-import LoginButton from './ui/loginbutton';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
+import { Button } from '@/components/ui/button';
+import LoginButton from '@/components/ui/loginbutton';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 const contentClubs: FlyoutMenuContent = {
   title: 'Vereine',

@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 const folderPath = './public/uploads/dorfzeitung';
 
-export async function GET(req: Request) {
+export async function GET() {
   // Get all PDF files from the folder
   const files = fs.readdirSync(folderPath).filter((file) => file.endsWith('.pdf'));
 
