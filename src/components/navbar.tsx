@@ -1,19 +1,21 @@
 'use client';
 
+import { SessionProvider, useSession } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Fragment, useEffect, useState } from 'react';
+
+import { Button } from '@/components/ui/button';
+import LoginButton from '@/components/ui/loginbutton';
 import { Separator } from '@/components/ui/separator';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { FlyoutMenuContent } from '@/lib/types/flyout-menu-types';
 import { SidebarLinkContent } from '@/lib/types/sidebar-link-types';
 import { faBars, faChevronDown, faHandHoldingHeart, faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Popover, Transition } from '@headlessui/react';
-import { SessionProvider, useSession } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Fragment, useEffect, useState } from 'react';
+
 import muehlenhofIconImage from '../../public/Muehlenhof_Icon.png';
-import { Button } from '@/components/ui/button';
-import LoginButton from '@/components/ui/loginbutton';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 const contentClubs: FlyoutMenuContent = {
   title: 'Vereine',

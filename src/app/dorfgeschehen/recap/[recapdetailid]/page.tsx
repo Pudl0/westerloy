@@ -1,7 +1,8 @@
-import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
-import { prisma } from '@/lib/utils/prisma-client';
 import fs from 'fs';
 import Image from 'next/image';
+
+import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
+import { prisma } from '@/lib/utils/prisma-client';
 
 export default async function RecapDetail({ params }: { params: { recapdetailid: string } }) {
   const recapentry = await prisma.recapEntries.findUniqueOrThrow({

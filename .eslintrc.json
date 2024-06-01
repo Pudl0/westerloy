@@ -2,9 +2,7 @@
   "extends": ["next", "next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "no-relative-import-paths"],
-  "ignorePatterns": [
-    "src/components/ui"
-  ],
+  "ignorePatterns": ["src/components/ui"],
   "rules": {
     "@typescript-eslint/explicit-member-accessibility": [
       "error",

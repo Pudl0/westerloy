@@ -1,9 +1,10 @@
-import { RecapEntry } from '@/lib/types/recap-entry';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import fs from 'fs';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { RecapEntry } from '@/lib/types/recap-entry';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function RecapDashboardItem(props: { recapentry: RecapEntry }) {
   const fileNames = fs.readdirSync(props.recapentry.folderLink);
