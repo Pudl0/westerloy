@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useCallback, useState } from 'react';
 import { useController } from 'react-hook-form';
 
-import { getBase64 } from './utils';
+import { getBase64 } from '@/lib/utils/utils';
 
 export function ImagePicker({ name, errors, control }) {
   const { field } = useController({ name, control });
