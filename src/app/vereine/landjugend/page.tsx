@@ -1,5 +1,6 @@
-import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import Image from 'next/image';
+
+import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 
 export default async function Landjugend() {
   return (

@@ -1,6 +1,7 @@
-import { prisma } from '@/lib/utils/prisma-client';
 import fs from 'fs';
 import { NextResponse } from 'next/server';
+
+import { prisma } from '@/lib/utils/prisma-client';
 
 const baseFolderPath = './public/uploads/recap';
 

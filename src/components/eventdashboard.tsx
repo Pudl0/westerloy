@@ -1,7 +1,8 @@
+import { unstable_noStore as noStore } from 'next/cache';
+
 import EventDashboardItem from '@/components/cards/event-dashboard-item';
 import { EventEntry } from '@/lib/types/event-entry';
 import { prisma } from '@/lib/utils/prisma-client';
-import { unstable_noStore as noStore } from 'next/cache';
 
 export default async function EventDashboard() {
   noStore();

@@ -1,7 +1,8 @@
-import LoginButton from '@/components/ui/loginbutton';
-import { authOptions } from '@/lib/utils/authOptions';
 import { getServerSession } from 'next-auth/next';
 import Link from 'next/link';
+
+import LoginButton from '@/components/ui/loginbutton';
+import { authOptions } from '@/lib/utils/authOptions';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);

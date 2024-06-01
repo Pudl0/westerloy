@@ -1,6 +1,7 @@
-import { authOptions } from '@/lib/utils/authOptions';
 import NextAuth from 'next-auth';
 import type { NextRequest } from 'next/server';
+
+import { authOptions } from '@/lib/utils/authOptions';
 
 interface RouteHandlerContext {
   params: { nextauth: string[] };

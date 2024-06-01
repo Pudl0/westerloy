@@ -1,3 +1,9 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.configPath": ".prettierrc.js",
+  "prettier.ignorePath": ".prettierignore",
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "typescript.preferences.autoImportFileExcludePatterns": ["@radix-ui"],
+  "typescript.preferences.importModuleSpecifier": "non-relative"
 }

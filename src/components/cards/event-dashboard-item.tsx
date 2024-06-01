@@ -1,10 +1,11 @@
+import { getServerSession } from 'next-auth/next';
+import Image from 'next/image';
+import Link from 'next/link';
+
 import { EventEntry } from '@/lib/types/event-entry';
 import { authOptions } from '@/lib/utils/authOptions';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getServerSession } from 'next-auth/next';
-import Image from 'next/image';
-import Link from 'next/link';
 
 const monthFormatter = new Intl.DateTimeFormat('de', { month: 'long' });
 

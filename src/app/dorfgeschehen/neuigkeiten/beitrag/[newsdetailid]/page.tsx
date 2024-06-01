@@ -1,6 +1,7 @@
+import Image from 'next/image';
+
 import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import { prisma } from '@/lib/utils/prisma-client';
-import Image from 'next/image';
 
 export default async function NewsDetail({ params }: { params: { newsdetailid: string } }) {
   const newsEntry = await prisma.newsEntries.findUniqueOrThrow({

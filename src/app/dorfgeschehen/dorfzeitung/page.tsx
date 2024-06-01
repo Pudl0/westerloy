@@ -1,7 +1,8 @@
 'use client';
 
-import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import { useEffect, useState } from 'react';
+
+import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 
 const fetchNewspaper = async () => {
   const response = await fetch(`/api/newspaper`, {
