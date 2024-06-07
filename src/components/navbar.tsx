@@ -1,9 +1,11 @@
 'use client';
 
-import { SessionProvider } from 'next-auth/react';
+import { SessionProvider, useSession } from 'next-auth/react';
+import Link from 'next/link';
 import * as React from 'react';
 
 import { MuehlenhofIcon } from '@/components/muehelnhof-icon';
+import LoginButton from '@/components/ui/loginbutton';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -15,7 +17,6 @@ import {
 import { cn } from '@/lib/utils/utils';
 
 export default function Navbar() {
-  //const session = useSession();
   return (
     <SessionProvider>
       <NavigationMenu>
@@ -74,12 +75,7 @@ export default function Navbar() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            {/* {if (session.status === 'authenticated')
-   
-            
-            <Link href="#/editor" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>Editor</NavigationMenuLink>
-            </Link>} */}
+            <LoggedInMenu></LoggedInMenu>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
@@ -108,4 +104,21 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
     );
   }
 );
+
+const LoggedInMenu = () => {
+  const session = useSession();
+  if (session.status === 'authenticated')
+    return (
+      <Link
+        href={{
+          pathname: '/editor',
+        }}
+        as={'/editor'}
+      >
+        Editor
+      </Link>
+    );
+  else return <LoginButton />;
+};
+
 ListItem.displayName = 'ListItem';
