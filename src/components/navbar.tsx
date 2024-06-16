@@ -5,6 +5,7 @@ import Link from 'next/link';
 import * as React from 'react';
 
 import { MuehlenhofIcon } from '@/components/muehelnhof-icon';
+import { Button } from '@/components/ui/button';
 import LoginButton from '@/components/ui/loginbutton';
 import {
   NavigationMenu,
@@ -14,17 +15,22 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
+import { Separator } from '@/components/ui/separator';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { SidebarLinkContent } from '@/lib/types/sidebar-link-types';
 import { cn } from '@/lib/utils/utils';
+import { faBars, faHandHoldingHeart, faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Navbar() {
   return (
     <SessionProvider>
-      <NavigationMenu>
+      <NavigationMenu className="max-lg:hidden">
         <NavigationMenuList>
           <MuehlenhofIcon></MuehlenhofIcon>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Vereine</NavigationMenuTrigger>
-            <NavigationMenuContent className="absolute top-full bg-white">
+            <NavigationMenuContent className="right:0 absolute left-auto top-full w-auto bg-white">
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
@@ -39,8 +45,8 @@ export default function Navbar() {
                 <ListItem href="/vereine/obv" title="Obv">
                   Der Ortsbürgerverein informiert.
                 </ListItem>
-                <ListItem href="/vereine/landjugend" title="Landjugend">
-                  How to install dependencies and structure your app.
+                <ListItem href="/vereine/landjugend" title="Landjugend 3.0">
+                  Die Landjugend stellt sich vor
                 </ListItem>
                 <ListItem href="/vereine/theater" title="Theater">
                   Unser plattdeutsches Theater.
@@ -50,7 +56,7 @@ export default function Navbar() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Dorfgeschehen</NavigationMenuTrigger>
-            <NavigationMenuContent className="absolute top-full bg-white">
+            <NavigationMenuContent className="right:0 absolute left-auto top-full w-auto bg-white">
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
@@ -79,6 +85,28 @@ export default function Navbar() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
+      <div className="lg:hidden">
+        <Sheet>
+          <SheetTrigger asChild={true}>
+            <Button variant="outline" size="icon">
+              <FontAwesomeIcon icon={faBars} />
+            </Button>
+          </SheetTrigger>
+          <SheetContent className="w-[250px]">
+            <SheetHeader>
+              <SheetTitle className="flex justify-center">Westerloy</SheetTitle>
+              <Separator />
+              <div className="flex flex-col space-y-1">
+                <SidebarLink name="OBV" href="/vereine/obv" icon={faHandHoldingHeart} />
+                <SidebarLink name="Landjugend 3.0" href="/vereine/landjugend" icon={faPeopleGroup} />
+                <SidebarLink name="Theater" href="/vereine/theater" icon={faPeopleGroup} />
+                <SidebarLink name="Dorfzeitung" href="/dorfgeschehen/dorfzeitung" icon={faPeopleGroup} />
+                <SidebarLink name="Rückblicke" href="/dorfgeschehen/recap" icon={faPeopleGroup} />
+              </div>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
+      </div>
     </SessionProvider>
   );
 }
@@ -104,6 +132,18 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
     );
   }
 );
+
+function SidebarLink(props: SidebarLinkContent) {
+  return (
+    <Link
+      href={props.href}
+      className="flex flex-row justify-end space-x-2 bg-white px-3 py-2 hover:rounded-lg hover:bg-slate-200"
+    >
+      <div>{props.name}</div>
+      <FontAwesomeIcon icon={props.icon} className="my-auto flex w-6 flex-col" />
+    </Link>
+  );
+}
 
 const LoggedInMenu = () => {
   const session = useSession();
