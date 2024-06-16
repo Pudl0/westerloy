@@ -27,8 +27,8 @@ export default function Navbar() {
     <SessionProvider>
       <NavigationMenu className="max-lg:hidden">
         <NavigationMenuList>
-          <MuehlenhofIcon></MuehlenhofIcon>
-          <NavigationMenuItem>
+          <MuehlenhofIcon />
+          <NavigationMenuItem className="pl-24">
             <NavigationMenuTrigger>Vereine</NavigationMenuTrigger>
             <NavigationMenuContent className="right:0 absolute left-auto top-full w-auto bg-white">
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -42,11 +42,11 @@ export default function Navbar() {
                     </a>
                   </NavigationMenuLink>
                 </li>
-                <ListItem href="/vereine/obv" title="Obv">
+                <ListItem href="/vereine/obv" title="OBV">
                   Der Ortsbürgerverein informiert.
                 </ListItem>
                 <ListItem href="/vereine/landjugend" title="Landjugend 3.0">
-                  Die Landjugend stellt sich vor
+                  Die Landjugend stellt sich vor.
                 </ListItem>
                 <ListItem href="/vereine/theater" title="Theater">
                   Unser plattdeutsches Theater.
@@ -63,7 +63,7 @@ export default function Navbar() {
                     <a className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md">
                       <div className="mb-2 mt-4 text-lg font-medium">Neuigkeiten</div>
                       <p className="text-sm leading-tight text-muted-foreground">
-                        Aktuelle Neuigkeiten und unsere Dorfzeitung
+                        Aktuelle Neuigkeiten und unsere Dorfzeitung.
                       </p>
                     </a>
                   </NavigationMenuLink>
@@ -72,7 +72,7 @@ export default function Navbar() {
                   Das Archiv der Dorfzeitung.
                 </ListItem>
                 <ListItem href="/dorfgeschehen/recap" title="Rückblicke">
-                  Impressionen vergangener Veranstaltngen
+                  Impressionen vergangener Veranstaltungen.
                 </ListItem>
                 <ListItem href="/dorfgeschehen/neuigkeiten" title="Neuigkeiten">
                   Aktuelle Neuigkeiten aus dem Dorf.
