@@ -24,7 +24,7 @@ export default function Navbar() {
           <MuehlenhofIcon></MuehlenhofIcon>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Vereine</NavigationMenuTrigger>
-            <NavigationMenuContent>
+            <NavigationMenuContent className="absolute top-full bg-white">
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
@@ -50,7 +50,7 @@ export default function Navbar() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Dorfgeschehen</NavigationMenuTrigger>
-            <NavigationMenuContent>
+            <NavigationMenuContent className="absolute top-full bg-white">
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
