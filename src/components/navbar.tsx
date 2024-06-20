@@ -156,6 +156,7 @@ const LoggedInMenu = () => {
           pathname: '/editor',
         }}
         as={'/editor'}
+        className="text-sm font-medium"
       >
         Editor
       </Link>
