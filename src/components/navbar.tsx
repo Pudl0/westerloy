@@ -34,12 +34,12 @@ export default function Navbar() {
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
-                    <a className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md">
-                      <div className="mb-2 mt-4 text-lg font-medium">Vereine</div>
+                    <div className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md">
+                      <div className="gap-4 text-lg font-medium">Vereine</div>
                       <p className="text-sm leading-tight text-muted-foreground">
                         Alles rund um die Vereine bei uns im Dorf.
                       </p>
-                    </a>
+                    </div>
                   </NavigationMenuLink>
                 </li>
                 <ListItem href="/vereine/obv" title="OBV">
@@ -60,12 +60,12 @@ export default function Navbar() {
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
-                    <a className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md">
-                      <div className="mb-2 mt-4 text-lg font-medium">Neuigkeiten</div>
+                    <div className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md">
+                      <div className="gap-4 text-lg font-medium">Neuigkeiten</div>
                       <p className="text-sm leading-tight text-muted-foreground">
                         Aktuelle Neuigkeiten und unsere Dorfzeitung.
                       </p>
-                    </a>
+                    </div>
                   </NavigationMenuLink>
                 </li>
                 <ListItem href="/dorfgeschehen/dorfzeitung" title="Dorfzeitung">
