@@ -19,14 +19,9 @@ import { Separator } from '@/components/ui/separator';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { SidebarLinkContent } from '@/lib/types/sidebar-link-types';
 import { cn } from '@/lib/utils/utils';
-import {
-  faBackward,
-  faBars,
-  faNewspaper,
-  faPeopleGroup,
-  faStar,
-  faTheaterMasks,
-} from '@fortawesome/free-solid-svg-icons';
+import { faNewspaper } from '@fortawesome/free-regular-svg-icons';
+import { faStar } from '@fortawesome/free-regular-svg-icons';
+import { faArrowRotateLeft, faBars, faPeopleGroup, faTheaterMasks } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Navbar() {
@@ -108,7 +103,7 @@ export default function Navbar() {
                 <SidebarLink name="Landjugend 3.0" href="/vereine/landjugend" icon={faPeopleGroup} />
                 <SidebarLink name="Theater" href="/vereine/theater" icon={faTheaterMasks} />
                 <SidebarLink name="Dorfzeitung" href="/dorfgeschehen/dorfzeitung" icon={faNewspaper} />
-                <SidebarLink name="Rückblicke" href="/dorfgeschehen/recap" icon={faBackward} />
+                <SidebarLink name="Rückblicke" href="/dorfgeschehen/recap" icon={faArrowRotateLeft} />
                 <SidebarLink name="Neuigkeiten" href="/dorfgeschehen/neuigkeiten" icon={faStar} />
               </div>
             </SheetHeader>
