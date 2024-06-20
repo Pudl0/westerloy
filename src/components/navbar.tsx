@@ -85,7 +85,7 @@ export default function Navbar() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <div className="lg:hidden">
+      <div className="m-4 flex justify-end lg:hidden">
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline" size="icon">
