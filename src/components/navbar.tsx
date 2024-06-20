@@ -19,7 +19,14 @@ import { Separator } from '@/components/ui/separator';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { SidebarLinkContent } from '@/lib/types/sidebar-link-types';
 import { cn } from '@/lib/utils/utils';
-import { faBars, faHandHoldingHeart, faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBackward,
+  faBars,
+  faNewspaper,
+  faPeopleGroup,
+  faStar,
+  faTheaterMasks,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Navbar() {
@@ -97,11 +104,12 @@ export default function Navbar() {
               <SheetTitle className="flex justify-center">Westerloy</SheetTitle>
               <Separator />
               <div className="flex flex-col space-y-1">
-                <SidebarLink name="OBV" href="/vereine/obv" icon={faHandHoldingHeart} />
+                <SidebarLink name="OBV" href="/vereine/obv" icon={faPeopleGroup} />
                 <SidebarLink name="Landjugend 3.0" href="/vereine/landjugend" icon={faPeopleGroup} />
-                <SidebarLink name="Theater" href="/vereine/theater" icon={faPeopleGroup} />
-                <SidebarLink name="Dorfzeitung" href="/dorfgeschehen/dorfzeitung" icon={faPeopleGroup} />
-                <SidebarLink name="Rückblicke" href="/dorfgeschehen/recap" icon={faPeopleGroup} />
+                <SidebarLink name="Theater" href="/vereine/theater" icon={faTheaterMasks} />
+                <SidebarLink name="Dorfzeitung" href="/dorfgeschehen/dorfzeitung" icon={faNewspaper} />
+                <SidebarLink name="Rückblicke" href="/dorfgeschehen/recap" icon={faBackward} />
+                <SidebarLink name="Neuigkeiten" href="/dorfgeschehen/neuigkeiten" icon={faStar} />
               </div>
             </SheetHeader>
           </SheetContent>
