@@ -16,7 +16,7 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { Separator } from '@/components/ui/separator';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { SidebarLinkContent } from '@/lib/types/sidebar-link-types';
 import { cn } from '@/lib/utils/utils';
 import { faBars, faHandHoldingHeart, faPeopleGroup } from '@fortawesome/free-solid-svg-icons';
@@ -87,7 +87,7 @@ export default function Navbar() {
       </NavigationMenu>
       <div className="lg:hidden">
         <Sheet>
-          <SheetTrigger asChild={true}>
+          <SheetTrigger asChild>
             <Button variant="outline" size="icon">
               <FontAwesomeIcon icon={faBars} />
             </Button>
@@ -135,13 +135,15 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
 
 function SidebarLink(props: SidebarLinkContent) {
   return (
-    <Link
-      href={props.href}
-      className="flex flex-row justify-end space-x-2 bg-white px-3 py-2 hover:rounded-lg hover:bg-slate-200"
-    >
-      <div>{props.name}</div>
-      <FontAwesomeIcon icon={props.icon} className="my-auto flex w-6 flex-col" />
-    </Link>
+    <SheetClose asChild>
+      <Link
+        href={props.href}
+        className="flex flex-row justify-end space-x-2 bg-white px-3 py-2 hover:rounded-lg hover:bg-slate-200"
+      >
+        <div>{props.name}</div>
+        <FontAwesomeIcon icon={props.icon} className="my-auto flex w-6 flex-col" />
+      </Link>
+    </SheetClose>
   );
 }
 
