@@ -6,7 +6,7 @@ import muehlenhofIconImage from '../../public/Muehlenhof_Icon.png';
 export function MuehlenhofIcon() {
   return (
     <Link href="/" className="p-4">
-      <div className="flex lg:flex-1">
+      <div className="flex">
         <Image
           src={muehlenhofIconImage}
           alt="Picture of the Muehlenhof"
