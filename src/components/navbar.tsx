@@ -19,8 +19,7 @@ import { Separator } from '@/components/ui/separator';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { SidebarLinkContent } from '@/lib/types/sidebar-link-types';
 import { cn } from '@/lib/utils/utils';
-import { faNewspaper } from '@fortawesome/free-regular-svg-icons';
-import { faStar } from '@fortawesome/free-regular-svg-icons';
+import { faNewspaper, faStar } from '@fortawesome/free-regular-svg-icons';
 import { faArrowRotateLeft, faBars, faPeopleGroup, faTheaterMasks } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
