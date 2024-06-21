@@ -29,7 +29,7 @@ export default function Navbar() {
       <NavigationMenu className="max-lg:hidden">
         <NavigationMenuList>
           <MuehlenhofIcon />
-          <NavigationMenuItem className="pl-24">
+          <NavigationMenuItem className="lg:pl-96">
             <NavigationMenuTrigger>Vereine</NavigationMenuTrigger>
             <NavigationMenuContent className="right:0 absolute left-auto top-full w-auto bg-white">
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
