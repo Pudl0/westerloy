@@ -24,18 +24,10 @@ export default async function EventDashboardItem(props: { eventEntry: EventEntry
         <div className="grid w-full place-items-center bg-white md:w-2/3">
           <Image src={props.eventEntry.pictureLink} alt="Eventfoto" className="rounded-xl" width={1920} height={1080} />
         </div>
-        <div className="flex w-full flex-col space-y-2 bg-white p-3 md:w-2/3">
-          <div className="item-center flex justify-between">
-            <div className="flex items-center">
-              <FontAwesomeIcon icon={faClock} className="fa-regular" />
-              <p className="ml-2 text-sm font-bold text-gray-600">{dateString}</p>
-            </div>
-            <div className="flex items-center">
-              <FontAwesomeIcon icon={faLocationDot} className="fa-regular" />
-              <p className="ml-2 text-sm font-bold text-gray-600">{props.eventEntry.location}</p>
-            </div>
-            <div className="hidden rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-800 md:block">
-              {session && (
+        <div className="flex w-full flex-col space-y-4 bg-white p-3 md:w-2/3">
+          <div className="flex items-center justify-between self-end">
+            {session && (
+              <div className="hidden rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-800 md:block">
                 <Link
                   href={{
                     pathname: 'editor/edit/veranstaltungen/[evententryid]',
@@ -51,11 +43,21 @@ export default async function EventDashboardItem(props: { eventEntry: EventEntry
                 >
                   Event bearbeiten
                 </Link>
-              )}{' '}
-            </div>
+              </div>
+            )}{' '}
           </div>
           <h3 className="text-xl font-black text-gray-800 md:text-3xl">{props.eventEntry.title}</h3>
-          <p className="text-base text-gray-500 md:text-lg">{props.eventEntry.description}</p>
+          <p className="text-ellipsis text-base text-gray-500 md:text-lg">{props.eventEntry.description}</p>
+          <div className="flex items-center gap-8 lg:absolute lg:bottom-9">
+            <div className="flex items-center">
+              <FontAwesomeIcon icon={faClock} className="fa-regular" />
+              <p className="ml-2 text-sm font-bold text-gray-600">{dateString}</p>
+            </div>
+            <div className="flex items-center">
+              <FontAwesomeIcon icon={faLocationDot} className="fa-regular" />
+              <p className="ml-2 text-sm font-bold text-gray-600">{props.eventEntry.location}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
