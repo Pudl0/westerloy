@@ -20,11 +20,11 @@ export default async function EventDashboardItem(props: { eventEntry: EventEntry
     props.eventEntry.timeOfEvent.getFullYear();
   return (
     <div className="flex w-full flex-col justify-center">
-      <div className="relative mx-auto flex max-w-xs flex-col space-y-3 rounded-xl border border-white bg-white p-3 shadow-lg md:max-w-3xl md:flex-row md:space-x-5 md:space-y-0 lg:max-w-6xl">
-        <div className="grid w-full place-items-center bg-white md:w-2/3">
+      <div className="relative mx-auto flex max-w-sm flex-col rounded-xl border border-white bg-white p-3 shadow-lg md:max-w-3xl md:flex-row md:space-x-5 md:space-y-0 lg:max-w-6xl lg:space-y-3">
+        <div className="grid w-1/2 place-items-center bg-white max-md:hidden lg:w-full">
           <Image src={props.eventEntry.pictureLink} alt="Eventfoto" className="rounded-xl" width={1920} height={1080} />
         </div>
-        <div className="flex w-full flex-col space-y-4 bg-white p-3 md:w-2/3">
+        <div className="flex w-full flex-col bg-white lg:p-3">
           <div className="flex items-center justify-between self-end">
             {session && (
               <div className="hidden rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-800 md:block">
@@ -46,16 +46,18 @@ export default async function EventDashboardItem(props: { eventEntry: EventEntry
               </div>
             )}{' '}
           </div>
-          <h3 className="text-xl font-black text-gray-800 md:text-3xl">{props.eventEntry.title}</h3>
-          <p className="text-ellipsis text-base text-gray-500 md:text-lg">{props.eventEntry.description}</p>
-          <div className="flex items-center gap-8 lg:absolute lg:bottom-9">
+          <h3 className="pb-3 text-xl font-black text-gray-800 md:text-3xl">{props.eventEntry.title}</h3>
+          <p className="text-ellipsis text-base text-gray-500 max-lg:hidden md:text-lg">
+            {props.eventEntry.description}
+          </p>
+          <div className="flex gap-4 lg:absolute lg:bottom-9 lg:gap-8">
             <div className="flex items-center">
               <FontAwesomeIcon icon={faClock} className="fa-regular" />
-              <p className="ml-2 text-sm font-bold text-gray-600">{dateString}</p>
+              <p className="ml-1 text-xs font-bold text-gray-600 lg:text-sm">{dateString}</p>
             </div>
             <div className="flex items-center">
               <FontAwesomeIcon icon={faLocationDot} className="fa-regular" />
-              <p className="ml-2 text-sm font-bold text-gray-600">{props.eventEntry.location}</p>
+              <p className="ml-1 text-xs font-bold text-gray-600 lg:text-sm">{props.eventEntry.location}</p>
             </div>
           </div>
         </div>
