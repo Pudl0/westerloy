@@ -24,10 +24,10 @@ export default async function EventDashboardItem(props: { eventEntry: EventEntry
         <div className="grid w-1/2 place-items-center bg-white max-md:hidden lg:w-full">
           <Image src={props.eventEntry.pictureLink} alt="Eventfoto" className="rounded-xl" width={1920} height={1080} />
         </div>
-        <div className="flex w-full flex-col bg-white lg:p-3">
+        <div className="flex w-full flex-col bg-white xl:p-3">
           <div className="flex items-center justify-between self-end">
             {session && (
-              <div className="hidden rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-800 md:block">
+              <div className="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-800 max-xl:hidden">
                 <Link
                   href={{
                     pathname: 'editor/edit/veranstaltungen/[evententryid]',
@@ -46,8 +46,8 @@ export default async function EventDashboardItem(props: { eventEntry: EventEntry
               </div>
             )}{' '}
           </div>
-          <h3 className="pb-3 text-xl font-black text-gray-800 md:text-3xl">{props.eventEntry.title}</h3>
-          <p className="text-ellipsis text-base text-gray-500 max-lg:hidden md:text-lg">
+          <h3 className="pb-3 text-xl font-black text-gray-800 md:text-2xl">{props.eventEntry.title}</h3>
+          <p className="text-ellipsis text-base text-gray-500 max-xl:hidden md:text-lg">
             {props.eventEntry.description}
           </p>
           <div className="flex gap-4 lg:absolute lg:bottom-9 lg:gap-8">
