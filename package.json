@@ -1,6 +1,9 @@
 {
   "name": "westerloy",
   "version": "0.1.0",
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/dev-seed.ts"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -42,12 +45,11 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.6",
-    "typescript": "5.1.6",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@types/node": "^20.10.5",
+    "@types/node": "^20.14.10",
     "@typescript-eslint/eslint-plugin": "^7.11.0",
     "@typescript-eslint/parser": "^7.11.0",
     "eslint": "^8.57.0",
@@ -55,6 +57,8 @@
     "eslint-plugin-no-relative-import-paths": "^1.5.4",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.14",
-    "prisma": "^5.1.1"
+    "prisma": "^5.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
   }
 }
