@@ -1,8 +1,10 @@
 # westerloy
 
-# Database Seeding for dev experience
+# Database
 
-First you need to reset your database biy using the following command:
+## Database seeding for dev experience
+
+First you need to reset your database by using the following command:
 
 `npx prisma migrate reset`
 
