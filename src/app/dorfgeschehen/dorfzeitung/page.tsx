@@ -21,7 +21,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchNewspaper().then((data) => {
-      setFileNames(data.reverse());
+      setFileNames(data.sort((a: string, b: string) => a.localeCompare(b, 'de', { numeric: true })).reverse());
       if (data.length > 0 && selectedPDF === '') {
         setSelectedPDF(data[0]);
       }
