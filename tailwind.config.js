@@ -12,6 +12,10 @@ module.exports = {
     },
     extend: {
       colors: {
+        westerloyBackground: '#ECE4DB',
+        westerloyPrimary: '#D8E2DC',
+        westerloySecondary: '#FFE5D9',
+        westerloyAccent: '#FCD5CE',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
