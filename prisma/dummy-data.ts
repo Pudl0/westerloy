@@ -14,10 +14,8 @@ export class DummyData {
 
   private async seedEventEntries(amount: number) {
     for (let i = 0; i < amount; i++) {
-      await this.prisma.eventEntries.upsert({
-        where: { id: 0 },
-        update: {},
-        create: {
+      await this.prisma.eventEntries.create({
+        data: {
           title: this.chance.word(),
           description: this.chance.sentence(),
           location: this.chance.address({ short_suffix: true }),
@@ -35,10 +33,8 @@ export class DummyData {
 
   private async seedNewsEntries(amount: number) {
     for (let i = 0; i < amount; i++) {
-      await this.prisma.newsEntries.upsert({
-        where: { id: 0 },
-        update: {},
-        create: {
+      await this.prisma.newsEntries.create({
+        data: {
           title: this.chance.word(),
           description: this.chance.paragraph({ sentences: 10 }),
           shortDescription: this.chance.sentence(),
