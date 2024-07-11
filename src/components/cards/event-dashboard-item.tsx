@@ -46,7 +46,7 @@ export default async function EventDashboardItem(props: { eventEntry: EventEntry
               </div>
             )}{' '}
           </div>
-          <h3 className="pb-3 text-xl font-black text-gray-800 md:text-2xl">{props.eventEntry.title}</h3>
+          <h3 className="pb-3 text-base font-black text-gray-800 lg:text-2xl">{props.eventEntry.title}</h3>
           <p className="text-ellipsis text-base text-gray-500 max-xl:hidden md:text-lg">
             {props.eventEntry.description}
           </p>
