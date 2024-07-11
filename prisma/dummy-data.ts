@@ -25,7 +25,7 @@ export class DummyData {
             month: new Date().getMonth() + 1,
             year: new Date().getFullYear(),
           }),
-          pictureLink: '',
+          pictureLink: '/Muehlenhof.jpg',
         },
       });
     }
