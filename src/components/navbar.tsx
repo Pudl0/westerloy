@@ -26,12 +26,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default function Navbar() {
   return (
     <SessionProvider>
-      <NavigationMenu className="bg-gray-100 max-lg:hidden">
+      <NavigationMenu className="bg-westerloyPrimary max-lg:hidden">
         <NavigationMenuList>
           <MuehlenhofIcon />
-          <NavigationMenuItem className="bg-gray-100 lg:pl-96">
-            <NavigationMenuTrigger className="bg-gray-100">Vereine</NavigationMenuTrigger>
-            <NavigationMenuContent className="right:0 absolute left-auto top-full w-auto rounded-lg bg-gray-100">
+          <NavigationMenuItem className="lg:ml-96">
+            <NavigationMenuTrigger className="bg-westerloyPrimary">Vereine</NavigationMenuTrigger>
+            <NavigationMenuContent className="right:0 absolute left-auto top-full w-auto rounded-lg bg-westerloySecondary">
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
@@ -55,9 +55,9 @@ export default function Navbar() {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem className="bg-gray-100">
-            <NavigationMenuTrigger className="bg-gray-100">Dorfgeschehen</NavigationMenuTrigger>
-            <NavigationMenuContent className="right:0 absolute left-auto top-full w-auto rounded-lg bg-gray-100">
+          <NavigationMenuItem className="">
+            <NavigationMenuTrigger className="bg-westerloyPrimary">Dorfgeschehen</NavigationMenuTrigger>
+            <NavigationMenuContent className="right:0 absolute left-auto top-full w-auto rounded-lg bg-westerloySecondary">
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
@@ -82,7 +82,7 @@ export default function Navbar() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <LoggedInMenu></LoggedInMenu>
+            <LoggedInMenu />
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
@@ -121,7 +121,7 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
           <a
             ref={ref}
             className={cn(
-              'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+              'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none hover:bg-westerloyPrimary hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
               className
             )}
             {...props}
