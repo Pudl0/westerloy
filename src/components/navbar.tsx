@@ -15,7 +15,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import { Separator } from '@/components/ui/separator';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { SidebarLinkContent } from '@/lib/types/sidebar-link-types';
 import { cn } from '@/lib/utils/utils';
@@ -86,26 +85,25 @@ export default function Navbar() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <div className="m-4 flex justify-end lg:hidden">
+      <div className="flex justify-end bg-westerloyBackground p-4 lg:hidden">
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon">
+            <Button className="bg-westerloyAccent" variant="secondary" size="icon">
               <FontAwesomeIcon icon={faBars} />
             </Button>
           </SheetTrigger>
-          <SheetContent className="w-[250px]">
+          <SheetContent className="w-[250px] bg-westerloyBackground">
             <SheetHeader>
-              <SheetTitle className="flex justify-center">Westerloy</SheetTitle>
-              <Separator />
-              <div className="flex flex-col space-y-1">
-                <SidebarLink name="OBV" href="/vereine/obv" icon={faPeopleGroup} />
-                <SidebarLink name="Landjugend 3.0" href="/vereine/landjugend" icon={faPeopleGroup} />
-                <SidebarLink name="Theater" href="/vereine/theater" icon={faTheaterMasks} />
-                <SidebarLink name="Dorfzeitung" href="/dorfgeschehen/dorfzeitung" icon={faNewspaper} />
-                <SidebarLink name="Rückblicke" href="/dorfgeschehen/recap" icon={faArrowRotateLeft} />
-                <SidebarLink name="Neuigkeiten" href="/dorfgeschehen/neuigkeiten" icon={faStar} />
-              </div>
+              <SheetTitle className="mb-3 flex justify-center">Westerloy</SheetTitle>
             </SheetHeader>
+            <div className="flex flex-col space-y-1">
+              <SidebarLink name="OBV" href="/vereine/obv" icon={faPeopleGroup} />
+              <SidebarLink name="Landjugend 3.0" href="/vereine/landjugend" icon={faPeopleGroup} />
+              <SidebarLink name="Theater" href="/vereine/theater" icon={faTheaterMasks} />
+              <SidebarLink name="Dorfzeitung" href="/dorfgeschehen/dorfzeitung" icon={faNewspaper} />
+              <SidebarLink name="Rückblicke" href="/dorfgeschehen/recap" icon={faArrowRotateLeft} />
+              <SidebarLink name="Neuigkeiten" href="/dorfgeschehen/neuigkeiten" icon={faStar} />
+            </div>
           </SheetContent>
         </Sheet>
       </div>
@@ -138,10 +136,7 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
 function SidebarLink(props: SidebarLinkContent) {
   return (
     <SheetClose asChild>
-      <Link
-        href={props.href}
-        className="flex flex-row justify-end space-x-2 bg-white px-3 py-2 hover:rounded-lg hover:bg-slate-200"
-      >
+      <Link href={props.href} className="flex flex-row justify-end space-x-2 px-3 py-2 hover:rounded-lg">
         <div>{props.name}</div>
         <FontAwesomeIcon icon={props.icon} className="my-auto flex w-6 flex-col" />
       </Link>
