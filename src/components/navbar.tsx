@@ -30,7 +30,7 @@ export default function Navbar() {
         <NavigationMenuList className="gap-x-6">
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-westerloyPrimary">Vereine</NavigationMenuTrigger>
-            <NavigationMenuContent className="right:0 absolute left-auto top-full w-auto rounded-lg bg-westerloySecondary">
+            <NavigationMenuContent className="right:0 absolute left-auto top-full mt-2 w-auto rounded-lg bg-westerloySecondary">
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
@@ -56,7 +56,7 @@ export default function Navbar() {
           </NavigationMenuItem>
           <NavigationMenuItem className="">
             <NavigationMenuTrigger className="bg-westerloyPrimary">Dorfgeschehen</NavigationMenuTrigger>
-            <NavigationMenuContent className="right:0 absolute left-auto top-full w-auto rounded-lg bg-westerloySecondary">
+            <NavigationMenuContent className="right:0 absolute left-auto top-full mt-2 w-auto rounded-lg bg-westerloySecondary">
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
