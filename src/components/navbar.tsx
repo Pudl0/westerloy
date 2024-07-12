@@ -25,11 +25,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default function Navbar() {
   return (
     <SessionProvider>
-      <NavigationMenu className="bg-westerloyPrimary max-lg:hidden lg:gap-x-36 xl:gap-x-96">
+      <NavigationMenu className="bg-westerloyBackground max-lg:hidden lg:gap-x-36 xl:gap-x-96">
         <MuehlenhofIcon />
         <NavigationMenuList className="gap-x-6">
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-westerloyPrimary">Vereine</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="bg-westerloyBackground">Vereine</NavigationMenuTrigger>
             <NavigationMenuContent className="right:0 absolute left-auto top-full mt-2 w-auto rounded-lg bg-westerloySecondary">
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
@@ -55,7 +55,7 @@ export default function Navbar() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem className="">
-            <NavigationMenuTrigger className="bg-westerloyPrimary">Dorfgeschehen</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="bg-westerloyBackground">Dorfgeschehen</NavigationMenuTrigger>
             <NavigationMenuContent className="right:0 absolute left-auto top-full mt-2 w-auto rounded-lg bg-westerloySecondary">
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
@@ -119,7 +119,7 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
           <a
             ref={ref}
             className={cn(
-              'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none hover:bg-westerloyPrimary hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+              'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none hover:bg-westerloyAccent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
               className
             )}
             {...props}

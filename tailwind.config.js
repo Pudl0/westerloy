@@ -12,7 +12,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        westerloyBackground: '#ECE4DB',
+        westerloyBackground: '#FFF8E1',
         westerloyPrimary: '#E8E8E4',
         westerloySecondary: '#D8E2DC',
         westerloyAccent: '#ECE4DB',
