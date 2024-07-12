@@ -25,10 +25,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default function Navbar() {
   return (
     <SessionProvider>
-      <NavigationMenu className="bg-westerloyPrimary max-lg:hidden">
-        <NavigationMenuList>
-          <MuehlenhofIcon />
-          <NavigationMenuItem className="lg:ml-96">
+      <NavigationMenu className="bg-westerloyPrimary max-lg:hidden lg:gap-x-36 xl:gap-x-96">
+        <MuehlenhofIcon />
+        <NavigationMenuList className="gap-x-6">
+          <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-westerloyPrimary">Vereine</NavigationMenuTrigger>
             <NavigationMenuContent className="right:0 absolute left-auto top-full w-auto rounded-lg bg-westerloySecondary">
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
