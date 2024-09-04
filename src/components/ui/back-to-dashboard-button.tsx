@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function BackToDashboardButton() {
   return (
-    <button className="ml-12 inline-flex items-center gap-2 self-start rounded-lg p-2 text-sm font-medium text-black hover:bg-westerloySecondary">
+    <button className="items-center rounded-lg p-1 text-sm font-medium text-black hover:bg-westerloySecondary">
       <FontAwesomeIcon icon={faArrowLeft} className="fas fa-arrow-right"></FontAwesomeIcon>
       <Link
         href={{
@@ -13,7 +13,7 @@ export default function BackToDashboardButton() {
         }}
         as={'/'}
       >
-        Zurück zum Dashboard
+        Zurück zur Startseite
       </Link>
     </button>
   );
