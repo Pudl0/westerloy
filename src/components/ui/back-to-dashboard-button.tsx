@@ -13,7 +13,7 @@ export default function BackToDashboardButton() {
         }}
         as={'/'}
       >
-        Zurück zum Dashboard
+        Zurück zur Startseite
       </Link>
     </button>
   );
