@@ -1,20 +1,14 @@
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function BackToDashboardButton() {
   return (
-    <button className="items-center rounded-lg p-1 text-sm font-medium text-black hover:bg-westerloySecondary">
-      <FontAwesomeIcon icon={faArrowLeft} className="fas fa-arrow-right"></FontAwesomeIcon>
-      <Link
-        href={{
-          pathname: '/',
-        }}
-        as={'/'}
-      >
-        Zurück zur Startseite
-      </Link>
-    </button>
+    <Link
+      href="/"
+      className="inline-flex items-center rounded-lg p-2 text-sm font-medium text-primary transition-colors hover:bg-primary-foreground"
+    >
+      <ArrowLeft className="mr-2 h-4 w-4" />
+      Back to Dashboard
+    </Link>
   );
 }

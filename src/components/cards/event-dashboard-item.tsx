@@ -1,62 +1,63 @@
+import { Clock, Edit, MapPin } from 'lucide-react';
 import { getServerSession } from 'next-auth/next';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { EventEntry } from '@/lib/types/event-entry';
 import { authOptions } from '@/lib/utils/authOptions';
-import { faClock } from '@fortawesome/free-regular-svg-icons';
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const monthFormatter = new Intl.DateTimeFormat('de', { month: 'long' });
 
-export default async function EventDashboardItem(props: { eventEntry: EventEntry }) {
+export default async function EventDashboardItem({ eventEntry }: { eventEntry: EventEntry }) {
   const session = await getServerSession(authOptions);
-  const dateString =
-    props.eventEntry.timeOfEvent.getDate() +
-    '. ' +
-    monthFormatter.format(props.eventEntry.timeOfEvent) +
-    ' ' +
-    props.eventEntry.timeOfEvent.getFullYear();
+  const dateString = `${eventEntry.timeOfEvent.getDate()}. ${monthFormatter.format(
+    eventEntry.timeOfEvent
+  )} ${eventEntry.timeOfEvent.getFullYear()}`;
+
   return (
-    <div className="flex w-full flex-col justify-center">
-      <div className="relative mx-auto flex max-w-sm flex-col rounded-xl border bg-westerloyPrimary p-3 shadow-lg md:max-w-3xl md:flex-row md:space-x-5 md:space-y-0 lg:max-w-6xl lg:space-y-3">
-        <div className="grid w-1/2 place-items-center max-md:hidden lg:w-full">
-          <Image src={props.eventEntry.pictureLink} alt="Eventfoto" className="rounded-xl" width={1920} height={1080} />
-        </div>
-        <div className="flex w-full flex-col">
-          <h3 className="text-base font-black text-black lg:text-2xl xl:pb-3">{props.eventEntry.title}</h3>
-          <p className="mb-3 line-clamp-2 overflow-hidden text-ellipsis text-base text-black md:line-clamp-2 md:text-lg lg:line-clamp-3 xl:line-clamp-5">
-            {props.eventEntry.description}
-          </p>
-          <div className="flex gap-4 lg:absolute lg:bottom-1 lg:gap-8 xl:bottom-5">
-            <div className="flex items-center">
-              <FontAwesomeIcon icon={faClock} className="fa-regular" />
-              <p className="ml-1 text-xs font-bold text-black lg:text-sm">{dateString}</p>
+    <div className="mx-auto w-full max-w-4xl">
+      <div className="overflow-hidden rounded-xl bg-white shadow-lg transition-transform duration-300 hover:scale-105">
+        <div className="md:flex">
+          <div className="md:flex-shrink-0">
+            <Image
+              src={eventEntry.pictureLink}
+              alt={`Event: ${eventEntry.title}`}
+              width={400}
+              height={300}
+              className="h-48 w-full object-cover md:h-full md:w-48"
+            />
+          </div>
+          <div className="p-8">
+            <div className="mb-1 text-sm font-semibold uppercase tracking-wide text-black">{dateString}</div>
+            <h3 className="mb-2 text-2xl font-bold text-gray-900">{eventEntry.title}</h3>
+            <p className="mt-2 line-clamp-3 text-gray-600">{eventEntry.description}</p>
+            <div className="mt-4 flex items-center text-gray-600">
+              <Clock className="mr-2 h-5 w-5" />
+              <span className="text-sm">{dateString}</span>
             </div>
-            <div className="flex items-center">
-              <FontAwesomeIcon icon={faLocationDot} className="fa-regular" />
-              <p className="ml-1 text-xs font-bold text-black lg:text-sm">{props.eventEntry.location}</p>
+            <div className="mt-2 flex items-center text-gray-600">
+              <MapPin className="mr-2 h-5 w-5" />
+              <span className="text-sm">{eventEntry.location}</span>
             </div>
             {session && (
-              <div className="rounded-full bg-westerloySecondary px-3 py-1 text-xs font-medium text-black hover:bg-westerloyAccent max-xl:hidden">
-                <Link
-                  href={{
-                    pathname: 'editor/edit/veranstaltungen/[evententryid]',
-                    query: {
-                      id: props.eventEntry.id,
-                      title: props.eventEntry.title,
-                      description: props.eventEntry.description,
-                      location: props.eventEntry.location,
-                      timeOfEvent: props.eventEntry.timeOfEvent.getDate(),
-                    },
-                  }}
-                  as={`editor/edit/veranstaltungen/${props.eventEntry.id}`}
-                >
-                  Event bearbeiten
-                </Link>
-              </div>
-            )}{' '}
+              <Link
+                href={{
+                  pathname: 'editor/edit/veranstaltungen/[evententryid]',
+                  query: {
+                    id: eventEntry.id,
+                    title: eventEntry.title,
+                    description: eventEntry.description,
+                    location: eventEntry.location,
+                    timeOfEvent: eventEntry.timeOfEvent.getDate(),
+                  },
+                }}
+                as={`editor/edit/veranstaltungen/${eventEntry.id}`}
+                className="mt-4 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                <Edit className="mr-2 h-5 w-5" />
+                Event bearbeiten
+              </Link>
+            )}
           </div>
         </div>
       </div>

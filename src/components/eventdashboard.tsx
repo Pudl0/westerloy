@@ -16,7 +16,7 @@ export default async function EventDashboard() {
     orderBy: [{ timeOfEvent: 'asc' }],
   });
   return (
-    <div className="flex w-3/4 flex-col items-center justify-between gap-y-12 xl:w-2/3 xl:gap-y-24">
+    <div id="eventdashboard" className="flex w-3/4 flex-col items-center justify-between gap-y-12 xl:w-2/3 xl:gap-y-24">
       {eventEntries.map(function (eventEntry: EventEntry) {
         return <EventDashboardItem eventEntry={eventEntry} key={eventEntry.id} />;
       })}

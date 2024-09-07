@@ -1,5 +1,7 @@
 'use client';
 
+import { Menu, Newspaper, RotateCcw, Star, Users } from 'lucide-react';
+import { LucideIcon } from 'lucide-react';
 import { SessionProvider, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import * as React from 'react';
@@ -16,102 +18,88 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { SidebarLinkContent } from '@/lib/types/sidebar-link-types';
 import { cn } from '@/lib/utils/utils';
-import { faNewspaper, faStar } from '@fortawesome/free-regular-svg-icons';
-import { faArrowRotateLeft, faBars, faPeopleGroup, faTheaterMasks } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+interface SidebarLinkContent {
+  name: string;
+  href: string;
+  icon: LucideIcon;
+  description: string;
+}
 
 export default function Navbar() {
   return (
     <SessionProvider>
-      <NavigationMenu className="bg-westerloyBackground max-lg:hidden lg:gap-x-36 xl:gap-x-96">
-        <MuehlenhofIcon />
-        <NavigationMenuList className="gap-x-6">
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-westerloyBackground">Vereine</NavigationMenuTrigger>
-            <NavigationMenuContent className="right:0 absolute left-auto top-full mt-2 w-auto rounded-lg bg-westerloySecondary">
-              <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                <li className="row-span-3">
-                  <NavigationMenuLink asChild>
-                    <div className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md">
-                      <div className="gap-4 text-lg font-medium">Vereine</div>
-                      <p className="text-sm leading-tight text-muted-foreground">
-                        Alles rund um die Vereine bei uns im Dorf.
-                      </p>
-                    </div>
-                  </NavigationMenuLink>
-                </li>
-                <ListItem href="/vereine/obv" title="OBV">
-                  Der Ortsbürgerverein informiert.
-                </ListItem>
-                <ListItem href="/vereine/landjugend" title="Landjugend 3.0">
-                  Die Landjugend stellt sich vor.
-                </ListItem>
-                <ListItem href="/vereine/theater" title="Theater">
-                  Unser plattdeutsches Theater.
-                </ListItem>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem className="">
-            <NavigationMenuTrigger className="bg-westerloyBackground">Dorfgeschehen</NavigationMenuTrigger>
-            <NavigationMenuContent className="right:0 absolute left-auto top-full mt-2 w-auto rounded-lg bg-westerloySecondary">
-              <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                <li className="row-span-3">
-                  <NavigationMenuLink asChild>
-                    <div className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md">
-                      <div className="gap-4 text-lg font-medium">Neuigkeiten</div>
-                      <p className="text-sm leading-tight text-muted-foreground">
-                        Aktuelle Neuigkeiten und unsere Dorfzeitung.
-                      </p>
-                    </div>
-                  </NavigationMenuLink>
-                </li>
-                <ListItem href="/dorfgeschehen/dorfzeitung" title="Dorfzeitung">
-                  Das Archiv der Dorfzeitung.
-                </ListItem>
-                <ListItem href="/dorfgeschehen/recap" title="Rückblicke">
-                  Impressionen vergangener Veranstaltungen.
-                </ListItem>
-                <ListItem href="/dorfgeschehen/neuigkeiten" title="Neuigkeiten">
-                  Aktuelle Neuigkeiten aus dem Dorf.
-                </ListItem>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <LoggedInMenu />
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-      <div className="flex justify-end bg-westerloyBackground p-4 lg:hidden">
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button className="bg-westerloyAccent" variant="secondary" size="icon">
-              <FontAwesomeIcon icon={faBars} />
-            </Button>
-          </SheetTrigger>
-          <SheetContent className="w-[250px] bg-westerloyBackground">
-            <SheetHeader>
-              <SheetTitle className="mb-3 flex justify-center">Westerloy</SheetTitle>
-            </SheetHeader>
-            <div className="flex flex-col space-y-1">
-              <SidebarLink name="OBV" href="/vereine/obv" icon={faPeopleGroup} />
-              <SidebarLink name="Landjugend 3.0" href="/vereine/landjugend" icon={faPeopleGroup} />
-              <SidebarLink name="Theater" href="/vereine/theater" icon={faTheaterMasks} />
-              <SidebarLink name="Dorfzeitung" href="/dorfgeschehen/dorfzeitung" icon={faNewspaper} />
-              <SidebarLink name="Rückblicke" href="/dorfgeschehen/recap" icon={faArrowRotateLeft} />
-              <SidebarLink name="Neuigkeiten" href="/dorfgeschehen/neuigkeiten" icon={faStar} />
-            </div>
-          </SheetContent>
-        </Sheet>
-      </div>
+      <nav className="left-0 right-0 top-0 z-50 bg-white shadow-md">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between py-4">
+            <MuehlenhofIcon />
+            <NavigationMenu className="hidden lg:flex">
+              <NavigationMenuList className="gap-x-6">
+                <NavItem title="Vereine" items={vereineItems} />
+                <NavItem title="Dorfgeschehen" items={dorfgeschehenItems} />
+                <NavigationMenuItem>
+                  <LoggedInMenu />
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button
+                  className="bg-gray-200 text-gray-800 hover:bg-gray-300 lg:hidden"
+                  variant="secondary"
+                  size="icon"
+                >
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Open menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent className="w-[250px] bg-white">
+                <SheetHeader>
+                  <SheetTitle className="mb-3 flex justify-center">Westerloy</SheetTitle>
+                </SheetHeader>
+                <div className="flex flex-col space-y-1">
+                  {[...vereineItems, ...dorfgeschehenItems].map((item) => (
+                    <SidebarLink key={item.href} {...item} />
+                  ))}
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+      </nav>
     </SessionProvider>
   );
 }
 
-const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWithoutRef<'a'>>(
+const NavItem: React.FC<{ title: string; items: SidebarLinkContent[] }> = ({ title, items }) => (
+  <NavigationMenuItem>
+    <NavigationMenuTrigger className="bg-white">{title}</NavigationMenuTrigger>
+    <NavigationMenuContent className="right:0 absolute left-auto top-full mt-2 w-auto rounded-lg bg-gray-100">
+      <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+        <li className="row-span-3">
+          <NavigationMenuLink asChild>
+            <div className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-gray-50 to-gray-100 p-6 no-underline outline-none focus:shadow-md">
+              <div className="gap-4 text-lg font-medium">{title}</div>
+              <p className="text-sm leading-tight text-gray-600">
+                {title === 'Vereine'
+                  ? 'Alles rund um die Vereine bei uns im Dorf.'
+                  : 'Aktuelle Neuigkeiten und unsere Dorfzeitung.'}
+              </p>
+            </div>
+          </NavigationMenuLink>
+        </li>
+        {items.map((item) => (
+          <ListItem key={item.href} href={item.href} title={item.name}>
+            {item.description}
+          </ListItem>
+        ))}
+      </ul>
+    </NavigationMenuContent>
+  </NavigationMenuItem>
+);
+
+const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWithoutRef<'a'> & { title: string }>(
   ({ className, title, children, ...props }, ref) => {
     return (
       <li>
@@ -119,13 +107,13 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
           <a
             ref={ref}
             className={cn(
-              'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none hover:bg-westerloyAccent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+              'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-200 focus:text-gray-900',
               className
             )}
             {...props}
           >
             <div className="text-sm font-medium leading-none">{title}</div>
-            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
+            <p className="line-clamp-2 text-sm leading-snug text-gray-600">{children}</p>
           </a>
         </NavigationMenuLink>
       </li>
@@ -133,32 +121,56 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
   }
 );
 
-function SidebarLink(props: SidebarLinkContent) {
+ListItem.displayName = 'ListItem';
+
+const SidebarLink: React.FC<SidebarLinkContent> = ({ name, href, icon: Icon }) => {
   return (
     <SheetClose asChild>
-      <Link href={props.href} className="flex flex-row justify-end space-x-2 px-3 py-2 hover:rounded-lg">
-        <div>{props.name}</div>
-        <FontAwesomeIcon icon={props.icon} className="my-auto flex w-6 flex-col" />
+      <Link
+        href={href}
+        className="flex items-center justify-between px-3 py-2 transition-colors hover:rounded-lg hover:bg-gray-100"
+      >
+        <span>{name}</span>
+        <Icon className="h-5 w-5" />
       </Link>
     </SheetClose>
   );
-}
+};
 
-const LoggedInMenu = () => {
-  const session = useSession();
-  if (session.status === 'authenticated')
+const LoggedInMenu: React.FC = () => {
+  const { status } = useSession();
+  if (status === 'authenticated') {
     return (
-      <Link
-        href={{
-          pathname: '/editor',
-        }}
-        as={'/editor'}
-        className="text-sm font-medium"
-      >
+      <Link href="/editor" className="text-sm font-medium">
         Editor
       </Link>
     );
-  else return <LoginButton />;
+  }
+  return <LoginButton />;
 };
 
-ListItem.displayName = 'ListItem';
+const vereineItems: SidebarLinkContent[] = [
+  { name: 'OBV', href: '/vereine/obv', icon: Users, description: 'Der Ortsbürgerverein informiert.' },
+  { name: 'Landjugend 3.0', href: '/vereine/landjugend', icon: Users, description: 'Die Landjugend stellt sich vor.' },
+];
+
+const dorfgeschehenItems: SidebarLinkContent[] = [
+  {
+    name: 'Dorfzeitung',
+    href: '/dorfgeschehen/dorfzeitung',
+    icon: Newspaper,
+    description: 'Das Archiv der Dorfzeitung.',
+  },
+  {
+    name: 'Rückblicke',
+    href: '/dorfgeschehen/recap',
+    icon: RotateCcw,
+    description: 'Impressionen vergangener Veranstaltungen.',
+  },
+  {
+    name: 'Neuigkeiten',
+    href: '/dorfgeschehen/neuigkeiten',
+    icon: Star,
+    description: 'Aktuelle Neuigkeiten aus dem Dorf.',
+  },
+];
