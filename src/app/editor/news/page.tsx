@@ -7,10 +7,12 @@ import * as z from 'zod';
 
 import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import LoginButton from '@/components/ui/loginbutton';
 import { Textarea } from '@/components/ui/textarea';
+import { toast } from '@/hooks/use-toast';
 import { ImagePicker } from '@/lib/utils/ImagePicker';
 import { getBase64 } from '@/lib/utils/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,30 +20,23 @@ import { zodResolver } from '@hookform/resolvers/zod';
 const formSchema = z.object({
   title: z
     .string()
-    .min(2, {
-      message: 'Der Titel muss mindestens 2 Zeichen lang sein.',
-    })
-    .max(50, {
-      message: 'Der Titel darf maximal 50 Zeichen lang sein.',
-    }),
+    .min(2, { message: 'Der Titel muss mindestens 2 Zeichen lang sein.' })
+    .max(50, { message: 'Der Titel darf maximal 50 Zeichen lang sein.' }),
   description: z
     .string()
-    .min(2, {
-      message: 'Der Text muss mindestens 2 Zeichen lang sein.',
-    })
+    .min(2, { message: 'Der Text muss mindestens 2 Zeichen lang sein.' })
     .max(5000, { message: 'Der Nachrichtentext darf maximal 5000 Zeichen lang sein.' }),
   shortDescription: z
     .string()
-    .min(2, {
-      message: 'Die Kurzbeschreibung muss mindestens 2 Zeichen lang sein.',
-    })
+    .min(2, { message: 'Die Kurzbeschreibung muss mindestens 2 Zeichen lang sein.' })
     .max(250, { message: 'Die Kurzbeschreibung darf maximal 250 Zeichen lang sein.' }),
-  image: z.custom<FileList>((v) => v instanceof FileList),
+  image: z.custom<FileList>((v) => v instanceof FileList && v.length > 0, {
+    message: 'Bitte wählen Sie ein Bild aus.',
+  }),
 });
 
 const NeuerEintrag = () => {
-  // 1. Define your form.
-  const session = useSession();
+  const { status } = useSession();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,11 +48,11 @@ const NeuerEintrag = () => {
   });
   const router = useRouter();
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    if (typeof window !== 'undefined' && values.image) {
-      getBase64(values.image[0]).then((response) => {
-        fetch(`/api/newsentries`, {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (typeof window !== 'undefined' && values.image && values.image.length > 0) {
+      try {
+        const imageBase64 = await getBase64(values.image[0]);
+        const response = await fetch(`/api/newsentries`, {
           method: 'POST',
           credentials: 'include',
           headers: {
@@ -67,20 +62,59 @@ const NeuerEintrag = () => {
             title: values.title,
             description: values.description,
             shortDescription: values.shortDescription,
-            pictureString: response,
+            pictureString: imageBase64,
           }),
         });
-      });
+
+        if (!response.ok) {
+          throw new Error('Fehler beim Erstellen des Eintrags');
+        }
+
+        toast({
+          title: 'Erfolg!',
+          description: 'Der Nachrichtenbeitrag wurde erfolgreich erstellt.',
+        });
+
+        router.push('/');
+        router.refresh();
+      } catch (error) {
+        console.error('Error:', error);
+        toast({
+          title: 'Fehler',
+          description: 'Beim Erstellen des Nachrichtenbeitrags ist ein Fehler aufgetreten.',
+          variant: 'destructive',
+        });
+      }
     }
-    router.push('/');
-    router.refresh();
   }
-  if (session.status === 'authenticated') {
+
+  if (status === 'loading') {
+    return <div>Laden...</div>;
+  }
+
+  if (status === 'unauthenticated') {
     return (
-      <div className="my-12 flex min-h-screen flex-col items-center gap-y-12">
-        <BackToDashboardButton></BackToDashboardButton>
+      <Card className="mx-auto mt-8 w-[350px]">
+        <CardHeader>
+          <CardTitle>Nicht autorisiert</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="mb-4">Bitte melden Sie sich an, um fortzufahren.</p>
+          <LoginButton />
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <Card className="mx-auto my-8 w-full max-w-2xl">
+      <CardHeader>
+        <CardTitle>Neuen Nachrichtenbeitrag erstellen</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <BackToDashboardButton />
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-8">
             <FormField
               control={form.control}
               name="title"
@@ -123,15 +157,26 @@ const NeuerEintrag = () => {
                 </FormItem>
               )}
             />
-            <ImagePicker name="image" errors={form.formState.errors} control={form.control} />
+            <FormField
+              control={form.control}
+              name="image"
+              render={({}) => (
+                <FormItem>
+                  <FormLabel>Bild</FormLabel>
+                  <FormControl>
+                    <ImagePicker name="image" control={form.control} label="Bild für die Nachricht auswählen" />
+                  </FormControl>
+                  <FormDescription>Hier bitte ein Bild für die Nachricht auswählen</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <Button type="submit">Absenden</Button>
           </form>
         </Form>
-      </div>
-    );
-  } else {
-    return <LoginButton />;
-  }
+      </CardContent>
+    </Card>
+  );
 };
 
 export default function News() {
