@@ -167,7 +167,7 @@ const NeuerEintrag = () => {
                     </FormItem>
                   )}
                 />
-                <ImagePicker name="image" errors={form.formState.errors} control={form.control} />
+                <ImagePicker name="image" control={form.control} />
                 <Button type="submit">Submit</Button>
               </form>
             </Form>
