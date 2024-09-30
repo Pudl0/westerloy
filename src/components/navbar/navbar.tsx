@@ -95,7 +95,7 @@ const Navbar: React.FC = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
           <div className="flex-shrink-0">
-            <MuehlenhofIcon />
+            <MuehlenhofIcon className="transition-transform duration-300 ease-in-out hover:scale-105" />
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-8 lg:pr-4">
             {navGroups.map((group) => (

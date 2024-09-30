@@ -1,15 +1,20 @@
+'use client';
+
 import { Clock, Edit, MapPin } from 'lucide-react';
-import { getServerSession } from 'next-auth/next';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
+import { MuehlenhofIcon } from '@/components/muehelnhof-icon';
 import { EventEntry } from '@/lib/types/event-entry';
-import { authOptions } from '@/lib/utils/authOptions';
 
 const monthFormatter = new Intl.DateTimeFormat('de', { month: 'long' });
 
-export default async function EventDashboardItem({ eventEntry }: { eventEntry: EventEntry }) {
-  const session = await getServerSession(authOptions);
+export default function EventDashboardItem({ eventEntry }: { eventEntry: EventEntry }) {
+  const { data: session } = useSession();
+  const [imageError, setImageError] = useState(false);
+
   const dateString = `${eventEntry.timeOfEvent.getDate()}. ${monthFormatter.format(
     eventEntry.timeOfEvent
   )} ${eventEntry.timeOfEvent.getFullYear()}`;
@@ -19,13 +24,20 @@ export default async function EventDashboardItem({ eventEntry }: { eventEntry: E
       <div className="overflow-hidden rounded-xl bg-white shadow-lg transition-transform duration-300 hover:scale-105">
         <div className="md:flex">
           <div className="md:flex-shrink-0">
-            <Image
-              src={eventEntry.pictureLink}
-              alt={`Event: ${eventEntry.title}`}
-              width={400}
-              height={300}
-              className="h-48 w-full object-cover md:h-full md:w-48"
-            />
+            {!imageError ? (
+              <Image
+                src={eventEntry.pictureLink}
+                alt={`Event: ${eventEntry.title}`}
+                width={400}
+                height={300}
+                className="h-48 w-full object-cover md:h-full md:w-48"
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <div className="flex h-48 w-full items-center justify-center bg-gray-200 md:h-full md:w-48">
+                <MuehlenhofIcon className="h-24 w-24 text-gray-400" />
+              </div>
+            )}
           </div>
           <div className="p-8">
             <div className="mb-1 text-sm font-semibold uppercase tracking-wide text-black">{dateString}</div>

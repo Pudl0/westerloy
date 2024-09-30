@@ -4,25 +4,34 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
+import { MuehlenhofIcon } from '@/components/muehelnhof-icon';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { NewsEntry } from '@/lib/types/news-entry';
 
 export default function NewsDashboardItem({ newsentry }: { newsentry: NewsEntry }) {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const togglePreview = () => setIsPreviewOpen(!isPreviewOpen);
 
   return (
     <Card className="flex h-full flex-col">
       <CardHeader className="p-0">
-        <Image
-          src={newsentry.pictureLink}
-          alt={newsentry.title}
-          width={400}
-          height={200}
-          className="h-48 w-full rounded-t-lg object-cover"
-        />
+        {!imageError ? (
+          <Image
+            src={newsentry.pictureLink}
+            alt={newsentry.title}
+            width={400}
+            height={200}
+            className="h-48 w-full rounded-t-lg object-cover"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <div className="flex h-48 w-full items-center justify-center rounded-t-lg bg-gray-200">
+            <MuehlenhofIcon />
+          </div>
+        )}
       </CardHeader>
       <CardContent className="flex-grow p-4">
         <CardTitle className="mb-2 text-lg">{newsentry.title}</CardTitle>
