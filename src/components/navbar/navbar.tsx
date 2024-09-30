@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu, Newspaper, RotateCcw, Star, Users } from 'lucide-react';
+import { Calendar, Menu, Newspaper, RotateCcw, Star, Users } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 import { SessionProvider, useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -166,6 +166,12 @@ const dorfgeschehenItems: SidebarLinkContent[] = [
     href: '/dorfgeschehen/recap',
     icon: RotateCcw,
     description: 'Impressionen vergangener Veranstaltungen.',
+  },
+  {
+    name: 'Verfügbarkeit Mühlenhof',
+    href: '/dorfgeschehen/muehlenhof',
+    icon: Calendar,
+    description: 'Auf einen Blick die Verfügbarkeit des Mühlenhofs prüfen.',
   },
   {
     name: 'Neuigkeiten',
