@@ -1,7 +1,7 @@
 'use client';
 
 import { Clock, Edit, MapPin } from 'lucide-react';
-import { useSession } from 'next-auth/react';
+import { SessionProvider, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -11,7 +11,7 @@ import { EventEntry } from '@/lib/types/event-entry';
 
 const monthFormatter = new Intl.DateTimeFormat('de', { month: 'long' });
 
-export default function EventDashboardItem({ eventEntry }: { eventEntry: EventEntry }) {
+function EventDashboardItemContent({ eventEntry }: { eventEntry: EventEntry }) {
   const { data: session } = useSession();
   const [imageError, setImageError] = useState(false);
 
@@ -74,5 +74,13 @@ export default function EventDashboardItem({ eventEntry }: { eventEntry: EventEn
         </div>
       </div>
     </div>
+  );
+}
+
+export default function EventDashboardItem({ eventEntry }: { eventEntry: EventEntry }) {
+  return (
+    <SessionProvider>
+      <EventDashboardItemContent eventEntry={eventEntry} />
+    </SessionProvider>
   );
 }
