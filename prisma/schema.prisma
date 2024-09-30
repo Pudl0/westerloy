@@ -31,3 +31,11 @@ model RecapEntries {
   description      String @db.LongText
   folderLink       String @db.Text
 }
+
+model CalenderEvents {
+  id               Int    @id @default(autoincrement())
+  title            String @db.VarChar(50)
+  date             DateTime @db.DateTime(0)
+  isAvailable      Boolean @db.Bit(1)
+  details          String @db.Text
+  }
