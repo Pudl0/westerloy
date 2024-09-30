@@ -1,6 +1,6 @@
 {
   "name": "westerloy",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "prisma": {
     "seed": "ts-node -r tsconfig-paths/register --compiler-options {\"module\":\"CommonJS\"} prisma/dev-seed.ts"
   },
