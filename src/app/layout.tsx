@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { SessionProvider } from 'next-auth/react';
 import { Inter } from 'next/font/google';
 
 import '@/app/globals.css';
@@ -21,11 +20,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider>
-          <Navbar />
-          <main className="">{children}</main>
-          <Footer />
-        </SessionProvider>
+        <Navbar />
+        <main className="">{children}</main>
+        <Footer />
       </body>
     </html>
   );
