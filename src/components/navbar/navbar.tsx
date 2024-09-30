@@ -1,182 +1,121 @@
 'use client';
 
-import { Calendar, Menu, Newspaper, RotateCcw, Star, Users } from 'lucide-react';
-import { LucideIcon } from 'lucide-react';
-import { SessionProvider, useSession } from 'next-auth/react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import Link from 'next/link';
-import * as React from 'react';
+import React, { useState } from 'react';
 
 import { MuehlenhofIcon } from '@/components/muehelnhof-icon';
-import { Button } from '@/components/ui/button';
-import LoginButton from '@/components/ui/loginbutton';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu';
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { NavGroup, navGroups } from '@/components/navbar/navgroups';
 import { cn } from '@/lib/utils/utils';
 
-interface SidebarLinkContent {
-  name: string;
-  href: string;
-  icon: LucideIcon;
-  description: string;
-}
+const DropdownMenu: React.FC<{ group: NavGroup }> = ({ group }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-export default function Navbar() {
   return (
-    <SessionProvider>
-      <nav className="left-0 right-0 top-0 z-50 bg-white shadow-md">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-4">
-            <MuehlenhofIcon />
-            <NavigationMenu className="hidden lg:flex">
-              <NavigationMenuList className="gap-x-6">
-                <NavItem title="Vereine" items={vereineItems} />
-                <NavItem title="Dorfgeschehen" items={dorfgeschehenItems} />
-                <NavigationMenuItem>
-                  <LoggedInMenu />
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  className="bg-gray-200 text-gray-800 hover:bg-gray-300 lg:hidden"
-                  variant="secondary"
-                  size="icon"
+    <div className="relative" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+      <button
+        className="flex items-center space-x-2 rounded-md px-4 py-3 text-base font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-100"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span>{group.title}</span>
+        <ChevronDown className={cn('h-5 w-5 transition-transform duration-200', isOpen ? 'rotate-180' : '')} />
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute right-0 mt-2 w-64 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          >
+            <div className="py-2">
+              {group.items.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="flex items-center px-4 py-3 text-base text-gray-700 hover:bg-gray-100"
                 >
-                  <Menu className="h-5 w-5" />
-                  <span className="sr-only">Open menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent className="w-[250px] bg-white">
-                <SheetHeader>
-                  <SheetTitle className="mb-3 flex justify-center">Westerloy</SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col space-y-1">
-                  {[...vereineItems, ...dorfgeschehenItems].map((item) => (
-                    <SidebarLink key={item.href} {...item} />
-                  ))}
-                </div>
-              </SheetContent>
-            </Sheet>
+                  <item.icon className="mr-3 h-6 w-6 text-gray-400" />
+                  <span>{item.name}</span>
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const MobileMenu: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, x: '100%' }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: '100%' }}
+          transition={{ duration: 0.3 }}
+          className="fixed inset-y-0 right-0 z-50 w-72 bg-white shadow-lg"
+        >
+          <div className="p-6">
+            <button onClick={onClose} className="mb-6 text-gray-500 hover:text-gray-700">
+              <X className="h-8 w-8" />
+            </button>
+            {navGroups.map((group) => (
+              <div key={group.title} className="mb-6">
+                <h3 className="mb-3 text-lg font-semibold uppercase tracking-wider text-gray-500">{group.title}</h3>
+                {group.items.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex items-center rounded-md px-4 py-3 text-base text-gray-700 hover:bg-gray-100"
+                    onClick={onClose}
+                  >
+                    <item.icon className="mr-3 h-6 w-6 text-gray-400" />
+                    <span>{item.name}</span>
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+const Navbar: React.FC = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  return (
+    <nav className="sticky top-0 z-50 bg-white shadow-md">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between">
+          <div className="flex-shrink-0">
+            <MuehlenhofIcon />
+          </div>
+          <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-8 lg:pr-4">
+            {navGroups.map((group) => (
+              <DropdownMenu key={group.title} group={group} />
+            ))}
+          </div>
+          <div className="flex lg:hidden">
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+              aria-label="Open main menu"
+            >
+              <Menu className="h-8 w-8" aria-hidden="true" />
+            </button>
           </div>
         </div>
-      </nav>
-    </SessionProvider>
-  );
-}
-
-const NavItem: React.FC<{ title: string; items: SidebarLinkContent[] }> = ({ title, items }) => (
-  <NavigationMenuItem>
-    <NavigationMenuTrigger className="bg-white">{title}</NavigationMenuTrigger>
-    <NavigationMenuContent className="right:0 absolute left-auto top-full mt-2 w-auto rounded-lg bg-gray-100">
-      <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-        <li className="row-span-3">
-          <NavigationMenuLink asChild>
-            <div className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-gray-50 to-gray-100 p-6 no-underline outline-none focus:shadow-md">
-              <div className="gap-4 text-lg font-medium">{title}</div>
-              <p className="text-sm leading-tight text-gray-600">
-                {title === 'Vereine'
-                  ? 'Alles rund um die Vereine bei uns im Dorf.'
-                  : 'Aktuelle Neuigkeiten und unsere Dorfzeitung.'}
-              </p>
-            </div>
-          </NavigationMenuLink>
-        </li>
-        {items.map((item) => (
-          <ListItem key={item.href} href={item.href} title={item.name}>
-            {item.description}
-          </ListItem>
-        ))}
-      </ul>
-    </NavigationMenuContent>
-  </NavigationMenuItem>
-);
-
-const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWithoutRef<'a'> & { title: string }>(
-  ({ className, title, children, ...props }, ref) => {
-    return (
-      <li>
-        <NavigationMenuLink asChild>
-          <a
-            ref={ref}
-            className={cn(
-              'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-200 focus:text-gray-900',
-              className
-            )}
-            {...props}
-          >
-            <div className="text-sm font-medium leading-none">{title}</div>
-            <p className="line-clamp-2 text-sm leading-snug text-gray-600">{children}</p>
-          </a>
-        </NavigationMenuLink>
-      </li>
-    );
-  }
-);
-
-ListItem.displayName = 'ListItem';
-
-const SidebarLink: React.FC<SidebarLinkContent> = ({ name, href, icon: Icon }) => {
-  return (
-    <SheetClose asChild>
-      <Link
-        href={href}
-        className="flex items-center justify-between px-3 py-2 transition-colors hover:rounded-lg hover:bg-gray-100"
-      >
-        <span>{name}</span>
-        <Icon className="h-5 w-5" />
-      </Link>
-    </SheetClose>
+      </div>
+      <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+    </nav>
   );
 };
 
-const LoggedInMenu: React.FC = () => {
-  const { status } = useSession();
-  if (status === 'authenticated') {
-    return (
-      <Link href="/editor" className="text-sm font-medium">
-        Editor
-      </Link>
-    );
-  }
-  return <LoginButton />;
-};
-
-const vereineItems: SidebarLinkContent[] = [
-  { name: 'OBV', href: '/vereine/obv', icon: Users, description: 'Der Ortsbürgerverein informiert.' },
-  { name: 'Landjugend 3.0', href: '/vereine/landjugend', icon: Users, description: 'Die Landjugend stellt sich vor.' },
-];
-
-const dorfgeschehenItems: SidebarLinkContent[] = [
-  {
-    name: 'Dorfzeitung',
-    href: '/dorfgeschehen/dorfzeitung',
-    icon: Newspaper,
-    description: 'Das Archiv der Dorfzeitung.',
-  },
-  {
-    name: 'Rückblicke',
-    href: '/dorfgeschehen/recap',
-    icon: RotateCcw,
-    description: 'Impressionen vergangener Veranstaltungen.',
-  },
-  {
-    name: 'Verfügbarkeit Mühlenhof',
-    href: '/dorfgeschehen/muehlenhof',
-    icon: Calendar,
-    description: 'Auf einen Blick die Verfügbarkeit des Mühlenhofs prüfen.',
-  },
-  {
-    name: 'Neuigkeiten',
-    href: '/dorfgeschehen/neuigkeiten',
-    icon: Star,
-    description: 'Aktuelle Neuigkeiten aus dem Dorf.',
-  },
-];
+export default Navbar;
