@@ -6,7 +6,6 @@ import * as z from 'zod';
 import { FORM_VALIDATION } from '@/components/calender/constants';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -20,7 +19,6 @@ const formSchema = z.object({
   date: z.date({
     required_error: 'Ein Datum ist erforderlich.',
   }),
-  isAvailable: z.boolean().default(true),
   details: z.string().min(FORM_VALIDATION.DETAILS_MIN_LENGTH, {
     message: `Details müssen mindestens ${FORM_VALIDATION.DETAILS_MIN_LENGTH} Zeichen lang sein.`,
   }),
@@ -37,7 +35,6 @@ export function EventForm({ onSubmit, initialDate }: EventFormProps) {
     defaultValues: {
       title: '',
       date: initialDate || new Date(),
-      isAvailable: true,
       details: '',
     },
   });
@@ -89,21 +86,6 @@ export function EventForm({ onSubmit, initialDate }: EventFormProps) {
               </Popover>
               <FormDescription>Wählen Sie das Datum für den Kalendereintrag.</FormDescription>
               <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="isAvailable"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-              <FormControl>
-                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-              </FormControl>
-              <div className="space-y-1 leading-none">
-                <FormLabel>Verfügbar</FormLabel>
-                <FormDescription>Ist dieser Termin verfügbar?</FormDescription>
-              </div>
             </FormItem>
           )}
         />

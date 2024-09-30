@@ -47,10 +47,10 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { title, date, isAvailable, details } = body;
+    const { title, date, details } = body;
 
     // Validate input
-    if (!title || !date || typeof isAvailable !== 'boolean' || !details) {
+    if (!title || !date || !details) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
       data: {
         title,
         date: new Date(date),
-        isAvailable,
+        isAvailable: false,
         details,
       },
     });
