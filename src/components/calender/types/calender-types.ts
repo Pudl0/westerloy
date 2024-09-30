@@ -1,3 +1,10 @@
+export interface CalendarDate {
+  date: Date;
+  isCurrentMonth: boolean;
+  isToday: boolean;
+  event?: CalendarEvent;
+}
+
 export interface CalendarEvent {
   id: number;
   title: string;
@@ -5,10 +12,28 @@ export interface CalendarEvent {
   details: string;
 }
 
-export interface CalendarDate {
-  date: Date;
+export interface CalendarProps {
+  currentDate: Date;
+  calendarDays: CalendarDate[];
+  changeMonth: (delta: number) => void;
+  goToCurrentMonth: () => void;
   isCurrentMonth: boolean;
-  isToday: boolean;
-  hasEvent: boolean;
-  isAvailable?: boolean;
+}
+
+export interface CalendarHeaderProps {
+  currentDate: Date;
+  isCurrentMonth: boolean;
+  onPrevMonth: () => void;
+  onNextMonth: () => void;
+  onGoToCurrentMonth: () => void;
+}
+
+export interface CalendarGridProps {
+  calendarDays: CalendarDate[];
+  onDayClick: (day: CalendarDate) => void;
+}
+
+export interface EventFormProps {
+  onSubmit: (values: Omit<CalendarEvent, 'id'>) => Promise<void>;
+  initialDate?: Date;
 }

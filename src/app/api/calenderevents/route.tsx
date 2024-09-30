@@ -32,7 +32,6 @@ export async function GET(request: NextRequest) {
         id: true,
         title: true,
         date: true,
-        isAvailable: true,
         details: true,
       },
     });
@@ -59,7 +58,6 @@ export async function POST(request: NextRequest) {
       data: {
         title,
         date: new Date(date),
-        isAvailable: false,
         details,
       },
     });

@@ -15,7 +15,7 @@ function CalendarWithForm() {
   const { data: session } = useSession();
   const { currentDate, calendarDays, changeMonth, goToCurrentMonth, isCurrentMonth } = useCalendar();
   const { events, isLoading, fetchEvents, createEvent } = useEvents();
-  const [selectedDay, setSelectedDay] = useState<CalendarEvent | null>(null);
+  const [selectedDay, setSelectedDay] = useState<CalendarDate | null>(null);
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
   const [formInitialDate, setFormInitialDate] = useState<Date | undefined>(undefined);
 
@@ -23,7 +23,7 @@ function CalendarWithForm() {
     fetchEvents(currentDate.getMonth());
   }, [currentDate, fetchEvents]);
 
-  const calendarDaysWithAvailability: CalendarDate[] = calendarDays.map((day) => {
+  const calendarDaysWithEvents: CalendarDate[] = calendarDays.map((day) => {
     const event = events.find(
       (event) =>
         event.date.getDate() === day.date.getDate() &&
@@ -32,34 +32,30 @@ function CalendarWithForm() {
     );
     return {
       ...day,
-      isAvailable: event ? event.isAvailable : true,
+      event: event,
     };
   });
 
   const handleDayClick = useCallback(
-    (date: Date) => {
-      const event = events.find(
-        (event: CalendarEvent) =>
-          event.date.getDate() === date.getDate() &&
-          event.date.getMonth() === date.getMonth() &&
-          event.date.getFullYear() === date.getFullYear()
-      );
-      if (event) {
-        setSelectedDay(event);
+    (day: CalendarDate) => {
+      if (day.event) {
+        setSelectedDay(day);
       } else if (session) {
-        setFormInitialDate(date);
+        setFormInitialDate(day.date);
         setIsFormDialogOpen(true);
       } else {
         setSelectedDay({
-          id: 0,
-          title: 'Verfügbar',
-          date: date,
-          isAvailable: true,
-          details: 'Dieser Tag ist verfügbar.',
+          ...day,
+          event: {
+            id: 0,
+            title: 'Verfügbar',
+            date: day.date,
+            details: 'Dieser Tag ist verfügbar.',
+          },
         });
       }
     },
-    [events, session]
+    [session]
   );
 
   const handleEventSubmit = async (values: Omit<CalendarEvent, 'id'>) => {
@@ -81,22 +77,22 @@ function CalendarWithForm() {
         onNextMonth={() => changeMonth(1)}
         onGoToCurrentMonth={goToCurrentMonth}
       />
-      <CalendarGrid calendarDays={calendarDaysWithAvailability} onDayClick={handleDayClick} />
+      <CalendarGrid calendarDays={calendarDaysWithEvents} onDayClick={handleDayClick} />
       {isLoading && <div className="text-center">Lade Ereignisse...</div>}
       <div className="mt-6 flex justify-center space-x-4">
         <div className="flex items-center">
-          <div className="mr-2 h-4 w-4 bg-green-100"></div>
+          <div className="mr-2 h-4 w-4 bg-green-500"></div>
           <span>Verfügbar</span>
         </div>
         <div className="flex items-center">
-          <div className="mr-2 h-4 w-4 bg-red-100"></div>
+          <div className="mr-2 h-4 w-4 bg-red-500"></div>
           <span>Nicht verfügbar</span>
         </div>
       </div>
       <Dialog open={!!selectedDay} onOpenChange={(open) => !open && setSelectedDay(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{selectedDay?.title}</DialogTitle>
+            <DialogTitle>{selectedDay?.event?.title || 'Kalendereintrag'}</DialogTitle>
           </DialogHeader>
           <DialogDescription>
             Datum:{' '}
@@ -107,8 +103,8 @@ function CalendarWithForm() {
               day: 'numeric',
             })}
           </DialogDescription>
-          <p>Status: {selectedDay?.isAvailable ? 'Verfügbar' : 'Nicht verfügbar'}</p>
-          <p>{selectedDay?.details}</p>
+          <p>Status: {selectedDay?.event ? 'Nicht verfügbar' : 'Verfügbar'}</p>
+          <p>{selectedDay?.event?.details || 'Keine weiteren Details verfügbar.'}</p>
         </DialogContent>
       </Dialog>
       {session && (
