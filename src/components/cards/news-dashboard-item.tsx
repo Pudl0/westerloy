@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 
 import { MuehlenhofIcon } from '@/components/muehelnhof-icon';
@@ -9,7 +8,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { NewsEntry } from '@/lib/types/news-entry';
 
-export default function NewsDashboardItem({ newsentry }: { newsentry: NewsEntry }) {
+type NewsDashboardItemProps = {
+  newsentry: NewsEntry;
+  onReadMore: (entry: NewsEntry) => void;
+};
+
+export default function NewsDashboardItem({ newsentry, onReadMore }: NewsDashboardItemProps) {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [imageError, setImageError] = useState(false);
 
@@ -41,9 +45,9 @@ export default function NewsDashboardItem({ newsentry }: { newsentry: NewsEntry 
         <Button variant="outline" size="sm" onClick={togglePreview}>
           {isPreviewOpen ? 'Vorschau schließen' : 'Vorschau'}
         </Button>
-        <Link href={`/news/${newsentry.id}`} passHref>
-          <Button size="sm">Mehr lesen</Button>
-        </Link>
+        <Button size="sm" onClick={() => onReadMore(newsentry)}>
+          Mehr lesen
+        </Button>
       </CardFooter>
     </Card>
   );
