@@ -15,9 +15,11 @@ function EventDashboardItemContent({ eventEntry }: { eventEntry: EventEntry }) {
   const { data: session } = useSession();
   const [imageError, setImageError] = useState(false);
 
-  const dateString = `${eventEntry.timeOfEvent.getDate()}. ${monthFormatter.format(
-    eventEntry.timeOfEvent
-  )} ${eventEntry.timeOfEvent.getFullYear()}`;
+  // To-Do: Check this timezone hotfix
+  const adjustedDate = new Date(eventEntry.timeOfEvent);
+  adjustedDate.setDate(adjustedDate.getDate() - 1);
+
+  const dateString = `${adjustedDate.getDate()}. ${monthFormatter.format(adjustedDate)} ${adjustedDate.getFullYear()}`;
 
   return (
     <div className="mx-auto w-full max-w-4xl">
@@ -60,7 +62,7 @@ function EventDashboardItemContent({ eventEntry }: { eventEntry: EventEntry }) {
                     title: eventEntry.title,
                     description: eventEntry.description,
                     location: eventEntry.location,
-                    timeOfEvent: eventEntry.timeOfEvent.getDate(),
+                    timeOfEvent: adjustedDate.toISOString(),
                   },
                 }}
                 as={`editor/edit/veranstaltungen/${eventEntry.id}`}
