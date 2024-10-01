@@ -24,7 +24,7 @@ export default async function EventDashboard() {
   const events = await fetchEvents();
 
   if (events.length === 0) {
-    return <div className="text-center text-gray-600">No upcoming events at the moment.</div>;
+    return <div className="text-center text-gray-600">Keine anstehenden Veranstaltungen. </div>;
   }
 
   return (
