@@ -32,7 +32,7 @@ function CalendarWithForm() {
     );
     return {
       ...day,
-      event: event,
+      event: event || undefined,
     };
   });
 
@@ -50,7 +50,7 @@ function CalendarWithForm() {
             id: 0,
             title: 'Verfügbar',
             date: day.date,
-            details: 'Dieser Tag ist verfügbar.',
+            details: 'Keine Buchung vorhanden',
           },
         });
       }
@@ -92,7 +92,9 @@ function CalendarWithForm() {
       <Dialog open={!!selectedDay} onOpenChange={(open) => !open && setSelectedDay(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{selectedDay?.event?.title || 'Kalendereintrag'}</DialogTitle>
+            <DialogTitle>
+              {selectedDay?.event && selectedDay.event.id !== 0 ? selectedDay.event.title : 'Verfügbar'}
+            </DialogTitle>
           </DialogHeader>
           <DialogDescription>
             Datum:{' '}
@@ -103,8 +105,8 @@ function CalendarWithForm() {
               day: 'numeric',
             })}
           </DialogDescription>
-          <p>Status: {selectedDay?.event ? 'Nicht verfügbar' : 'Verfügbar'}</p>
-          <p>{selectedDay?.event?.details || 'Keine weiteren Details verfügbar.'}</p>
+          <p>Status: {selectedDay?.event && selectedDay.event.id !== 0 ? 'Nicht verfügbar' : 'Verfügbar'}</p>
+          <p>{selectedDay?.event?.details || 'Keine Buchung vorhanden'}</p>
         </DialogContent>
       </Dialog>
       {session && (

@@ -23,7 +23,7 @@ export function CalendarGrid({ calendarDays, onDayClick }: CalendarGridProps) {
             onClick={() => onDayClick(day)}
             className={cn(
               'flex h-14 flex-col items-center justify-center p-1 text-sm transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500',
-              day.isCurrentMonth ? 'bg-white hover:bg-gray-50' : 'bg-gray-50 text-gray-400',
+              day.isCurrentMonth ? 'bg-white hover:bg-gray-50' : 'bg-gray-50 text-gray-400 opacity-50',
               day.isToday && 'font-bold',
               day.event ? 'bg-red-100 text-red-800 hover:bg-red-200' : 'bg-green-100 text-green-800 hover:bg-green-200'
             )}
