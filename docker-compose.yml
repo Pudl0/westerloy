@@ -6,7 +6,8 @@ services:
     container_name: dev-db
     restart: always
     healthcheck:
-      test: ['CMD', 'mysql', '-u', 'root', '-p${MYSQL_ROOT_PASSWORD}', '-e', "SHOW DATABASES LIKE '${MYSQL_DATABASE}';"]
+      test:
+        ['CMD', 'mysql', '-u', 'root', '-p ${MYSQL_ROOT_PASSWORD}', '-e', "SHOW DATABASES LIKE '${MYSQL_DATABASE}';"]
       interval: 5s
       timeout: 5s
       retries: 5
