@@ -35,6 +35,22 @@ services:
     networks:
       - dev-network
 
+  nextjs-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: westerloy.de
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - dev-db
+      - db-setup
+    networks:
+      - dev-network
+    command: sh -c "npm run build && npm run start"
+
 volumes:
   dev-db-data:
 
