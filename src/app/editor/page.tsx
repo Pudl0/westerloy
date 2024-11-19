@@ -24,7 +24,6 @@ import { Input } from '@/components/ui/input';
 import LoginButton from '@/components/ui/loginbutton';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
-import { toast } from '@/hooks/use-toast';
 import { ImagePicker } from '@/lib/utils/ImagePicker';
 import { MultipleImagePicker } from '@/lib/utils/MultipleImagePicker';
 import { cn, getBase64 } from '@/lib/utils/utils';
@@ -141,16 +140,10 @@ function NewsForm() {
 
       if (!response.ok) throw new Error('Fehler beim Erstellen des Eintrags');
 
-      toast({ title: 'Erfolg!', description: 'Der Nachrichtenbeitrag wurde erfolgreich erstellt.' });
       router.push('/');
       router.refresh();
     } catch (error) {
       console.error('Error:', error);
-      toast({
-        title: 'Fehler',
-        description: 'Beim Erstellen des Nachrichtenbeitrags ist ein Fehler aufgetreten.',
-        variant: 'destructive',
-      });
     } finally {
       setIsSubmitting(false);
     }
@@ -257,16 +250,10 @@ function EventForm() {
 
       if (!response.ok) throw new Error('Fehler beim Erstellen des Events');
 
-      toast({ title: 'Erfolg!', description: 'Das Event wurde erfolgreich erstellt.' });
       router.push('/');
       router.refresh();
     } catch (error) {
       console.error('Error:', error);
-      toast({
-        title: 'Fehler',
-        description: 'Beim Erstellen des Events ist ein Fehler aufgetreten.',
-        variant: 'destructive',
-      });
     } finally {
       setIsSubmitting(false);
     }
@@ -403,16 +390,10 @@ function NewspaperForm() {
 
       if (!response.ok) throw new Error('Fehler beim Hochladen der Datei');
 
-      toast({ title: 'Erfolg!', description: 'Die Dorfzeitung wurde erfolgreich hochgeladen.' });
       router.push('/');
       router.refresh();
     } catch (error) {
       console.error('Error:', error);
-      toast({
-        title: 'Fehler',
-        description: 'Beim Hochladen der Dorfzeitung ist ein Fehler aufgetreten.',
-        variant: 'destructive',
-      });
     } finally {
       setIsSubmitting(false);
     }
@@ -498,16 +479,10 @@ function RecapForm() {
 
       if (!response.ok) throw new Error('Fehler beim Erstellen des Rückblicks');
 
-      toast({ title: 'Erfolg!', description: 'Der Rückblick wurde erfolgreich erstellt.' });
       router.push('/');
       router.refresh();
     } catch (error) {
       console.error('Error:', error);
-      toast({
-        title: 'Fehler',
-        description: 'Beim Erstellen des Rückblicks ist ein Fehler aufgetreten.',
-        variant: 'destructive',
-      });
     } finally {
       setIsSubmitting(false);
     }

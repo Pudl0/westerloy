@@ -8,11 +8,9 @@ interface RouteHandlerContext {
 }
 
 export const GET = async (req: NextRequest, res: RouteHandlerContext) => {
-  return await NextAuth(req, /* @next-codemod-error 'res' is passed as an argument. Any asynchronous properties of 'props' must be awaited when accessed. */
-  res, authOptions);
+  return await NextAuth(req, res, authOptions);
 };
 
 export const POST = async (req: NextRequest, res: RouteHandlerContext) => {
-  return await NextAuth(req, /* @next-codemod-error 'res' is passed as an argument. Any asynchronous properties of 'props' must be awaited when accessed. */
-  res, authOptions);
+  return await NextAuth(req, res, authOptions);
 };

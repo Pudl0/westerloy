@@ -1,8 +1,7 @@
 import { useCallback, useState } from 'react';
 
-import { API_ROUTES, TOAST_MESSAGES } from '@/components/calender/constants';
+import { API_ROUTES } from '@/components/calender/constants';
 import { CalendarEvent } from '@/components/calender/types/calender-types';
-import { toast } from '@/hooks/use-toast';
 
 export function useEvents() {
   const [events, setEvents] = useState<CalendarEvent[]>([]);
@@ -24,11 +23,6 @@ export function useEvents() {
       );
     } catch (error) {
       console.error('Error fetching events:', error);
-      toast({
-        title: 'Fehler',
-        description: TOAST_MESSAGES.EVENTS_FETCH_ERROR,
-        variant: 'destructive',
-      });
     } finally {
       setIsLoading(false);
     }
@@ -50,18 +44,9 @@ export function useEvents() {
 
       const data = await response.json();
       setEvents((prevEvents) => [...prevEvents, { ...data, date: new Date(data.date) }]);
-      toast({
-        title: 'Kalendereintrag erstellt',
-        description: TOAST_MESSAGES.EVENT_CREATED(data.title, new Date(data.date).toLocaleDateString('de-DE')),
-      });
       return true;
     } catch (error) {
       console.error('Error creating event:', error);
-      toast({
-        title: 'Fehler',
-        description: TOAST_MESSAGES.EVENT_CREATION_ERROR,
-        variant: 'destructive',
-      });
       return false;
     }
   }, []);

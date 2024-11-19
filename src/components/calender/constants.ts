@@ -23,9 +23,3 @@ export const FORM_VALIDATION = {
   TITLE_MIN_LENGTH: 2,
   DETAILS_MIN_LENGTH: 10,
 };
-
-export const TOAST_MESSAGES = {
-  EVENT_CREATED: (title: string, date: string) => `"${title}" wurde erfolgreich für den ${date} erstellt.`,
-  EVENT_CREATION_ERROR: 'Der Kalendereintrag konnte nicht erstellt werden. Bitte versuchen Sie es erneut.',
-  EVENTS_FETCH_ERROR: 'Die Kalenderereignisse konnten nicht geladen werden.',
-};

@@ -27,7 +27,7 @@ export default function NewspaperViewer() {
   const [fileNames, setFileNames] = useState<string[]>([]);
   const [selectedPDF, setSelectedPDF] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   const loadNewspapers = useCallback(async () => {
     try {
@@ -38,8 +38,6 @@ export default function NewspaperViewer() {
       if (sortedData.length > 0 && !selectedPDF) {
         setSelectedPDF(sortedData[0]);
       }
-    } catch (err) {
-      setError('Failed to load newspapers. Please try again later.');
     } finally {
       setIsLoading(false);
     }

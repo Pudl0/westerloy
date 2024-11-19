@@ -8,7 +8,7 @@ export async function POST(req: Request) {
 
   const data = pictureString.replace(/^data:image\/\w+;base64,/, '');
   const buffer = Buffer.from(data, 'base64');
-  const imagePath = './public/uploads/veranstaltungen/'; // Update the path to the desired location relative to the public directory
+  const imagePath = './public/uploads/veranstaltungen/';
   const fileName = title + '.jpg';
   const filePath = imagePath + fileName;
   const savePath = '/uploads/veranstaltungen/' + fileName;
