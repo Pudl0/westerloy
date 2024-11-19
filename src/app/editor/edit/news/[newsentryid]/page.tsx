@@ -1,4 +1,5 @@
-'use client';
+'use client';;
+import { use } from "react";
 
 import { SessionProvider, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -148,11 +149,12 @@ const EintragBearbeiten = ({
   }
 };
 
-export default function Neuigkeit({
-  params,
-}: {
-  params: { newsentryid: number; title: string; description: string; shortDescription: string };
-}) {
+export default function Neuigkeit(
+  props: {
+    params: Promise<{ newsentryid: number; title: string; description: string; shortDescription: string }>;
+  }
+) {
+  const params = use(props.params);
   return (
     <SessionProvider>
       <EintragBearbeiten params={params} />

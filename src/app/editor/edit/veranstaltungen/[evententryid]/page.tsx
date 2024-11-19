@@ -1,4 +1,5 @@
-'use client';
+'use client';;
+import { use } from "react";
 
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
@@ -192,11 +193,12 @@ const EintragBearbeiten = ({
   }
 };
 
-export default function Veranstaltung({
-  params,
-}: {
-  params: { evententryid: number; title: string; description: string; location: string; timeOfEvent: Date };
-}) {
+export default function Veranstaltung(
+  props: {
+    params: Promise<{ evententryid: number; title: string; description: string; location: string; timeOfEvent: Date }>;
+  }
+) {
+  const params = use(props.params);
   return (
     <SessionProvider>
       <EintragBearbeiten params={params} />

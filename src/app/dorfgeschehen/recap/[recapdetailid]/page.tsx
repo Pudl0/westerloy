@@ -4,7 +4,8 @@ import Image from 'next/image';
 import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import { prisma } from '@/lib/utils/prisma-client';
 
-export default async function RecapDetail({ params }: { params: { recapdetailid: string } }) {
+export default async function RecapDetail(props: { params: Promise<{ recapdetailid: string }> }) {
+  const params = await props.params;
   const recapentry = await prisma.recapEntries.findUniqueOrThrow({
     where: {
       id: parseInt(params.recapdetailid),
