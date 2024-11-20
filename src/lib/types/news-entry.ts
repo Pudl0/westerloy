@@ -1,9 +1,9 @@
 export type NewsEntry = {
-  Id: number;
+  id: number;
   attributes: {
-    Title: string;
-    ShortDescription: string;
-    Description: string;
+    title: string;
+    shortDescription: string;
+    description: string;
     Picture: string;
   };
 };
