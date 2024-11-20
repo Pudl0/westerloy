@@ -1,44 +1,77 @@
-'use client';
-
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { Suspense } from 'react';
 
 import NewsDashboardItem from '@/components/cards/news-dashboard-item';
-import { MuehlenhofIcon } from '@/components/muehelnhof-icon';
 import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Skeleton } from '@/components/ui/skeleton';
 import { NewsEntry } from '@/lib/types/news-entry';
 
-export default function NewsDashboard({ initialEntries }: { initialEntries: NewsEntry[] }) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [entries] = useState(initialEntries);
-  const [selectedEntry, setSelectedEntry] = useState<NewsEntry | null>(null);
-  const [modalImageError, setModalImageError] = useState(false);
-  const entriesPerPage = 6;
-  const totalPages = Math.ceil(entries.length / entriesPerPage);
+const API_URL = process.env.STRAPI_PUBLIC_API_URL;
 
-  const currentEntries = entries.slice((currentPage - 1) * entriesPerPage, currentPage * entriesPerPage);
+async function fetchNews(): Promise<NewsEntry[]> {
+  const username = process.env.STRAPI_USERNAME;
+  const password = process.env.STRAPI_PASSWORD;
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [entries]);
+  if (!username || !password) {
+    console.error('Strapi credentials are not set');
+    return [];
+  }
 
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  try {
+    const authResponse = await fetch(`${API_URL}/api/auth/local`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier: username, password: password }),
+    });
 
-  const openNewsModal = (entry: NewsEntry) => {
-    setSelectedEntry(entry);
-    setModalImageError(false);
-  };
+    if (!authResponse.ok) {
+      throw new Error('Authentication failed');
+    }
 
-  const closeNewsModal = () => {
-    setSelectedEntry(null);
-    setModalImageError(false);
-  };
+    const authData = await authResponse.json();
+
+    const newsResponse = await fetch(`${API_URL}/api/news-entries?populate=*`, {
+      headers: { Authorization: `Bearer ${authData.jwt}` },
+    });
+
+    if (!newsResponse.ok) {
+      throw new Error('Failed to fetch news');
+    }
+
+    const newsData = await newsResponse.json();
+
+    return newsData.data.map((item: any): NewsEntry => {
+      return {
+        Id: item.id,
+        attributes: {
+          Title: item.Title || 'Kein Titel',
+          ShortDescription: item.ShortDescription || 'Keine Kurzbeschreibung',
+          Description: item.Description || 'Keine Beschreibung',
+          Picture: API_URL + item.Picture.url,
+        },
+      };
+    });
+  } catch (error) {
+    console.error('Error fetching news:', error);
+    return [];
+  }
+}
+
+export default async function NewsDashboard() {
+  const news = await fetchNews();
+
+  return (
+    <Suspense fallback={<NewsDashboardSkeleton />}>
+      <NewsList news={news} />
+    </Suspense>
+  );
+}
+
+function NewsList({ news }: { news: NewsEntry[] }) {
+  if (news.length === 0) {
+    return <div className="text-center text-gray-600">Keine Neuigkeiten verfügbar.</div>;
+  }
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -47,70 +80,57 @@ export default function NewsDashboard({ initialEntries }: { initialEntries: News
         <h1 className="text-2xl font-bold text-gray-900">Aktuelle Neuigkeiten</h1>
       </div>
 
-      {entries.length === 0 ? (
-        <p className="text-center text-gray-600">Keine Neuigkeiten verfügbar.</p>
-      ) : (
-        <>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {currentEntries.map((newsentry: NewsEntry) => (
-              <NewsDashboardItem key={newsentry.id} newsentry={newsentry} onReadMore={openNewsModal} />
-            ))}
-          </div>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {news.map((newsEntry) => (
+          <NewsDashboardItem newsentry={newsEntry} />
+        ))}
+      </div>
 
-          {totalPages > 1 && (
-            <nav className="mt-8 flex items-center justify-center space-x-4" aria-label="Pagination">
-              <Button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                variant="outline"
-                aria-label="Vorherige Seite"
-              >
-                <ChevronLeft className="mr-2 h-4 w-4" /> Vorherige
-              </Button>
-              <span className="text-sm text-gray-600">
-                Seite {currentPage} von {totalPages}
-              </span>
-              <Button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                variant="outline"
-                aria-label="Nächste Seite"
-              >
-                Nächste <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-            </nav>
-          )}
-        </>
-      )}
-
-      <Dialog open={!!selectedEntry} onOpenChange={closeNewsModal}>
-        <DialogContent className="sm:max-w-[725px]">
-          <DialogHeader>
-            <DialogTitle className="text-3xl font-bold">{selectedEntry?.title}</DialogTitle>
-          </DialogHeader>
-          {selectedEntry && (
-            <div className="mt-6">
-              <div className="relative mb-6 h-80 w-full">
-                {!modalImageError ? (
-                  <Image
-                    src={selectedEntry.pictureLink}
-                    alt={selectedEntry.title}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-lg"
-                    onError={() => setModalImageError(true)}
-                  />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center rounded-lg bg-gray-200">
-                    <MuehlenhofIcon className="h-32 w-32 text-gray-400" />
-                  </div>
-                )}
-              </div>
-              <p className="text-lg leading-relaxed text-gray-700">{selectedEntry.description}</p>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+      {news.length > 6 && <Pagination totalItems={news.length} itemsPerPage={6} />}
     </main>
+  );
+}
+
+function Pagination({ totalItems, itemsPerPage }: { totalItems: number; itemsPerPage: number }) {
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  return (
+    <nav className="mt-8 flex items-center justify-center space-x-4" aria-label="Pagination">
+      <Button
+        onClick={() => {
+          /* Implement previous page logic */
+        }}
+        disabled={true /* Adjust based on current page */}
+        variant="outline"
+        aria-label="Vorherige Seite"
+      >
+        <ChevronLeft className="mr-2 h-4 w-4" /> Vorherige
+      </Button>
+      <span className="text-sm text-gray-600">Seite 1 von {totalPages}</span>
+      <Button
+        onClick={() => {
+          /* Implement next page logic */
+        }}
+        disabled={false /* Adjust based on current page */}
+        variant="outline"
+        aria-label="Nächste Seite"
+      >
+        Nächste <ChevronRight className="ml-2 h-4 w-4" />
+      </Button>
+    </nav>
+  );
+}
+
+function NewsDashboardSkeleton() {
+  return (
+    <div className="space-y-8">
+      {[...Array(6)].map((_, i) => (
+        <div key={i} className="w-full space-y-2">
+          <Skeleton className="h-48 w-full" />
+          <Skeleton className="h-4 w-3/4" />
+          <Skeleton className="h-4 w-1/2" />
+        </div>
+      ))}
+    </div>
   );
 }

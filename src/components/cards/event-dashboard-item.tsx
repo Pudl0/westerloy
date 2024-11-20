@@ -1,9 +1,7 @@
 'use client';
 
-import { Clock, Edit, MapPin } from 'lucide-react';
-import { SessionProvider, useSession } from 'next-auth/react';
+import { Clock, MapPin } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 
 import { MuehlenhofIcon } from '@/components/muehelnhof-icon';
@@ -11,12 +9,11 @@ import { EventEntry } from '@/lib/types/event-entry';
 
 const monthFormatter = new Intl.DateTimeFormat('de', { month: 'long' });
 
-function EventDashboardItemContent({ eventEntry }: { eventEntry: EventEntry }) {
-  const { data: session } = useSession();
+export default function EventDashboardItem({ event }: { event: EventEntry }) {
   const [imageError, setImageError] = useState(false);
 
   // To-Do: Check this timezone hotfix
-  const adjustedDate = new Date(eventEntry.timeOfEvent);
+  const adjustedDate = new Date(event.attributes.TimeOfEvent);
   adjustedDate.setDate(adjustedDate.getDate() - 1);
 
   const dateString = `${adjustedDate.getDate()}. ${monthFormatter.format(adjustedDate)} ${adjustedDate.getFullYear()}`;
@@ -28,8 +25,8 @@ function EventDashboardItemContent({ eventEntry }: { eventEntry: EventEntry }) {
           <div className="md:flex-shrink-0">
             {!imageError ? (
               <Image
-                src={eventEntry.pictureLink}
-                alt={`Event: ${eventEntry.title}`}
+                src={event.attributes.Picture}
+                alt={`Event: ${event.attributes.Title}`}
                 width={400}
                 height={300}
                 className="h-48 w-full object-cover md:h-full md:w-48"
@@ -43,46 +40,19 @@ function EventDashboardItemContent({ eventEntry }: { eventEntry: EventEntry }) {
           </div>
           <div className="p-8">
             <div className="mb-1 text-sm font-semibold uppercase tracking-wide text-black">{dateString}</div>
-            <h3 className="mb-2 text-2xl font-bold text-gray-900">{eventEntry.title}</h3>
-            <p className="mt-2 line-clamp-3 text-gray-600">{eventEntry.description}</p>
+            <h3 className="mb-2 text-2xl font-bold text-gray-900">{event.attributes.Title}</h3>
+            <p className="mt-2 line-clamp-3 text-gray-600">{event.attributes.Description}</p>
             <div className="mt-4 flex items-center text-gray-600">
               <Clock className="mr-2 h-5 w-5" />
               <span className="text-sm">{dateString}</span>
             </div>
             <div className="mt-2 flex items-center text-gray-600">
               <MapPin className="mr-2 h-5 w-5" />
-              <span className="text-sm">{eventEntry.location}</span>
+              <span className="text-sm">{event.attributes.Location}</span>
             </div>
-            {session && (
-              <Link
-                href={{
-                  pathname: 'editor/edit/veranstaltungen/[evententryid]',
-                  query: {
-                    id: eventEntry.id,
-                    title: eventEntry.title,
-                    description: eventEntry.description,
-                    location: eventEntry.location,
-                    timeOfEvent: adjustedDate.toISOString(),
-                  },
-                }}
-                as={`editor/edit/veranstaltungen/${eventEntry.id}`}
-                className="mt-4 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                <Edit className="mr-2 h-5 w-5" />
-                Event bearbeiten
-              </Link>
-            )}
           </div>
         </div>
       </div>
     </div>
-  );
-}
-
-export default function EventDashboardItem({ eventEntry }: { eventEntry: EventEntry }) {
-  return (
-    <SessionProvider>
-      <EventDashboardItemContent eventEntry={eventEntry} />
-    </SessionProvider>
   );
 }

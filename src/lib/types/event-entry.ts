@@ -1,8 +1,10 @@
-export type EventEntry = {
+export interface EventEntry {
   id: number;
-  title: string;
-  description: string;
-  timeOfEvent: Date;
-  location: string;
-  pictureLink: string;
-};
+  attributes: {
+    Title: string;
+    Description: string;
+    TimeOfEvent: Date;
+    Location: string;
+    Picture: string;
+  };
+}
