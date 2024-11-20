@@ -29,7 +29,7 @@ export default function NewsDashboardItem({ newsentry }: NewsDashboardItemProps)
           {!imageError ? (
             <Image
               src={newsentry.attributes.Picture}
-              alt={newsentry.attributes.title}
+              alt={newsentry.attributes.Title}
               width={400}
               height={200}
               className="h-48 w-full rounded-t-lg object-cover"
@@ -42,8 +42,8 @@ export default function NewsDashboardItem({ newsentry }: NewsDashboardItemProps)
           )}
         </CardHeader>
         <CardContent className="flex-grow p-4">
-          <CardTitle className="mb-2 text-lg">{newsentry.attributes.title}</CardTitle>
-          {isPreviewOpen && <p className="mt-2 text-sm text-gray-700">{newsentry.attributes.shortDescription}</p>}
+          <CardTitle className="mb-2 text-lg">{newsentry.attributes.Title}</CardTitle>
+          {isPreviewOpen && <p className="mt-2 text-sm text-gray-700">{newsentry.attributes.ShortDescription}</p>}
         </CardContent>
         <CardFooter className="flex justify-between p-4">
           <Button variant="outline" size="sm" onClick={togglePreview}>
@@ -58,14 +58,14 @@ export default function NewsDashboardItem({ newsentry }: NewsDashboardItemProps)
       <Dialog open={isModalOpen} onOpenChange={closeModal}>
         <DialogContent className="sm:max-w-[725px]">
           <DialogHeader>
-            <DialogTitle className="text-3xl font-bold">{newsentry.attributes.title}</DialogTitle>
+            <DialogTitle className="text-3xl font-bold">{newsentry.attributes.Title}</DialogTitle>
           </DialogHeader>
           <div className="mt-6">
             <div className="relative mb-6 h-80 w-full">
               {!imageError ? (
                 <Image
                   src={newsentry.attributes.Picture}
-                  alt={newsentry.attributes.title}
+                  alt={newsentry.attributes.Title}
                   layout="fill"
                   objectFit="cover"
                   className="rounded-lg"
@@ -77,7 +77,7 @@ export default function NewsDashboardItem({ newsentry }: NewsDashboardItemProps)
                 </div>
               )}
             </div>
-            <p className="text-lg leading-relaxed text-gray-700">{newsentry.attributes.description}</p>
+            <p className="text-lg leading-relaxed text-gray-700">{newsentry.attributes.Description}</p>
           </div>
         </DialogContent>
       </Dialog>
