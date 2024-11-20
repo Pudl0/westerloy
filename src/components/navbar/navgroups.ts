@@ -30,24 +30,6 @@ export const navGroups: NavGroup[] = [
     title: 'Dorfgeschehen',
     items: [
       {
-        name: 'Dorfzeitung',
-        href: '/dorfgeschehen/dorfzeitung',
-        icon: Newspaper,
-        description: 'Das Archiv der Dorfzeitung.',
-      },
-      {
-        name: 'Rückblicke',
-        href: '/dorfgeschehen/recap',
-        icon: RotateCcw,
-        description: 'Impressionen vergangener Veranstaltungen.',
-      },
-      {
-        name: 'Verfügbarkeit Mühlenhof',
-        href: '/dorfgeschehen/muehlenhof',
-        icon: CalendarDays,
-        description: 'Auf einen Blick die Verfügbarkeit des Mühlenhofs prüfen.',
-      },
-      {
         name: 'Neuigkeiten',
         href: '/dorfgeschehen/neuigkeiten',
         icon: Star,
