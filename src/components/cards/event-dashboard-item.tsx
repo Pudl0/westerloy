@@ -7,16 +7,25 @@ import { useState } from 'react';
 import { MuehlenhofIcon } from '@/components/muehelnhof-icon';
 import { EventEntry } from '@/lib/types/event-entry';
 
-const monthFormatter = new Intl.DateTimeFormat('de', { month: 'long' });
-
 export default function EventDashboardItem({ event }: { event: EventEntry }) {
   const [imageError, setImageError] = useState(false);
 
-  // To-Do: Check this timezone hotfix
   const adjustedDate = new Date(event.attributes.TimeOfEvent);
-  adjustedDate.setDate(adjustedDate.getDate() - 1);
 
-  const dateString = `${adjustedDate.getDate()}. ${monthFormatter.format(adjustedDate)} ${adjustedDate.getFullYear()}`;
+  // Create formatters for German locale
+  const dateFormatter = new Intl.DateTimeFormat('de-DE', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
+
+  const timeFormatter = new Intl.DateTimeFormat('de-DE', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  const dateString = dateFormatter.format(adjustedDate);
+  const timeString = timeFormatter.format(adjustedDate);
 
   return (
     <div className="mx-auto w-full max-w-4xl">
@@ -44,7 +53,7 @@ export default function EventDashboardItem({ event }: { event: EventEntry }) {
             <p className="mt-2 line-clamp-3 text-gray-600">{event.attributes.Description}</p>
             <div className="mt-4 flex items-center text-gray-600">
               <Clock className="mr-2 h-5 w-5" />
-              <span className="text-sm">{dateString}</span>
+              <span className="text-sm">{timeString}</span>
             </div>
             <div className="mt-2 flex items-center text-gray-600">
               <MapPin className="mr-2 h-5 w-5" />
