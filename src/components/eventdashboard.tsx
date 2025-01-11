@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from 'next/cache';
 import { Suspense } from 'react';
 
 import EventDashboardItem from '@/components/cards/event-dashboard-item';
@@ -7,6 +8,7 @@ import { EventEntry } from '@/lib/types/event-entry';
 const API_URL = process.env.STRAPI_PUBLIC_API_URL;
 
 async function fetchEvents(): Promise<EventEntry[]> {
+  noStore(); // Disable caching for this request
   const username = process.env.STRAPI_USERNAME;
   const password = process.env.STRAPI_PASSWORD;
 
@@ -28,9 +30,13 @@ async function fetchEvents(): Promise<EventEntry[]> {
 
     const authData = await authResponse.json();
 
-    const eventsResponse = await fetch(`${API_URL}/api/event-entries?populate=*`, {
-      headers: { Authorization: `Bearer ${authData.jwt}` },
-    });
+    const currentDate = new Date().toISOString();
+    const eventsResponse = await fetch(
+      `${API_URL}/api/event-entries?populate=*&filters[TimeOfEvent][$gt]=${currentDate}`,
+      {
+        headers: { Authorization: `Bearer ${authData.jwt}` },
+      }
+    );
 
     if (!eventsResponse.ok) {
       throw new Error('Failed to fetch events');
@@ -38,18 +44,20 @@ async function fetchEvents(): Promise<EventEntry[]> {
 
     const eventsData = await eventsResponse.json();
 
-    return eventsData.data.map((item: any): EventEntry => {
-      return {
+    return eventsData.data.map(
+      (item: any): EventEntry => ({
         id: item.id,
         attributes: {
-          Title: item.Title || 'Kein Titel',
-          Description: item.Description || 'Keine Beschreibung',
-          TimeOfEvent: new Date(item.TimeOfEvent),
-          Location: item.Location || 'Kein Ort angegeben',
-          Picture: API_URL + item.Picture.url,
+          Title: item.attributes.Title || 'Kein Titel',
+          Description: item.attributes.Description || 'Keine Beschreibung',
+          TimeOfEvent: new Date(item.attributes.TimeOfEvent),
+          Location: item.attributes.Location || 'Kein Ort angegeben',
+          Picture: item.attributes.Picture?.data?.attributes?.url
+            ? `${API_URL}${item.attributes.Picture.data.attributes.url}`
+            : '/placeholder.svg',
         },
-      };
-    });
+      })
+    );
   } catch (error) {
     console.error('Error fetching events:', error);
     return [];
@@ -67,13 +75,16 @@ export default async function EventDashboard() {
 }
 
 function EventList({ events }: { events: EventEntry[] }) {
-  if (events.length === 0) {
+  // Client-side filtering as a fallback
+  const currentEvents = events.filter((event) => new Date(event.attributes.TimeOfEvent) > new Date());
+
+  if (currentEvents.length === 0) {
     return <div className="text-center text-gray-600">Keine anstehenden Veranstaltungen.</div>;
   }
 
   return (
     <div className="space-y-8">
-      {events.map((event) => (
+      {currentEvents.map((event) => (
         <EventDashboardItem key={event.id} event={event} />
       ))}
     </div>
