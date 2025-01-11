@@ -7,13 +7,7 @@ import EventDashboard from '@/components/eventdashboard';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function Home() {
-  const breakingNews = [
-    {
-      id: '1',
-      content:
-        'Die Knobelzeit findet dieses Jahr leider nicht statt! Wir laden Sie herzlich am 3. Advent in den Mühlenhof ein.',
-    },
-  ];
+  const breakingNews: string | any[] = [];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -23,7 +17,7 @@ export default function Home() {
         <section className="mb-12 mt-16">
           <DashboardDivider title="Eilmeldungen" />
           <div className="mt-6">
-            <Suspense fallback={<BreakingNewsSkeleton newsCount={breakingNews.length} />}>
+            <Suspense fallback={<BreakingNewsSkeleton newsCount={breakingNews.length || 1} />}>
               <BreakingNews news={breakingNews} />
             </Suspense>
           </div>
