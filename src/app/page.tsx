@@ -14,16 +14,18 @@ export default function Home() {
       <main className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <DashboardHeader />
 
-        <section className="mb-12 mt-16">
-          <DashboardDivider title="Eilmeldungen" />
-          <div className="mt-6">
-            <Suspense fallback={<BreakingNewsSkeleton newsCount={breakingNews.length || 1} />}>
-              <BreakingNews news={breakingNews} />
-            </Suspense>
-          </div>
-        </section>
+        {breakingNews.length > 0 && (
+          <section className="mb-12 mt-16">
+            <DashboardDivider title="Eilmeldungen" />
+            <div className="mt-6">
+              <Suspense fallback={<BreakingNewsSkeleton newsCount={breakingNews.length} />}>
+                <BreakingNews news={breakingNews} />
+              </Suspense>
+            </div>
+          </section>
+        )}
 
-        <section className="mb-12">
+        <section className={`mb-12 ${breakingNews.length === 0 ? 'mt-16' : ''}`}>
           <DashboardDivider title="Aktuelle Veranstaltungen" />
           <div className="mt-6">
             <Suspense fallback={<EventDashboardSkeleton />}>
