@@ -40,7 +40,6 @@ export default function LegalNotice() {
                       info@pudlo.media
                     </a>
                   </li>
-                  <li>Telefon: 04488 52 99 432</li>
                 </ul>
               </div>
 
