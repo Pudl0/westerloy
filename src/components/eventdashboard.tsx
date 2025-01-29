@@ -3,17 +3,16 @@ import { Suspense } from 'react';
 
 import EventDashboardItem from '@/components/cards/event-dashboard-item';
 import { Skeleton } from '@/components/ui/skeleton';
-import { EventEntry } from '@/lib/types/event-entry';
+import type { EventEntry } from '@/lib/types/event-entry';
 
 const API_URL = process.env.STRAPI_PUBLIC_API_URL;
 
 async function fetchEvents(): Promise<EventEntry[]> {
-  noStore(); // Disable caching for this request
+  noStore();
   const username = process.env.STRAPI_USERNAME;
   const password = process.env.STRAPI_PASSWORD;
 
   if (!username || !password) {
-    console.error('Strapi credentials are not set');
     return [];
   }
 
@@ -30,13 +29,9 @@ async function fetchEvents(): Promise<EventEntry[]> {
 
     const authData = await authResponse.json();
 
-    const currentDate = new Date().toISOString();
-    const eventsResponse = await fetch(
-      `${API_URL}/api/event-entries?populate=*&filters[TimeOfEvent][$gt]=${currentDate}`,
-      {
-        headers: { Authorization: `Bearer ${authData.jwt}` },
-      }
-    );
+    const eventsResponse = await fetch(`${API_URL}/api/event-entries?populate=*`, {
+      headers: { Authorization: `Bearer ${authData.jwt}` },
+    });
 
     if (!eventsResponse.ok) {
       throw new Error('Failed to fetch events');
@@ -44,22 +39,25 @@ async function fetchEvents(): Promise<EventEntry[]> {
 
     const eventsData = await eventsResponse.json();
 
-    return eventsData.data.map(
-      (item: any): EventEntry => ({
-        id: item.id,
-        attributes: {
-          Title: item.attributes.Title || 'Kein Titel',
-          Description: item.attributes.Description || 'Keine Beschreibung',
-          TimeOfEvent: new Date(item.attributes.TimeOfEvent),
-          Location: item.attributes.Location || 'Kein Ort angegeben',
-          Picture: item.attributes.Picture?.data?.attributes?.url
-            ? `${API_URL}${item.attributes.Picture.data.attributes.url}`
-            : '/placeholder.svg',
-        },
+    if (!eventsData.data || !Array.isArray(eventsData.data)) {
+      return [];
+    }
+
+    return eventsData.data
+      .map((item: any): EventEntry => {
+        return {
+          id: item.id ?? 0,
+          attributes: {
+            Title: item.Title ?? 'Kein Titel',
+            Description: item.Description ?? 'Keine Beschreibung',
+            TimeOfEvent: item.TimeOfEvent ? new Date(item.TimeOfEvent) : new Date(),
+            Location: item.Location ?? 'Kein Ort angegeben',
+            Picture: item.Picture?.url ? `${API_URL}${item.Picture.url}` : '/placeholder.svg',
+          },
+        };
       })
-    );
+      .filter(Boolean);
   } catch (error) {
-    console.error('Error fetching events:', error);
     return [];
   }
 }
@@ -75,16 +73,17 @@ export default async function EventDashboard() {
 }
 
 function EventList({ events }: { events: EventEntry[] }) {
-  // Client-side filtering as a fallback
-  const currentEvents = events.filter((event) => new Date(event.attributes.TimeOfEvent) > new Date());
-
-  if (currentEvents.length === 0) {
-    return <div className="text-center text-gray-600">Keine anstehenden Veranstaltungen.</div>;
+  if (events.length === 0) {
+    return (
+      <div className="text-center text-gray-600">
+        <p>Keine Veranstaltungen gefunden.</p>
+      </div>
+    );
   }
 
   return (
     <div className="space-y-8">
-      {currentEvents.map((event) => (
+      {events.map((event) => (
         <EventDashboardItem key={event.id} event={event} />
       ))}
     </div>
