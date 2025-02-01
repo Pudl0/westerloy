@@ -10,7 +10,7 @@ export default function Home() {
   const breakingNews: string | any[] = [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-westerloyBackground">
       <main className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <DashboardHeader />
 
@@ -45,7 +45,7 @@ function BreakingNewsSkeleton({ newsCount }: { newsCount: number }) {
   return (
     <div className={`grid gap-4 ${gridCols} ${newsCount <= 2 ? 'justify-center' : ''}`}>
       {[...Array(newsCount)].map((_, i) => (
-        <Skeleton key={i} className={`h-24 ${cardSize}`} />
+        <Skeleton key={i} className={`h-24 ${cardSize} bg-westerloyPrimary/10`} />
       ))}
     </div>
   );
@@ -55,10 +55,10 @@ function EventDashboardSkeleton() {
   return (
     <div className="grid justify-items-center gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {[...Array(6)].map((_, i) => (
-        <div key={i} className="w-full max-w-sm space-y-4">
-          <Skeleton className="h-48 w-full" />
-          <Skeleton className="h-4 w-3/4" />
-          <Skeleton className="h-4 w-1/2" />
+        <div key={i} className="w-full max-w-sm space-y-4 rounded-lg bg-westerloyPrimary p-4 shadow-md">
+          <Skeleton className="h-48 w-full bg-westerloySecondary/20" />
+          <Skeleton className="h-4 w-3/4 bg-westerloySecondary/20" />
+          <Skeleton className="h-4 w-1/2 bg-westerloySecondary/20" />
         </div>
       ))}
     </div>

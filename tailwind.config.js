@@ -12,10 +12,13 @@ module.exports = {
     },
     extend: {
       colors: {
-        westerloyBackground: '#FFF8E1',
-        westerloyPrimary: '#FFFFFF',
-        westerloySecondary: '#FFFFFF',
-        westerloyAccent: '#ECE4DB',
+        // Custom Westerloy colors
+        westerloyBackground: 'hsl(24 10% 95%)', // Light warm gray
+        westerloyPrimary: 'hsl(24 30% 20%)', // Deep brown from timber
+        westerloySecondary: 'hsl(28 25% 50%)', // Warm terracotta
+        westerloyAccent: 'hsl(330 50% 60%)', // Soft pink from flowers
+
+        // System colors for shadcn/ui
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

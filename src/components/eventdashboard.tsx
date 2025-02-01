@@ -53,7 +53,7 @@ async function fetchEvents(): Promise<EventEntry[]> {
             TimeOfEvent: item.TimeOfEvent ? new Date(item.TimeOfEvent) : new Date(),
             Location: item.Location ?? 'Kein Ort angegeben',
             Picture: item.Picture?.data?.attributes?.url
-              ? `${API_URL}${item.attributes.Picture.data.url}`
+              ? `${API_URL}${item.Picture.data.attributes.url}`
               : '/placeholder.svg',
           },
         };
@@ -83,14 +83,14 @@ export default async function EventDashboard() {
 function EventList({ events }: { events: EventEntry[] }) {
   if (events.length === 0) {
     return (
-      <div className="text-center text-gray-600">
+      <div className="text-center text-westerloySecondary">
         <p>Keine Veranstaltungen gefunden.</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 rounded-lg bg-westerloyBackground p-6 shadow-md">
       {events.map((event) => (
         <EventDashboardItem key={event.id} event={event} />
       ))}
@@ -100,12 +100,12 @@ function EventList({ events }: { events: EventEntry[] }) {
 
 function EventDashboardSkeleton() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 rounded-lg bg-westerloyBackground p-6 shadow-md">
       {[...Array(3)].map((_, i) => (
-        <div key={i} className="w-full space-y-2">
-          <Skeleton className="h-48 w-full" />
-          <Skeleton className="h-4 w-3/4" />
-          <Skeleton className="h-4 w-1/2" />
+        <div key={i} className="w-full space-y-2 rounded-md bg-westerloyPrimary/5 p-4">
+          <Skeleton className="h-48 w-full bg-westerloySecondary/20" />
+          <Skeleton className="h-4 w-3/4 bg-westerloySecondary/20" />
+          <Skeleton className="h-4 w-1/2 bg-westerloySecondary/20" />
         </div>
       ))}
     </div>
