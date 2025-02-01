@@ -1,15 +1,17 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { unstable_noStore as noStore } from 'next/cache';
 import { Suspense } from 'react';
 
 import NewsDashboardItem from '@/components/cards/news-dashboard-item';
 import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { NewsEntry } from '@/lib/types/news-entry';
+import type { NewsEntry } from '@/lib/types/news-entry';
 
 const API_URL = process.env.STRAPI_PUBLIC_API_URL;
 
 async function fetchNews(): Promise<NewsEntry[]> {
+  noStore();
   const username = process.env.STRAPI_USERNAME;
   const password = process.env.STRAPI_PASSWORD;
 
@@ -26,6 +28,7 @@ async function fetchNews(): Promise<NewsEntry[]> {
     });
 
     if (!authResponse.ok) {
+      console.error('Authentication failed:', await authResponse.text());
       throw new Error('Authentication failed');
     }
 
@@ -36,22 +39,25 @@ async function fetchNews(): Promise<NewsEntry[]> {
     });
 
     if (!newsResponse.ok) {
+      console.error('Failed to fetch news:', await newsResponse.text());
       throw new Error('Failed to fetch news');
     }
 
     const newsData = await newsResponse.json();
 
-    return newsData.data.map((item: any): NewsEntry => {
-      return {
+    return newsData.data.map(
+      (item: any): NewsEntry => ({
         Id: item.id,
         attributes: {
           Title: item.Title || 'Kein Titel',
           ShortDescription: item.ShortDescription || 'Keine Kurzbeschreibung',
           Description: item.Description || 'Keine Beschreibung',
-          Picture: API_URL + item.Picture.url,
+          Picture: item.Picture?.data?.attributes?.url
+            ? `${API_URL}${item.Picture.data.attributes.url}`
+            : '/placeholder.svg',
         },
-      };
-    });
+      })
+    );
   } catch (error) {
     console.error('Error fetching news:', error);
     return [];
@@ -81,8 +87,8 @@ function NewsList({ news }: { news: NewsEntry[] }) {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {news.map((newsEntry) => (
-          <NewsDashboardItem newsentry={newsEntry} />
+        {news.map((newsEntry, index) => (
+          <NewsDashboardItem key={index} newsentry={newsEntry} />
         ))}
       </div>
 

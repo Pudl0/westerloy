@@ -43,7 +43,7 @@ async function fetchEvents(): Promise<EventEntry[]> {
       return [];
     }
 
-    return eventsData.data
+    const events = eventsData.data
       .map((item: any): EventEntry => {
         return {
           id: item.id ?? 0,
@@ -52,12 +52,20 @@ async function fetchEvents(): Promise<EventEntry[]> {
             Description: item.Description ?? 'Keine Beschreibung',
             TimeOfEvent: item.TimeOfEvent ? new Date(item.TimeOfEvent) : new Date(),
             Location: item.Location ?? 'Kein Ort angegeben',
-            Picture: item.Picture?.url ? `${API_URL}${item.Picture.url}` : '/placeholder.svg',
+            Picture: item.Picture?.data?.attributes?.url
+              ? `${API_URL}${item.attributes.Picture.data.url}`
+              : '/placeholder.svg',
           },
         };
       })
       .filter(Boolean);
+
+    // Sort events by TimeOfEvent
+    return events.sort(
+      (a: EventEntry, b: EventEntry) => a.attributes.TimeOfEvent.getTime() - b.attributes.TimeOfEvent.getTime()
+    );
   } catch (error) {
+    console.error('Error fetching events:', error);
     return [];
   }
 }
