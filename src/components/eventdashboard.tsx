@@ -13,6 +13,7 @@ async function fetchEvents(): Promise<EventEntry[]> {
   const password = process.env.STRAPI_PASSWORD;
 
   if (!username || !password) {
+    console.error('Missing Strapi credentials');
     return [];
   }
 
@@ -29,9 +30,17 @@ async function fetchEvents(): Promise<EventEntry[]> {
 
     const authData = await authResponse.json();
 
-    const eventsResponse = await fetch(`${API_URL}/api/event-entries?populate=*`, {
-      headers: { Authorization: `Bearer ${authData.jwt}` },
-    });
+    // Get the start of today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Fetch all events from the start of today onwards
+    const eventsResponse = await fetch(
+      `${API_URL}/api/event-entries?populate=*&pagination[pageSize]=10000&pagination[withCount]=true&filters[TimeOfEvent][$gte]=${today.toISOString()}&sort=TimeOfEvent:asc`,
+      {
+        headers: { Authorization: `Bearer ${authData.jwt}` },
+      }
+    );
 
     if (!eventsResponse.ok) {
       throw new Error('Failed to fetch events');
@@ -40,8 +49,11 @@ async function fetchEvents(): Promise<EventEntry[]> {
     const eventsData = await eventsResponse.json();
 
     if (!eventsData.data || !Array.isArray(eventsData.data)) {
+      console.error('Unexpected API response structure');
       return [];
     }
+
+    console.log(`Fetched ${eventsData.data.length} events out of ${eventsData.meta.pagination.total}`);
 
     const events = eventsData.data
       .map((item: any): EventEntry => {
@@ -60,31 +72,46 @@ async function fetchEvents(): Promise<EventEntry[]> {
       })
       .filter(Boolean);
 
-    // Sort events by TimeOfEvent
+    // Sort events by TimeOfEvent in ascending order (earliest first)
     return events.sort(
       (a: EventEntry, b: EventEntry) => a.attributes.TimeOfEvent.getTime() - b.attributes.TimeOfEvent.getTime()
     );
   } catch (error) {
     console.error('Error fetching events:', error);
-    return [];
+    throw error; // Re-throw the error to be handled by the component
   }
 }
 
 export default async function EventDashboard() {
-  const events = await fetchEvents();
+  let events: EventEntry[] = [];
+  let error: Error | null = null;
+
+  try {
+    events = await fetchEvents();
+  } catch (e) {
+    error = e instanceof Error ? e : new Error('An unknown error occurred');
+  }
 
   return (
     <Suspense fallback={<EventDashboardSkeleton />}>
-      <EventList events={events} />
+      <EventList events={events} error={error} />
     </Suspense>
   );
 }
 
-function EventList({ events }: { events: EventEntry[] }) {
+function EventList({ events, error }: { events: EventEntry[]; error: Error | null }) {
+  if (error) {
+    return (
+      <div className="text-center text-westerloySecondary">
+        <p>Fehler beim Laden der Veranstaltungen: {error.message}</p>
+      </div>
+    );
+  }
+
   if (events.length === 0) {
     return (
       <div className="text-center text-westerloySecondary">
-        <p>Keine Veranstaltungen gefunden.</p>
+        <p>Keine Veranstaltungen für heute oder die Zukunft gefunden.</p>
       </div>
     );
   }
