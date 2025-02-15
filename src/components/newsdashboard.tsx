@@ -1,68 +1,12 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { unstable_noStore as noStore } from 'next/cache';
 import { Suspense } from 'react';
 
 import NewsDashboardItem from '@/components/cards/news-dashboard-item';
 import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { fetchNews } from '@/lib/api';
 import type { NewsEntry } from '@/lib/types/news-entry';
-
-const API_URL = process.env.STRAPI_PUBLIC_API_URL;
-
-async function fetchNews(): Promise<NewsEntry[]> {
-  noStore();
-  const username = process.env.STRAPI_USERNAME;
-  const password = process.env.STRAPI_PASSWORD;
-
-  if (!username || !password) {
-    console.error('Strapi credentials are not set');
-    return [];
-  }
-
-  try {
-    const authResponse = await fetch(`${API_URL}/api/auth/local`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ identifier: username, password: password }),
-    });
-
-    if (!authResponse.ok) {
-      console.error('Authentication failed:', await authResponse.text());
-      throw new Error('Authentication failed');
-    }
-
-    const authData = await authResponse.json();
-
-    const newsResponse = await fetch(`${API_URL}/api/news-entries?populate=*`, {
-      headers: { Authorization: `Bearer ${authData.jwt}` },
-    });
-
-    if (!newsResponse.ok) {
-      console.error('Failed to fetch news:', await newsResponse.text());
-      throw new Error('Failed to fetch news');
-    }
-
-    const newsData = await newsResponse.json();
-
-    return newsData.data.map(
-      (item: any): NewsEntry => ({
-        Id: item.id,
-        attributes: {
-          Title: item.Title || 'Kein Titel',
-          ShortDescription: item.ShortDescription || 'Keine Kurzbeschreibung',
-          Description: item.Description || 'Keine Beschreibung',
-          Picture: item.Picture?.data?.attributes?.url
-            ? `${API_URL}${item.Picture.data.attributes.url}`
-            : '/placeholder.svg',
-        },
-      })
-    );
-  } catch (error) {
-    console.error('Error fetching news:', error);
-    return [];
-  }
-}
 
 export default async function NewsDashboard() {
   const news = await fetchNews();
