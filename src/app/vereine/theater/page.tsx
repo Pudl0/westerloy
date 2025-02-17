@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
+import BackToDashboardButton from '@/components/back-to-dashboard-button';
 
 export default async function Theater() {
   return (

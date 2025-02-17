@@ -16,7 +16,7 @@ export default function BackToDashboardButton({
   href = '/',
   iconClassName,
   textClassName,
-  children = 'Back to Dashboard',
+  children = 'Zurück zur Startseite',
 }: BackToDashboardButtonProps) {
   return (
     <Link

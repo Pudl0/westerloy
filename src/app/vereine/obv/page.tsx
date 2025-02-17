@@ -1,7 +1,7 @@
 import { Calendar, Home, Users } from 'lucide-react';
 import Image from 'next/image';
 
-import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
+import BackToDashboardButton from '@/components/back-to-dashboard-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function OBV() {

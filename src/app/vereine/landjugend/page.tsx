@@ -1,7 +1,7 @@
 import { Calendar, Facebook, Instagram, MapPin, Users } from 'lucide-react';
 import Image from 'next/image';
 
-import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
+import BackToDashboardButton from '@/components/back-to-dashboard-button';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 

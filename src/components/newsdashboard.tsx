@@ -3,8 +3,8 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
+import BackToDashboardButton from '@/components/back-to-dashboard-button';
 import NewsDashboardItem from '@/components/cards/news-dashboard-item';
-import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import { Button } from '@/components/ui/button';
 import type { NewsEntry } from '@/lib/types/news-entry';
 
