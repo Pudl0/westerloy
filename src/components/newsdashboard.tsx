@@ -1,27 +1,25 @@
+'use client';
+
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Suspense } from 'react';
+import { useState } from 'react';
 
 import NewsDashboardItem from '@/components/cards/news-dashboard-item';
 import BackToDashboardButton from '@/components/ui/back-to-dashboard-button';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
-import { fetchNews } from '@/lib/api';
 import type { NewsEntry } from '@/lib/types/news-entry';
 
-export default async function NewsDashboard() {
-  const news = await fetchNews();
+export function NewsDashboard({ news }: { news: NewsEntry[] }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+  const totalPages = Math.ceil(news.length / itemsPerPage);
 
-  return (
-    <Suspense fallback={<NewsDashboardSkeleton />}>
-      <NewsList news={news} />
-    </Suspense>
-  );
-}
-
-function NewsList({ news }: { news: NewsEntry[] }) {
   if (news.length === 0) {
     return <div className="text-center text-gray-600">Keine Neuigkeiten verfügbar.</div>;
   }
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentNews = news.slice(startIndex, endIndex);
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -31,56 +29,34 @@ function NewsList({ news }: { news: NewsEntry[] }) {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {news.map((newsEntry, index) => (
+        {currentNews.map((newsEntry, index) => (
           <NewsDashboardItem key={index} newsentry={newsEntry} />
         ))}
       </div>
 
-      {news.length > 6 && <Pagination totalItems={news.length} itemsPerPage={6} />}
+      {news.length > itemsPerPage && (
+        <nav className="mt-8 flex items-center justify-center space-x-4" aria-label="Pagination">
+          <Button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            variant="outline"
+            aria-label="Vorherige Seite"
+          >
+            <ChevronLeft className="mr-2 h-4 w-4" /> Vorherige
+          </Button>
+          <span className="text-sm text-gray-600">
+            Seite {currentPage} von {totalPages}
+          </span>
+          <Button
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+            variant="outline"
+            aria-label="Nächste Seite"
+          >
+            Nächste <ChevronRight className="ml-2 h-4 w-4" />
+          </Button>
+        </nav>
+      )}
     </main>
-  );
-}
-
-function Pagination({ totalItems, itemsPerPage }: { totalItems: number; itemsPerPage: number }) {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-  return (
-    <nav className="mt-8 flex items-center justify-center space-x-4" aria-label="Pagination">
-      <Button
-        onClick={() => {
-          /* Implement previous page logic */
-        }}
-        disabled={true /* Adjust based on current page */}
-        variant="outline"
-        aria-label="Vorherige Seite"
-      >
-        <ChevronLeft className="mr-2 h-4 w-4" /> Vorherige
-      </Button>
-      <span className="text-sm text-gray-600">Seite 1 von {totalPages}</span>
-      <Button
-        onClick={() => {
-          /* Implement next page logic */
-        }}
-        disabled={false /* Adjust based on current page */}
-        variant="outline"
-        aria-label="Nächste Seite"
-      >
-        Nächste <ChevronRight className="ml-2 h-4 w-4" />
-      </Button>
-    </nav>
-  );
-}
-
-function NewsDashboardSkeleton() {
-  return (
-    <div className="space-y-8">
-      {[...Array(6)].map((_, i) => (
-        <div key={i} className="w-full space-y-2">
-          <Skeleton className="h-48 w-full" />
-          <Skeleton className="h-4 w-3/4" />
-          <Skeleton className="h-4 w-1/2" />
-        </div>
-      ))}
-    </div>
   );
 }
