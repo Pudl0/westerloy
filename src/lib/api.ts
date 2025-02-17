@@ -56,9 +56,7 @@ export async function fetchEvents(): Promise<EventEntry[]> {
             Description: item.Description ?? 'Keine Beschreibung',
             TimeOfEvent: item.TimeOfEvent ? new Date(item.TimeOfEvent) : new Date(),
             Location: item.Location ?? 'Kein Ort angegeben',
-            Picture: item.Picture?.data?.attributes?.url
-              ? `${API_URL}${item.Picture.data.attributes.url}`
-              : '/placeholder.svg',
+            Picture: item.Picture?.url ? `${API_URL}${item.Picture.url}` : '/placeholder.svg',
           },
         })
       )
@@ -92,9 +90,7 @@ export async function fetchNews(): Promise<NewsEntry[]> {
           Title: item.Title || 'Kein Titel',
           ShortDescription: item.ShortDescription || 'Keine Kurzbeschreibung',
           Description: item.Description || 'Keine Beschreibung',
-          Picture: item.Picture?.data?.attributes?.url
-            ? `${API_URL}${item.Picture.data.attributes.url}`
-            : '/placeholder.svg',
+          Picture: item.Picture?.url ? `${API_URL}${item.Picture.url}` : '/placeholder.svg',
         },
       })
     );
