@@ -45,8 +45,8 @@ export default function NewsDashboardItem({ newsentry }: NewsDashboardItemProps)
         <CardHeader className="p-0">
           {!imageError ? (
             <Image
-              src={newsentry.attributes.Picture || '/placeholder.svg'}
-              alt={newsentry.attributes.Title}
+              src={newsentry.Picture || '/placeholder.svg'}
+              alt={newsentry.Title}
               width={400}
               height={200}
               className="h-48 w-full rounded-t-lg object-cover"
@@ -59,9 +59,9 @@ export default function NewsDashboardItem({ newsentry }: NewsDashboardItemProps)
           )}
         </CardHeader>
         <CardContent className="flex-grow p-4">
-          <CardTitle className="mb-2 text-lg text-westerloyPrimary">{newsentry.attributes.Title}</CardTitle>
+          <CardTitle className="mb-2 text-lg text-westerloyPrimary">{newsentry.Title}</CardTitle>
           <p className="mt-2 line-clamp-3 text-sm text-westerloyPrimary/80">
-            {truncateText(newsentry.attributes.ShortDescription)}
+            {truncateText(newsentry.ShortDescription)}
           </p>
         </CardContent>
         <CardFooter className="flex justify-end p-4">
@@ -106,7 +106,7 @@ export default function NewsDashboardItem({ newsentry }: NewsDashboardItemProps)
                       <span className="sr-only">Zurück</span>
                     </Button>
                     <DialogTitle className="flex-grow text-center text-xl font-bold text-westerloyPrimary">
-                      {newsentry.attributes.Title}
+                      {newsentry.Title}
                     </DialogTitle>
                     <div className="w-8" /> {/* Spacer for alignment */}
                   </div>
@@ -116,8 +116,8 @@ export default function NewsDashboardItem({ newsentry }: NewsDashboardItemProps)
                     <div className="relative mb-6 h-48 w-full sm:h-64">
                       {!imageError ? (
                         <Image
-                          src={newsentry.attributes.Picture || '/placeholder.svg'}
-                          alt={newsentry.attributes.Title}
+                          src={newsentry.Picture || '/placeholder.svg'}
+                          alt={newsentry.Title}
                           sizes="(max-width: 1000px) 100vw, 1000px"
                           fill
                           className="rounded-lg object-cover"
@@ -130,7 +130,7 @@ export default function NewsDashboardItem({ newsentry }: NewsDashboardItemProps)
                       )}
                     </div>
                     <p className="text-base leading-relaxed text-westerloyPrimary sm:text-lg">
-                      {newsentry.attributes.Description}
+                      {newsentry.Description}
                     </p>
                   </div>
                 </div>

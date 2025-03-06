@@ -11,7 +11,7 @@ interface EventDashboardItemProps {
 }
 
 export default function EventDashboardItem({ event }: EventDashboardItemProps) {
-  const { Title, Description, TimeOfEvent, Location } = event.attributes;
+  const { Title, Description, TimeOfEvent, Location } = event;
   const [showDescription, setShowDescription] = useState(false);
 
   const toggleDescription = () => {

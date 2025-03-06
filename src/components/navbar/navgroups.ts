@@ -24,6 +24,12 @@ export const navGroups: NavGroup[] = [
         icon: Users2,
         description: 'Die Landjugend stellt sich vor.',
       },
+      {
+        name: 'Theater',
+        href: '/vereine/theater',
+        icon: Users2,
+        description: 'Unser Dorf spielt Theater',
+      },
     ],
   },
   {

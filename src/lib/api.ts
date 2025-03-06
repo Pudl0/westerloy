@@ -51,13 +51,11 @@ export async function fetchEvents(): Promise<EventEntry[]> {
       .map(
         (item: any): EventEntry => ({
           id: item.id ?? 0,
-          attributes: {
-            Title: item.Title ?? 'Kein Titel',
-            Description: item.Description ?? 'Keine Beschreibung',
-            TimeOfEvent: item.TimeOfEvent ? new Date(item.TimeOfEvent) : new Date(),
-            Location: item.Location ?? 'Kein Ort angegeben',
-            Picture: item.Picture?.url ? `${API_URL}${item.Picture.url}` : '/placeholder.svg',
-          },
+          Title: item.Title ?? 'Kein Titel',
+          Description: item.Description ?? 'Keine Beschreibung',
+          TimeOfEvent: item.TimeOfEvent ? new Date(item.TimeOfEvent) : new Date(),
+          Location: item.Location ?? 'Kein Ort angegeben',
+          Picture: item.Picture?.url ? `${API_URL}${item.Picture.url}` : '/placeholder.svg',
         })
       )
       .filter(Boolean);
@@ -86,12 +84,10 @@ export async function fetchNews(): Promise<NewsEntry[]> {
     return newsData.data.map(
       (item: any): NewsEntry => ({
         Id: item.id,
-        attributes: {
-          Title: item.Title || 'Kein Titel',
-          ShortDescription: item.ShortDescription || 'Keine Kurzbeschreibung',
-          Description: item.Description || 'Keine Beschreibung',
-          Picture: item.Picture?.url ? `${API_URL}${item.Picture.url}` : '/placeholder.svg',
-        },
+        Title: item.Title || 'Kein Titel',
+        ShortDescription: item.ShortDescription || 'Keine Kurzbeschreibung',
+        Description: item.Description || 'Keine Beschreibung',
+        Picture: item.Picture?.url ? `${API_URL}${item.Picture.url}` : '/placeholder.svg',
       })
     );
   } catch (error) {
