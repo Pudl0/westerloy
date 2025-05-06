@@ -24,7 +24,7 @@ export default function Home() {
             </div>
           </section>
         )}
-
+        
         <section className={`mb-12 ${breakingNews.length === 0 ? 'mt-16' : ''}`}>
           <DashboardDivider title="Aktuelle Veranstaltungen" />
           <div className="mt-6">
