@@ -21,7 +21,11 @@ type Event = {
   isFullDay: boolean
 }
 
-export function CalendarWithICS() {
+type CalendarWithICSProps = {
+  icsLink: string
+}
+
+export function CalendarWithICS({ icsLink }: CalendarWithICSProps) {
   const [events, setEvents] = useState<Event[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
@@ -32,18 +36,15 @@ export function CalendarWithICS() {
     setIsLoading(true)
     setError(null)
 
-    // Get the ICS URL from environment variable
-    const icsUrl = process.env.NEXT_PUBLIC_ICS_LINK
-
-    if (!icsUrl) {
-      setError("Keine ICS-URL konfiguriert. Bitte überprüfen Sie Ihre Umgebungsvariablen.")
+    if (!icsLink) {
+      setError("Keine ICS-URL angegeben. Bitte geben Sie eine gültige ICS-URL an.")
       setIsLoading(false)
       return
     }
 
     try {
       // Use our API route to proxy the request and avoid CORS issues
-      const proxyUrl = `/api/proxy-ics?url=${encodeURIComponent(icsUrl)}`
+      const proxyUrl = `/api/proxy-ics?url=${encodeURIComponent(icsLink)}`
       const response = await fetch(proxyUrl)
 
       if (!response.ok) {
@@ -205,10 +206,10 @@ export function CalendarWithICS() {
   }
 
   useEffect(() => {
-    // Automatically fetch calendar data when component mounts
+    // Automatically fetch calendar data when component mounts or icsLink changes
     fetchAndParseICS()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [icsLink])
 
   useEffect(() => {
     updateSelectedDateEvents(selectedDate)
