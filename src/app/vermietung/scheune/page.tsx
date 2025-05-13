@@ -31,24 +31,21 @@ export default function CalendarPage() {
                 <p className="text-muted-foreground">
                   Haben Sie Fragen oder möchten Sie einen Termin vereinbaren? Kontaktieren Sie uns gerne direkt.
                 </p>
-
                 <div className="space-y-3 mt-6">
                   <div className="flex items-center">
                     <Phone className="h-5 w-5 text-primary mr-3" />
-                    <span>+49 (0) 123 456789</span>
+                    <span>0172 27807878</span>
                   </div>
                   <div className="flex items-center">
                     <Mail className="h-5 w-5 text-primary mr-3" />
-                    <span>termine@example.com</span>
+                    <span>katja.rottmann@t-online.de</span>
                   </div>
                   <div className="flex items-start">
                     <MapPin className="h-5 w-5 text-primary mr-3 mt-0.5" />
                     <span>
-                      Musterstraße 123
+                      Am Damm 62
                       <br />
-                      12345 Musterstadt
-                      <br />
-                      Deutschland
+                      26655 Westerstede
                     </span>
                   </div>
                 </div>
