@@ -54,19 +54,19 @@ export const navGroups: NavGroup[] = [
     items: [
       {
         name: 'Mühlenhof',
-        href: '/dorfgeschehen/vermietung/muehlenhof',
+        href: '/vermietung/muehlenhof',
         icon: Star,
         description: 'Feiern im Mühlenhof',
       },
       {
         name: 'Grillhütte',
-        href: '/dorfgeschehen/vermietung/grillhuette',
+        href: '/vermietung/grillhuette',
         icon: Star,
         description: 'Grillen in der Natur',
       },
             {
         name: 'Scheune',
-        href: '/dorfgeschehen/vermietung/scheune',
+        href: '/vermietung/scheune',
         icon: Star,
         description: 'Feiern im unserer Scheune',
       },
