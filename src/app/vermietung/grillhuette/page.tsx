@@ -35,7 +35,7 @@ export default function CalendarPage() {
                 <div className="space-y-3 mt-6">
                   <div className="flex items-center">
                     <Phone className="h-5 w-5 text-primary mr-3" />
-                    <span>0172 27807878</span>
+                    <span>0172 7807878</span>
                   </div>
                   <div className="flex items-center">
                     <Mail className="h-5 w-5 text-primary mr-3" />
