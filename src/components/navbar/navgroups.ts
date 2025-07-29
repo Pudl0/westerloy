@@ -30,6 +30,12 @@ export const navGroups: NavGroup[] = [
         icon: Users2,
         description: 'Unser Dorf spielt Theater',
       },
+      {
+        name: 'Backgruppe',
+        href: '/vereine/backgruppe',
+        icon: Users2,
+        description: 'Die Backhruppe und ihr Backspieker',
+      },
     ],
   },
   {
@@ -49,7 +55,7 @@ export const navGroups: NavGroup[] = [
       },
     ],
   },
-    {
+  {
     title: 'Vermietung',
     items: [
       {
@@ -64,7 +70,7 @@ export const navGroups: NavGroup[] = [
         icon: Star,
         description: 'Grillen in der Natur',
       },
-            {
+      {
         name: 'Scheune',
         href: '/vermietung/scheune',
         icon: Star,
