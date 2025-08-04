@@ -47,12 +47,6 @@ export const navGroups: NavGroup[] = [
         icon: Star,
         description: 'Aktuelle Neuigkeiten aus dem Dorf.',
       },
-      {
-        name: 'Mühlenhof mieten',
-        href: '/dorfgeschehen/vermietung',
-        icon: Star,
-        description: 'Feiern Sie im Mühlenhof, der Grillhütte oder der Scheune',
-      },
     ],
   },
   {
