@@ -44,6 +44,7 @@
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.2",
+    "react-pdf": "^10.0.1",
     "run-parallel": "^1.2.0",
     "shadcn": "^1.0.0",
     "sharp": "^0.33.5",

@@ -1,6 +1,16 @@
 import type { EventEntry } from '@/lib/types/event-entry';
 import type { NewsEntry } from '@/lib/types/news-entry';
 
+export interface Newspaper {
+  id: number;
+  title: string;
+  date: string;
+  description: string;
+  pages: number;
+  size: string;
+  pdfUrl: string;
+}
+
 const API_URL = process.env.STRAPI_PUBLIC_API_URL;
 const STRAPI_USERNAME = process.env.STRAPI_USERNAME;
 const STRAPI_PASSWORD = process.env.STRAPI_PASSWORD;
@@ -27,7 +37,6 @@ async function authenticate() {
 export async function fetchEvents(): Promise<EventEntry[]> {
   try {
     const jwt = await authenticate();
-
     const currentDate = new Date().toISOString();
     const eventsResponse = await fetch(
       `${API_URL}/api/event-entries?populate=*&filters[TimeOfEvent][$gte]=${currentDate}&sort[0]=TimeOfEvent:asc`,
@@ -70,7 +79,6 @@ export async function fetchEvents(): Promise<EventEntry[]> {
 export async function fetchNews(): Promise<NewsEntry[]> {
   try {
     const jwt = await authenticate();
-
     const newsResponse = await fetch(`${API_URL}/api/news-entries?populate=*`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
@@ -80,7 +88,6 @@ export async function fetchNews(): Promise<NewsEntry[]> {
     }
 
     const newsData = await newsResponse.json();
-
     return newsData.data.map(
       (item: any): NewsEntry => ({
         Id: item.id,
@@ -93,5 +100,44 @@ export async function fetchNews(): Promise<NewsEntry[]> {
   } catch (error) {
     console.error('Error fetching news:', error);
     return [];
+  }
+}
+
+export async function fetchNewspapers(): Promise<Newspaper[]> {
+  try {
+    const jwt = await authenticate();
+    const newspapersResponse = await fetch(`${API_URL}/api/newspapers?populate=*&sort[0]=date:desc`, {
+      headers: { Authorization: `Bearer ${jwt}` },
+    });
+
+    if (!newspapersResponse.ok) {
+      throw new Error('Failed to fetch newspapers');
+    }
+
+    const newspapersData = await newspapersResponse.json();
+
+    if (!newspapersData.data || !Array.isArray(newspapersData.data)) {
+      console.error('Unexpected API response structure for newspapers');
+      return [];
+    }
+
+    const newspapers = newspapersData.data
+      .map((item: any): Newspaper => {
+        return {
+          id: item.id ?? 0,
+          title: item.title ?? 'Kein Titel',
+          date: item.date ?? new Date().toISOString(),
+          description: item.description ?? 'Keine Beschreibung',
+          pages: item.pages ?? 1,
+          size: item.size ?? 'Unbekannt',
+          pdfUrl: item.pdf?.url ? `${API_URL}${item.pdf.url}` : '',
+        };
+      })
+      .filter((newspaper: Newspaper) => newspaper.pdfUrl); // Only include newspapers with valid PDF URLs
+
+    return newspapers;
+  } catch (error) {
+    console.error('Error fetching newspapers:', error);
+    throw error;
   }
 }
