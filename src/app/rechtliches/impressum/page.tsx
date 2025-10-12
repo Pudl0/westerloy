@@ -17,13 +17,13 @@ export default function LegalNotice() {
                 <h2 className="mb-2 text-2xl font-semibold">Herausgeber und Verantwortlicher:</h2>
                 <ul className="list-disc pl-6">
                   <li>Ortsbürgerverein Westerloy e.V</li>
-                  <li>1. Vorsitzende Katja Rottmann</li>
-                  <li>Am Damm 62, 26655 Westerstede</li>
-                  <li>Telefon: 0172 7807878</li>
+                  <li>1. Vorsitzender Uwe Graalfs</li>
+                  <li>Köterhörn 12, 26655 Westerstede</li>
+                  <li>Telefon: 0151 28222442</li>
                   <li>
                     Email:{' '}
-                    <a href="mailto:katja.rottmann@t-online.de" className="text-primary hover:underline">
-                      katja.rottmann@t-online.de
+                    <a href="mailto:uwegraalfs@t-online.de" className="text-primary hover:underline">
+                      uwegraalfs@t-online.de
                     </a>
                   </li>
                 </ul>
