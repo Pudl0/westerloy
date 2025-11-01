@@ -1,7 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-import { cn } from '@/lib/utils/utils';
+import { cn } from '@/lib/utils';
 
 interface BackToDashboardButtonProps {
   className?: string;

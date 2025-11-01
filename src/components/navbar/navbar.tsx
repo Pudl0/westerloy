@@ -7,8 +7,8 @@ import type React from 'react';
 import { useState } from 'react';
 
 import { MuehlenhofIcon } from '@/components/muehelnhof-icon';
-import { type NavGroup, navGroups } from '@/components/navbar/navgroups';
-import { cn } from '@/lib/utils/utils';
+import { type NavGroup, navGroups, standaloneNavItems } from '@/components/navbar/navgroups';
+import { cn } from '@/lib/utils';
 
 const DropdownMenu: React.FC<{ group: NavGroup }> = ({ group }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,7 +38,6 @@ const DropdownMenu: React.FC<{ group: NavGroup }> = ({ group }) => {
                   href={item.href}
                   className="flex items-center px-4 py-3 text-base text-westerloyPrimary hover:bg-westerloySecondary/10"
                 >
-                  <item.icon className="mr-3 h-6 w-6 text-westerloySecondary" />
                   <span>{item.name}</span>
                 </Link>
               ))}
@@ -77,12 +76,25 @@ const MobileMenu: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen
                     className="flex items-center rounded-md px-4 py-3 text-base text-westerloyPrimary hover:bg-westerloySecondary/10"
                     onClick={onClose}
                   >
-                    <item.icon className="mr-3 h-6 w-6 text-westerloySecondary" />
                     <span>{item.name}</span>
                   </Link>
                 ))}
               </div>
             ))}
+            {standaloneNavItems.length > 0 && (
+              <div className="mb-6">
+                {standaloneNavItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex items-center rounded-md px-4 py-3 text-base font-semibold text-westerloyPrimary hover:bg-westerloySecondary/10"
+                    onClick={onClose}
+                  >
+                    <span>{item.name}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </motion.div>
       )}
@@ -103,6 +115,15 @@ const Navbar: React.FC = () => {
           <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-8 lg:pr-4">
             {navGroups.map((group) => (
               <DropdownMenu key={group.title} group={group} />
+            ))}
+            {standaloneNavItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="flex items-center space-x-2 rounded-md px-4 py-3 text-base font-medium text-westerloyPrimary transition-colors duration-200 hover:bg-westerloySecondary/10"
+              >
+                <span>{item.name}</span>
+              </Link>
             ))}
           </div>
           <div className="flex lg:hidden">

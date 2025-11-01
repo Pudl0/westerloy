@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { cn } from '@/lib/utils/utils';
+import { cn } from '@/lib/utils';
 
 interface MuehlenhofIconProps {
   className?: string;

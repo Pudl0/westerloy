@@ -4,7 +4,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { X as XCloseButton } from 'lucide-react';
 import * as React from 'react';
 
-import { cn } from '@/lib/utils/utils';
+import { cn } from '@/lib/utils';
 import * as SheetPrimitive from '@radix-ui/react-dialog';
 
 const Sheet = SheetPrimitive.Root;
