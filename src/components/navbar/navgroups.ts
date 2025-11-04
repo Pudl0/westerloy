@@ -13,11 +13,11 @@ export interface NavGroup {
 }
 
 export const standaloneNavItems: NavItem[] = [
-  {
-    name: 'Trauzimmer',
-    href: '/trauzimmer',
-    description: 'Heiraten im Mühlenhof',
-  },
+  // {
+  //   name: 'Trauzimmer',
+  //   href: '/trauzimmer',
+  //   description: 'Heiraten im Mühlenhof',
+  // },
 ];
 
 export const navGroups: NavGroup[] = [
