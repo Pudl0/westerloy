@@ -268,7 +268,7 @@ export function CalendarWithICS({ icsLink }: CalendarWithICSProps) {
                 {selectedDateEvents.map((event) => (
                   <div key={event.id} className="rounded-lg border p-3">
                     <div className="flex items-start justify-between">
-                      <h3 className="font-medium">{event.summary}</h3>
+                      <h3 className="font-medium">{'Gebucht'}</h3>
                       {event.isFullDay ? (
                         <Badge variant="destructive">Ganztägig</Badge>
                       ) : (
