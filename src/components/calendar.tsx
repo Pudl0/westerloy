@@ -278,7 +278,6 @@ export function CalendarWithICS({ icsLink }: CalendarWithICSProps) {
                         </div>
                       )}
                     </div>
-                    {event.description && <p className="mt-2 line-clamp-2 text-sm">{event.description}</p>}
                   </div>
                 ))}
               </div>
