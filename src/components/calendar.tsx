@@ -160,7 +160,7 @@ export function CalendarWithICS({ icsLink }: CalendarWithICSProps) {
   }, [icsLink, currentMonth]);
 
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return date.toLocaleTimeString(['de-DE'], { hour: '2-digit', minute: '2-digit' });
   };
 
   const handleMonthChange = (date: Date) => {
