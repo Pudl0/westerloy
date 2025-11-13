@@ -1,4 +1,4 @@
-import { Calendar, Home, Users } from 'lucide-react';
+import { Calendar, Download, Home, Users } from 'lucide-react';
 
 import PageLayout, { type PageContent } from '@/components/layout/page-layout';
 
@@ -34,6 +34,14 @@ export default function OBV() {
           helfende Hand und neue Ideen! Kontaktiere uns für mehr Informationen zur Mitgliedschaft oder um deine
           Vorschläge zu teilen.
         </p>
+        <a
+          href="/documents/Beitrittserklaerung.pdf"
+          download
+          className="mt-4 inline-flex items-center rounded-md bg-westerloyPrimary px-4 py-2 text-sm font-medium text-white hover:bg-westerloyPrimary/90 transition-colors"
+        >
+          <Download className="mr-2 h-4 w-4" />
+          Beitrittserklärung herunterladen
+        </a>
       </div>
     ),
   };
