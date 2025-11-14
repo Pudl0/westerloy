@@ -22,15 +22,11 @@ export default function Home() {
             <div className="group relative overflow-hidden rounded-xl bg-gradient-to-r from-westerloyPrimary to-westerloySecondary p-8 shadow-lg transition-all hover:shadow-2xl hover:scale-[1.02] cursor-pointer">
               <div className="relative z-10 flex flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">
                 <div className="flex-1">
-                  <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-1 text-sm font-semibold text-white">
-                    <Calendar className="h-4 w-4" />
-                    Besonderes Event
-                  </div>
                   <h2 className="mb-3 text-3xl font-bold text-white md:text-4xl">
                     Weihnachtsknobeln 2025
                   </h2>
                   <p className="mb-4 text-lg text-white/90">
-                    Gemütliche Knobel-Abende mit leckerem Essen im Dezember. Mehrere Termine verfügbar!
+                    Gemütliche Knobel-Abende mit leckerem Essen im November und Dezember. Mehrere Termine verfügbar!
                   </p>
                   <div className="flex flex-wrap items-center justify-center gap-4 text-white/90 md:justify-start">
                     <div className="flex items-center gap-2">
