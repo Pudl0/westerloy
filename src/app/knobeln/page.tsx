@@ -11,17 +11,10 @@ export default function Knobeln() {
       <Card className="mt-8 overflow-hidden bg-westerloyBackground shadow-lg">
         {/* Header Image */}
         <div className="relative h-[400px] w-full">
-          <Image
-            src="/knobeln/header.jpg"
-            layout="fill"
-            objectFit="cover"
-            alt="Weihnachtsknobeln"
-          />
+          <Image src="/knobeln/header.jpg" layout="fill" objectFit="cover" alt="Weihnachtsknobeln" />
           <div className="absolute inset-0 bg-gradient-to-t from-westerloyPrimary/80 to-transparent" />
           <CardHeader className="absolute bottom-0 left-0 right-0 z-10">
-            <CardTitle className="text-4xl font-bold text-westerloyBackground">
-              Weihnachtsknobeln 2025
-            </CardTitle>
+            <CardTitle className="text-4xl font-bold text-westerloyBackground">Weihnachtsknobeln 2025</CardTitle>
           </CardHeader>
         </div>
 
@@ -44,8 +37,8 @@ export default function Knobeln() {
 
           {/* Introduction Text */}
           <p className="text-lg leading-relaxed text-westerloyPrimary">
-            Freut euch auf unser traditionelles Weihnachtsknobeln! An mehreren Abenden im Dezember kommen wir
-            zusammen, um gemeinsam zu knobeln, zu lachen und die Vorweihnachtszeit zu genießen. Mit dabei: leckere
+            Freut euch auf unser traditionelles Weihnachtsknobeln! An mehreren Abenden im November und Dezember kommen
+            wir zusammen, um gemeinsam zu knobeln, zu lachen und die Vorweihnachtszeit zu genießen. Mit dabei: leckere
             Speisen und gute Gesellschaft.
           </p>
 
@@ -57,9 +50,7 @@ export default function Knobeln() {
           {/* Event Dates Section */}
           <div className="rounded-lg bg-westerloySecondary/10 p-6">
             <h3 className="mb-4 text-2xl font-semibold text-westerloyPrimary">Termine</h3>
-            <p className="mb-4 text-sm text-westerloyPrimary">
-              Reservierungen über LVM Warntjen 04488/4488
-            </p>
+            <p className="mb-4 text-sm text-westerloyPrimary">Reservierungen über LVM Warntjen 04488/4488</p>
             <div className="space-y-3">
               <div className="flex items-start gap-3 rounded-lg bg-white/50 p-4">
                 <Clock className="mt-1 h-5 w-5 flex-shrink-0 text-westerloyPrimary" />
@@ -117,7 +108,8 @@ export default function Knobeln() {
           <div className="rounded-lg bg-westerloyPrimary/10 p-6">
             <h3 className="mb-4 text-2xl font-semibold text-westerloyPrimary">Speiseplan</h3>
             <p className="mb-4 text-westerloyPrimary">
-              An allen Terminen gibt es wie gewohnt leckere Angebote aus der Mühlenhofküche. Lade den Speiseplan herunter, um alle Details zu sehen.
+              An allen Terminen gibt es wie gewohnt leckere Angebote aus der Mühlenhofküche. Lade den Speiseplan
+              herunter, um alle Details zu sehen.
             </p>
             <a
               href="/knobeln/speiseplan.pdf"
