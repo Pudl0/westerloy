@@ -55,21 +55,28 @@ export default function Knobeln() {
               <div className="flex items-start gap-3 rounded-lg bg-white/50 p-4">
                 <Clock className="mt-1 h-5 w-5 flex-shrink-0 text-westerloyPrimary" />
                 <div>
-                  <p className="font-semibold text-westerloyPrimary">Donnerstag, 28. November 2025</p>
+                  <p className="font-semibold text-westerloyPrimary">Freitag, 28. November 2025</p>
                   <p className="text-sm text-westerloyPrimary/80">17:00 Uhr & 19:30 Uhr - Mühlenhof</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 rounded-lg bg-white/50 p-4">
                 <Clock className="mt-1 h-5 w-5 flex-shrink-0 text-westerloyPrimary" />
                 <div>
-                  <p className="font-semibold text-westerloyPrimary">Freitag, 29. November 2025</p>
+                  <p className="font-semibold text-westerloyPrimary">Samstag, 29. November 2025</p>
                   <p className="text-sm text-westerloyPrimary/80">17:00 Uhr & 19:30 Uhr - Mühlenhof</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 rounded-lg bg-white/50 p-4">
                 <Clock className="mt-1 h-5 w-5 flex-shrink-0 text-westerloyPrimary" />
                 <div>
-                  <p className="font-semibold text-westerloyPrimary">Samstag, 30. November 2025</p>
+                  <p className="font-semibold text-westerloyPrimary">Sonntag, 30. November 2025</p>
+                  <p className="text-sm text-westerloyPrimary/80">17:00 Uhr & 19:30 Uhr - Mühlenhof</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 rounded-lg bg-white/50 p-4">
+                <Clock className="mt-1 h-5 w-5 flex-shrink-0 text-westerloyPrimary" />
+                <div>
+                  <p className="font-semibold text-westerloyPrimary">Freitag, 5. Dezember 2025</p>
                   <p className="text-sm text-westerloyPrimary/80">17:00 Uhr & 19:30 Uhr - Mühlenhof</p>
                 </div>
               </div>
